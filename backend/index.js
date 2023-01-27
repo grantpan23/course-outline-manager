@@ -9,6 +9,10 @@ const admin = require('./routes/admin');
 //middleware
 app.use('/api/admin', admin);
 
+app.get('/', (req,res) => {
+    res.send('works');
+})
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
