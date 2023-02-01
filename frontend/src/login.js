@@ -8,27 +8,6 @@ export default function Login() {const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] =useState("")
   const [loading, setLoading] =useState(false)
-
-
-  async function verifyEmail(){
-    setError('')
-
-    try{
-       
-        setError('Email sent to the given email!')
-    }
-      
-    
-    catch{
-        setError('Failed to send email')
-        
-    }
-    
-}
-
-
- 
- 
   
 
   async function handleSubmit(e){
@@ -39,6 +18,8 @@ export default function Login() {const emailRef = useRef();
       try{
           setError('')
           setLoading(true)
+
+          //backend verifying the password and email combo
       }
       catch{
           setError('Failed to log in')
@@ -80,10 +61,7 @@ return (
   </div>
           </Card.Body>
       </Card>
-  <div className ="w-100 text-center mt-2">
-      <Button variant ="link" onClick={verifyEmail}>Verify Email</Button> 
-
-  </div>
+ 
 
   </>
 )
