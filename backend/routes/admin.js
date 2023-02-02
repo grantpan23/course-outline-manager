@@ -12,19 +12,15 @@ router.get('/instructors', (req,res) => {
         if(err){
             res.status(500).send(err);
         } else {
-            // const instructors = data.map(instructor => {
-            //     return {
-            //       firstName: instructor.firstName,
-            //       lastName: instructor.lastName,
-            //       username: instructor.username,
-            //       courses: instructor.courses
-            //     };
-            //   });
-            //   res.json(instructors); 
-            data.forEach(instructor => {
-                instructor.courses = instructor.getCourses();
+            const instructors = data.map(instructor => {
+                return {
+                  firstName: instructor.firstName,
+                  lastName: instructor.lastName,
+                  username: instructor.username,
+                  courses: instructor.courses
+                };
               });
-              res.json(data);
+              res.json(instructors);        
         }
     })
 })
