@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
 import App from './App';
 import Login from './login';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CreateOutline from './createOutline';
 import "./styles.css"
+import {BrowserRouter } from "react-router-dom";
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +13,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <CreateOutline />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    
   </React.StrictMode>
 );
 

@@ -3,7 +3,7 @@ import Quill from "quill"
 import "quill/dist/quill.snow.css"
 
 const TOOLBAR_OPTIONS = [
- [{HEADER :[1,2,3,4,5,6,false]}],
+ [{header :[1,2,3,4,5,6,false]}],
  [{font: []}],
  [{list: "ordered"}, {list: "bullet"}],
  ["bold", "italic", "underline"],
