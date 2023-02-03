@@ -15,8 +15,7 @@ const userSchema = new Schema({
     lastName: {type:String,required:true},
     coursesTaught: {
       type:Array,
-      of: mongoose.Schema.Types.ObjectId,
-      ref: 'Course',
+      of: String,
       required:false,
       default:[]
     }
@@ -28,8 +27,7 @@ const courseSchema = new Schema({
     faculty:{type:String,required:true},
     instructors: {
         type:Array,
-        of: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        of: String,
         required: false,
         default:[]
       }

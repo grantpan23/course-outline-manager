@@ -34,7 +34,7 @@ router
     .post( async (req,res) =>{
 
         const courseCode = req.params.courseCode;
-        const instructorID = req.body.instructorID;
+        const instructorUsername = req.body.instructorUsername;
 
         const session = await mongoose.startSession();
         session.startTransaction();
@@ -43,7 +43,7 @@ router
 
             const course = await Course.findOneAndUpdate(
                 {code:courseCode},
-                { $addToSet: { instructors: instructorID } },
+                { $addToSet: { instructors: instructorUsername } },
                 { new: true, session }
             );
 
@@ -51,11 +51,11 @@ router
             const instructor = await User.findOneAndUpdate(
                 {
                     $and: [
-                        {_id:instructorID},
+                        {username:instructorUsername},
                         {role:"instructor"}
                     ]
                 },
-                { $addToSet: { coursesTaught: course.id } },
+                { $addToSet: { coursesTaught: courseCode } },
                 { new: true, session }
             );
 

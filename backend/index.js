@@ -20,10 +20,6 @@ mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology:
     console.log(err);
 })
 
-app.get('/', (req,res) => {
-    res.send('works');
-});
-
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
