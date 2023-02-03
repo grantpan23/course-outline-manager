@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import Login from './login';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CreateOutline from './createOutline';
+import CreateOutline from './CreateOutline';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

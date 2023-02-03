@@ -1,8 +1,8 @@
 
-import createOutline from "./createOutline";
+import CreateOutline from "./CreateOutline";
 
 function App() {
-  return <createOutline />
+  return <CreateOutline />
 }
 
 export default App;

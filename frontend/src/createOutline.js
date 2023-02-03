@@ -2,9 +2,10 @@ import { useCallback } from 'react'
 import Quill from "quill"
 import "quill/dist/quill.snow.css"
 
-export default function createOutline(){
+export default function CreateOutline(){
 const wrappedRef = useCallback(wrapper => {
-    if (wrapper == null) return 
+    if (wrapper == null)
+     return 
 
     wrapper.innerHTML = ""
     const editor = document.createElement("div")
