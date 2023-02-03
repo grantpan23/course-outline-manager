@@ -20,6 +20,7 @@ export default function Login() {const emailRef = useRef();
           setLoading(true)
 
           //backend verifying the password and email combo
+          
       }
       catch{
           setError('Failed to log in')
@@ -30,8 +31,8 @@ export default function Login() {const emailRef = useRef();
 
 return (
   <>
-           <p>The Music Spot: This music application offers you the ability to search for your favourite music and interact with music the way to want to! Whether it be with customizing playlists or searching for music, this is the spot for your music!</p>
-      <Card>
+<h1 className ="text-center mb-4">UWO Course Outline Manager </h1> 
+          <Card>
           <Card.Body>
               <h2 className ="text-center mb-4">Log In</h2>
             
