@@ -1,58 +1,63 @@
-import React, { useRef, useState } from 'react'
-import { Form, Button, Card, Alert } from 'react-bootstrap'
+import React, { useState } from "react";
 
-export default function assign() {
-    const instructorRef = useRef();
-    const passwordRef = useRef();
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+const AssignInstructor = () => {
+  const [selectedInstructor, setSelectedInstructor] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState("");
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+  const instructors = [
+    { id: 1, name: "John Doe" },
+    { id: 2, name: "Jane Doe" },
+    { id: 3, name: "Jim Smith" }
+  ];
 
-        try {
-            setError('');
-            setLoading(true);
+  const courses = [
+    { id: 1, name: "React 101" },
+    { id: 2, name: "JavaScript 102" },
+    { id: 3, name: "Node.js 103" }
+  ];
 
-            //backend verifying
-        } catch {
-            setError('Failed to log in');
-        }
-        setLoading(false);
-    }
+  const handleInstructorChange = event => {
+    setSelectedInstructor(event.target.value);
+  };
 
-    return (
-        <>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Log In</h2>
+  const handleCourseChange = event => {
+    setSelectedCourse(event.target.value);
+  };
 
+  const handleSubmit = event => {
+    event.preventDefault();
+    // Add your submit logic here
+    console.log(`Instructor: ${selectedInstructor} assigned to Course: ${selectedCourse}`);
+  };
 
-                    {error && <Alert variant="danger"> {error}</Alert>}
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="instructors">Select Instructor:</label>
+        <select id="instructors" onChange={handleInstructorChange}>
+          <option value="">--Select Instructor--</option>
+          {instructors.map(instructor => (
+            <option key={instructor.id} value={instructor.name}>
+              {instructor.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label htmlFor="courses">Select Course:</label>
+        <select id="courses" onChange={handleCourseChange}>
+          <option value="">--Select Course--</option>
+          {courses.map(course => (
+            <option key={course.id} value={course.name}>
+              {course.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button type="submit">Submit</button>
+      <button type="button">Back</button>
+    </form>
+  );
+};
 
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label>
-                                Email
-                            </Form.Label>
-                            <Form.Control type="email" ref={emailRef} required />
-                        </Form.Group>
-
-                        <Form.Group id="password">
-                            <Form.Label>
-                                Password
-                            </Form.Label>
-                            <Form.Control type="password" ref={passwordRef} required />
-                        </Form.Group>
-
-
-                        <Button disabled={loading} className="w-100" type="submit"> Log In</Button>
-                    </Form>
-                    <div className="w-100 text-center mt-3">
-
-                    </div>
-                </Card.Body>
-            </Card>
-        </>
-    )
-}
+export default AssignInstructor;
