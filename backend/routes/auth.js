@@ -11,12 +11,23 @@ router.use(expressSanitizer());
 
 router
     .route('/login')
-    .post((req,res) => {
+    .post( async (req,res) => {
 
         const username = req.sanitize(req.body.username);
         const password = req.sanitize(req.body.password);
 
+        const account = await User.findOne({
+            $and : [
+                {username:username},
+                {password:password}
+            ]
+        })
 
+        if(!account) {
+            res.status(400).send('Unauthorized');
+        } else {
+            res.send('Success')
+        }
     })
 
 module.exports = router;
