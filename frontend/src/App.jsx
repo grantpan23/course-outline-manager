@@ -1,22 +1,29 @@
 
+import CreateOutline from "./createOutline";
+import Home from "./home";
+import { Link, Route, Routes} from "react-router-dom";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+    <nav>
+      <ul>
+        <li><Link to= "/"> Home </Link> </li>
+        <li><Link to= "/create"> Create Outline </Link> </li>
+      </ul>
+    </nav>
+      <Routes>
+        
+      <Route path= "/" element={<Home />} />
+      <Route path= "/create" element={<CreateOutline />} />
+      </Routes>
+    </>
+    
+
+
+  )
+  
+ 
 }
 
 export default App;
