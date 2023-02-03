@@ -7,9 +7,11 @@ require('dotenv/config');
 
 //import routes
 const admin = require('./routes/admin');
+const auth = require('./routes/auth')
 
 //middleware
 app.use('/api/admin', admin);
+app.use('/api/auth', auth)
 
 //DB Connection
 mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
