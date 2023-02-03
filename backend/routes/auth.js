@@ -24,9 +24,9 @@ router
         })
 
         if(!account) {
-            res.status(400).send('Unauthorized');
+            res.status(401).send('Unauthorized');
         } else {
-            res.send('Success')
+            res.json(username)
         }
     })
 
