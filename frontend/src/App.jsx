@@ -1,5 +1,5 @@
 
-import CreateOutline from "./CreateOutline";
+import CreateOutline from "./createOutline";
 
 function App() {
   return <CreateOutline />
