@@ -12,17 +12,26 @@ const userSchema = new Schema({
         required:true
     },
     firstName: {type:String,required:true},
-    lastName: {type:String,required:true}
+    lastName: {type:String,required:true},
+    coursesTaught: {
+      type:Array,
+      of: mongoose.Schema.Types.ObjectId,
+      ref: 'Course',
+      required:false,
+      default:[]
+    }
 })
 
 const courseSchema = new Schema({
     name:{type:String,required:true},
     code:{type:String,required:true},
     faculty:{type:String,required:true},
-    instructor: {
-        type: mongoose.Schema.Types.ObjectId,
+    instructors: {
+        type:Array,
+        of: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: false,
+        default:[]
       }
 });
 
