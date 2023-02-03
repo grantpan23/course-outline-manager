@@ -21,7 +21,7 @@ router.get('/instructors', (req,res) => {
                   firstName: instructor.firstName,
                   lastName: instructor.lastName,
                   username: instructor.username,
-                  courses: instructor.courses
+                  coursesTaught: instructor.coursesTaught
                 };
               });
               res.json(instructors);        
@@ -40,18 +40,29 @@ router
         session.startTransaction();
 
         try {
+
             const course = await Course.findOneAndUpdate(
-                courseCode,
+                {code:courseCode},
                 { $addToSet: { instructors: instructorID } },
                 { new: true, session }
             );
 
             //need to check if instructor really is instructor
-            const instructor = await User.findByIdAndUpdate(
-                instructorID,
+            const instructor = await User.findOneAndUpdate(
+                {
+                    $and: [
+                        {_id:instructorID},
+                        {role:"instructor"}
+                    ]
+                },
                 { $addToSet: { coursesTaught: course.id } },
                 { new: true, session }
             );
+
+            //instructor will be null if not found in above search
+            if (!instructor){
+                throw new Error("Not an instructor")
+            }
 
             await session.commitTransaction();
             session.endSession();
