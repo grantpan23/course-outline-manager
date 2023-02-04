@@ -55,14 +55,14 @@ export default function Login() {const emailRef = useRef();
                 localStorage.setItem("Username", data.name);
                 alert("Success")
 
-                if(data.role === "User"){
-                    window.location.href='/auth'
+                if(data.role === "Instructor"){
+                    window.location.href='/instructor'
                 } 
                 else if(data.role === "Admin"){
                     window.location.href='/admin'
                 } 
-                else{
-                    window.location.href='/auth'
+                else if(data.role === "Reviewer"){
+                    window.location.href='/reviewer'
                 }
 
             }
