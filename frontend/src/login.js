@@ -1,5 +1,8 @@
 import React, {useRef, useState} from 'react'
 import {Form, Button, Card, Alert} from 'react-bootstrap'
+import {Link, useNavigate} from "react-router-dom";
+
+let route = `localhost:4000/`
 
 
 
@@ -8,6 +11,29 @@ export default function Login() {const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] =useState("")
   const [loading, setLoading] =useState(false)
+  const history =useNavigate()
+
+  function login(email, password){
+    try{
+        fetch(route+`api/auth/login`, {
+            method: "POST",
+            headers: {'Content-type': 'application/json'},
+            body: {
+              "username" : email,
+              "tracks" : password
+            }
+          })
+          .then( history("/home"))
+          
+      }
+
+    
+    catch{
+        setError("Login wasn't successful, that email and password combination doesn't match")
+
+    }
+}
+   
   
 
   async function handleSubmit(e){
@@ -18,9 +44,13 @@ export default function Login() {const emailRef = useRef();
       try{
           setError('')
           setLoading(true)
+          login(emailRef.current.value, passwordRef.current.value)
 
           //backend verifying the password and email combo
-          
+          //api call
+         
+         
+
       }
       catch{
           setError('Failed to log in')
@@ -42,9 +72,9 @@ return (
           <Form onSubmit={handleSubmit}>
               <Form.Group id ="email">
                   <Form.Label>
-                      Email
+                      User Name
                   </Form.Label>
-                  <Form.Control type ="email" ref ={emailRef} required/>
+                  <Form.Control type ="textarea" ref ={emailRef} required/>
               </Form.Group>
 
               <Form.Group id ="password">
@@ -55,7 +85,8 @@ return (
               </Form.Group>
 
             
-              <Button disabled={loading} className = "w-100" type="submit"> Log In</Button>
+              <Button disabled={loading} className = "w-100" type="submit"> Log In
+              <Link to= "/home"> </Link></Button>
           </Form>
           <div className ="w-100 text-center mt-3">
          
