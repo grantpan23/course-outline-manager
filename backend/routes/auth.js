@@ -1,8 +1,10 @@
+require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const expressSanitizer = require('express-sanitizer');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const Schemas = require('../models/schemas.js');
 const User = Schemas.User;
@@ -22,7 +24,16 @@ router
 
         try {
             if(await bcrypt.compare(req.body.password, user.password)) {
-                res.send('Success')
+
+                const payload = {
+                    username:user.username,
+                    email:user.email,
+                    role:user.role,
+                }
+
+                const accessToken = jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET);
+
+                res.json({ accessToken: accessToken });
             } else {
                 res.status(401).send('Unauthorized')
             }
