@@ -16,26 +16,26 @@ export default function Login() {const emailRef = useRef();
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
-  function login(email, password){
-    try{
-        fetch(route+`api/auth/login`, {
-            method: "POST",
-            headers: {'Content-type': 'application/json'},
-            body: {
-              "username" : email,
-              "tracks" : password
-            }
-          })
-          .then( history("/home"))
+//   function login(email, password){
+//     try{
+//         fetch(route+`api/auth/login`, {
+//             method: "POST",
+//             headers: {'Content-type': 'application/json'},
+//             body: {
+//               "username" : email,
+//               "tracks" : password
+//             }
+//           })
+//           .then( history("/home"))
           
-      }
+//       }
 
     
-    catch{
-        setError("Login wasn't successful, that email and password combination doesn't match")
+//     catch{
+//         setError("Login wasn't successful, that email and password combination doesn't match")
 
-    }
-}
+//     }
+// }
    
     // LOGIN ANDY ADDED
     const login = async () => {
