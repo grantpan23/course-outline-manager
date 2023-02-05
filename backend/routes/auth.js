@@ -25,6 +25,7 @@ router
         try {
             if(await bcrypt.compare(req.body.password, user.password)) {
 
+                //change payload based on needs
                 const payload = {
                     username:user.username,
                     email:user.email,

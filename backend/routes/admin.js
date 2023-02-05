@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
+const helpers = require('./helpers.js');
 const Schemas = require('../models/schemas.js');
 const Course = Schemas.Course;
 const User = Schemas.User;
@@ -31,7 +33,7 @@ router.get('/instructors', (req,res) => {
 
 router
     .route('/:courseCode/assign-instructor')
-    .post( async (req,res) =>{
+    .post(helpers.authenticateToken, async (req,res) =>{
 
         const courseCode = req.params.courseCode;
         const instructorUsername = req.body.instructorUsername;
