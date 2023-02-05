@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 const mongoose = require('mongoose');
 
 const helpers = require('./helpers.js');
@@ -7,7 +7,10 @@ const Schemas = require('../models/schemas.js');
 const Course = Schemas.Course;
 const User = Schemas.User;
 
+//middleware
 router.use(express.json());
+router.use(helpers.authenticateToken);
+router.use(helpers.authenticateAdmin);
 
 //change to router.route, .get, etc
 router.get('/instructors', (req,res) => {
@@ -33,7 +36,7 @@ router.get('/instructors', (req,res) => {
 
 router
     .route('/:courseCode/assign-instructor')
-    .post(helpers.authenticateToken, async (req,res) =>{
+    .post(async (req,res) =>{
 
         const courseCode = req.params.courseCode;
         const instructorUsername = req.body.instructorUsername;

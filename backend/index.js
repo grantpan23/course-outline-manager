@@ -10,8 +10,8 @@ const admin = require('./routes/admin');
 const auth = require('./routes/auth')
 
 //middleware
-app.use('/api/admin', admin);
-app.use('/api/auth', auth)
+app.use('/api/admin/:adminUser', admin);
+app.use('/api/auth', auth);
 
 
 app.route('/login')

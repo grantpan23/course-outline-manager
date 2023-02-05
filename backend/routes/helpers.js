@@ -16,5 +16,13 @@ module.exports = {
             // If the token is invalid, send an error response to the client
             return res.status(401).send(error);
         }
+    } ,
+
+    authenticateAdmin: (req,res,next) => {
+
+        if(req.params.adminUser != req.user.username) return res.status(401).send("Not the same user");
+        if(req.user.role != "admin") return res.status(401).send("Not an admin");
+
+        next();
     }
 }
