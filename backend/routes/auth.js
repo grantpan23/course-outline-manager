@@ -36,10 +36,10 @@ router
 
                 res.json({ accessToken: accessToken });
             } else {
-                res.status(401).send('Unauthorized')
+                return res.status(401).send('Unauthorized')
             }
         } catch(error) {
-            res.status(500).send(error.message)
+            return res.status(500).send(error.message)
         }
     })
 
@@ -59,9 +59,9 @@ router
 
             const newUser = new User(payload);
             await newUser.save();
-            res.status(201).send(payload);
+            return res.status(201).send(payload);
         } catch(error) {
-            res.status(500).send(error.message);
+            return res.status(500).send(error.message);
         }
     })
 
