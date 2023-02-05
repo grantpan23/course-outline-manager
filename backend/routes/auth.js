@@ -1,8 +1,10 @@
+require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const expressSanitizer = require('express-sanitizer');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const Schemas = require('../models/schemas.js');
 const User = Schemas.User;
@@ -22,12 +24,22 @@ router
 
         try {
             if(await bcrypt.compare(req.body.password, user.password)) {
-                res.send('Success')
+
+                //change payload based on needs
+                const payload = {
+                    username:user.username,
+                    email:user.email,
+                    role:user.role,
+                }
+
+                const accessToken = jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET);
+
+                res.json({ accessToken: accessToken });
             } else {
-                res.status(401).send('Unauthorized')
+                return res.status(401).send('Unauthorized')
             }
         } catch(error) {
-            res.status(500).send(error.message)
+            return res.status(500).send(error.message)
         }
     })
 
@@ -47,9 +59,9 @@ router
 
             const newUser = new User(payload);
             await newUser.save();
-            res.status(201).send(payload);
+            return res.status(201).send(payload);
         } catch(error) {
-            res.status(500).send(error.message);
+            return res.status(500).send(error.message);
         }
     })
 
