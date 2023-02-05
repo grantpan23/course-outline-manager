@@ -38,6 +38,7 @@ export default function Login() {const emailRef = useRef();
 // }
    
     // LOGIN ANDY ADDED
+    // note: don't need to use .then when using async/await. should be const res = await fetch()...
     const login = async () => {
         const user = {
             email: loginEmail,
