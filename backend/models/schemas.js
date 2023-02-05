@@ -16,8 +16,7 @@ const userSchema = new Schema({
     coursesTaught: {
       type:Array,
       of: String,
-      required:false,
-      default:[]
+      required:false
     }
 })
 
@@ -32,22 +31,6 @@ const courseSchema = new Schema({
         default:[]
       }
 });
-
-//middleware
-userSchema.pre('save', function (next) {
-    if (this.role !== 'instructor') {
-        this.courses = undefined;
-      }
-
-    this.username = this.email.split('@')[0];
-    next();
-  });
-
-  userSchema.virtual('courses', {
-    ref: 'Course',
-    localField: '_id',
-    foreignField: 'instructor'
-  });
 
   //model creations
 const User = mongoose.model('User', userSchema);
