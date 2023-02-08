@@ -41,38 +41,26 @@ export default function Login() {const emailRef = useRef();
     // note: don't need to use .then when using async/await. should be const res = await fetch()...
     const login = async () => {
         const user = {
-            email: loginEmail,
-            password: loginPassword
+            username: "testadmin",
+            password: "password"
         }
-        fetch("/api/users/login", {
+        const res = await fetch("/api/auth/users/login", {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(user)
         })
-        .then(async res => {
-            if (res.ok){
-                let data = await res.json()
-                localStorage.setItem("token", "Bearer " + data.aToken)
-                localStorage.setItem("Username", data.name);
-                alert("Success")
 
-                if(data.role === "Instructor"){
-                    window.location.href='/instructor'
-                } 
-                else if(data.role === "Admin"){
-                    window.location.href='/admin'
-                } 
-                else if(data.role === "Reviewer"){
-                    window.location.href='/reviewer'
-                }
+        const data = await res.json();
 
-            }
-            else{
-                console.log('Error: ', res)
-                let data = await res.json();
-                alert(data);
-            }        
-        })
+        if(res.status != 200){
+            //handle error
+        }
+
+        console.log(data);
+
+        //store jwt somewhere
+        //nav to somewhere
+
     }
   
 
