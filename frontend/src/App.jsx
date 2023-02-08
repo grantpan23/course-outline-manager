@@ -16,7 +16,7 @@ function App() {
       </ul>
     </nav>
       <Routes>
-        
+        {/* change routes to begin with role */}
       <Route path= "/" element={<Login />} />
       <Route path= "/home" element={<Home />} />
 

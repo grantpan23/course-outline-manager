@@ -15,7 +15,9 @@ router.use(express.json());
 router.use(helpers.authenticateToken);
 router.use(helpers.authenticateAdmin);
 
-//routes
+//routes --------------------------------------------------
+
+// Get all instructors
 router
     .route('/instructors')
     .get((req,res) => {
@@ -37,6 +39,10 @@ router
         })
 })
 
+
+// Get all courses
+
+// Assign instructor to a course
 router
     .route('/:courseCode/instructors')
     .put(async (req,res) =>{
@@ -82,5 +88,13 @@ router
             return res.status(500).json({ error: error.message });
         }
     })
+
+
+// Add new course
+
+
+
+// Add new instructor
+
 
 module.exports = router;
