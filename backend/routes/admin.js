@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 const mongoose = require('mongoose');
+const bodyParser = require("body-parser");
 
 const helpers = require('./helpers.js');
 const Schemas = require('../models/schemas.js');
@@ -10,14 +11,15 @@ const User = Schemas.User;
 
 //import middleware
 router.use(express.json());
+router.use(bodyParser.json());
 
 //functional middleware
 router.use(helpers.authenticateToken);
 router.use(helpers.authenticateAdmin);
 
-//routes --------------------------------------------------
+//routes
 
-// Get all instructors
+//instructor routes
 router
     .route('/instructors')
     .get((req,res) => {
@@ -37,16 +39,70 @@ router
                 return res.json(instructors);        
             }
         })
-})
+    })
+    .post((req,res) => {
+        
+    })
 
+//courses routes
+router
+    .route('/courses')
+    .get((req,res) => {
+        Course.find({}, (err,data) => {
+            if(err){
+                return res.status(50).send(err);
+            } else {
+                const courses = data;
+                return res.json(courses);
+            }
+        })
+    })
+    .post((req,res) => {
+        //create new course from Courses collection
+        const newCourse = new Course({
+            name: req.body.name,
+            code: req.body.code,
+            faculty: req.body.faculty
+        })
 
-// Get all courses
+        newCourse.save((err) => {
+            if(err){
+                res.status(500).send(err);
+            } else {
+                res.json(newCourse);
+            }
+        })
+    })
 
-// Assign instructor to a course
 router
     .route('/:courseCode/instructors')
-    .put(async (req,res) =>{
+    .get(async (req,res) => {
+        const course = await Course.findOne({code:req.params.courseCode})
 
+        if(!course) return res.status(400).send('Course does not exist');
+
+        User.find({
+            $and: [
+                {role:"instructor"},
+                {username:{$in:course.instructors}}
+            ]
+        }, (err,data) => {
+            if(err){
+                return res.status(500).send(err);
+            } else {
+                const instructors = data.map(instructor => {
+                    return {
+                        id:instructor.id,
+                        firstName: instructor.firstName,
+                        lastName: instructor.lastName,
+                        username: instructor.username
+                    };
+                });
+                return res.json(instructors);
+            }
+        })
+    })
+    .put(async (req,res) =>{
         const courseCode = req.params.courseCode;
         const instructorUsername = req.body.instructorUsername;
 
@@ -88,13 +144,5 @@ router
             return res.status(500).json({ error: error.message });
         }
     })
-
-
-// Add new course
-
-
-
-// Add new instructor
-
 
 module.exports = router;
