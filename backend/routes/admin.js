@@ -21,7 +21,7 @@ router.use(helpers.authenticateAdmin);
 
 //instructor routes
 router
-    .route('/instructors')
+    .route('/users/instructors')
     .get((req,res) => {
         User.find({role:'instructor'}, (err,data) => {
             if(err){
@@ -42,6 +42,21 @@ router
     })
     .post((req,res) => {
         
+        const newInstructor = new User({
+            email: req.body.email,
+            username: req.body.email.split('@')[0],
+            role: 'instructor',
+            firstName: req.body.firstName,
+            lastName: req.body.lastName
+        })
+
+        newInstructor.save((err) => {
+            if(err){
+                return res.status(500).send(err);
+            } else {
+                return res.json(newInstructor);
+            }
+        })
     })
 
 //courses routes
@@ -67,15 +82,15 @@ router
 
         newCourse.save((err) => {
             if(err){
-                res.status(500).send(err);
+                return res.status(500).send(err);
             } else {
-                res.json(newCourse);
+                return res.json(newCourse);
             }
         })
     })
 
 router
-    .route('/:courseCode/instructors')
+    .route('/courses/:courseCode/instructors')
     .get(async (req,res) => {
         const course = await Course.findOne({code:req.params.courseCode})
 
