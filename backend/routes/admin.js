@@ -44,10 +44,10 @@ router
 
 // Assign instructor to a course
 router
-    .route('/:courseCode/instructors')
+    .route('/assign-instructor')
     .put(async (req,res) =>{
 
-        const courseCode = req.params.courseCode;
+        const courseCode = req.body.courseCode;
         const instructorUsername = req.body.instructorUsername;
 
         const session = await mongoose.startSession();

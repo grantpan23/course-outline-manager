@@ -2,7 +2,7 @@
 import CreateOutline from "./createOutline";
 import Home from "./home";
 import Login from "./login";
-import AssignInstructor from "./admin";
+import AssignInstructor from "./assignInstructor";
 import { Link, Route, Routes} from "react-router-dom";
 
 function App() {

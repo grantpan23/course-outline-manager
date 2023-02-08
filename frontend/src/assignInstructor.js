@@ -8,14 +8,14 @@ const AssignInstructor = () => {
     { id: 1, name: "John Doe" },
     { id: 2, name: "Jane Doe" },
     { id: 3, name: "Jim Smith" },
-    { id: 4, name: "testinstructor"}
+    { id: 4, name: "ahuang95"}
   ];
 
   const courses = [
     { id: 1, name: "React 101" },
     { id: 2, name: "JavaScript 102" },
     { id: 3, name: "Node.js 103" },
-    { id: 4, name: "Software Engineering Design I"}
+    { id: 4, name: "SE3313"}
   ];
 
   const handleInstructorChange = event => {
@@ -40,8 +40,8 @@ const AssignInstructor = () => {
       instructorUsername: instructor,
       courseCode: course
     }
-    fetch(`/:${course}/instructors`, {
-      method: "PUT",
+    fetch(`/assign-instructors`, {
+      method: 'PUT',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify(obj)
     })
