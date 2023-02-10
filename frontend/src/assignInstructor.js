@@ -72,8 +72,7 @@ const AssignInstructor = () => {
       instructorUsername: instructor,
       courseCode: course
     };
-    if(validAssign(instructor, course))
-    {
+    if (validAssign(instructor, course)) {
       fetch(`/api/admin/testadmin/courses/${course}/instructors`, {
         method: 'PUT',
         headers: {
@@ -93,8 +92,7 @@ const AssignInstructor = () => {
           }
         })
     }
-    else
-    {
+    else {
       alert(`Cannot assign instructor to course. Instructor: ${selectedInstructor} is already assigned to Course: ${selectedCourse}`);
     }
   };
@@ -106,16 +104,42 @@ const AssignInstructor = () => {
     let matchingCourse = matchingInstructor.coursesTaught.filter(match => {
       return match === course;
     });
-    if(matchingCourse.length > 0)
+    if (matchingCourse.length > 0)
       return false;
     else return true;
   }
 
   return (
-    <form onSubmit={handleSubmit} onLoad={popInstructors}>
-      <div>
+    // <form onSubmit={handleSubmit} onLoad={popInstructors}>
+    //   <div>
+    //     <label htmlFor="instructors">Select Instructor:</label>
+    //     <select id="instructors" onChange={handleInstructorChange}>
+    //       <option value="">--Select Instructor--</option>
+    //       {instructors.map(instructor => (
+    //         <option key={instructor.id} value={instructor.username}>
+    //           {instructor.firstName + " " + instructor.lastName}
+    //         </option>
+    //       ))}
+    //     </select>
+    //   </div>
+    //   <div>
+    //     <label htmlFor="courses">Select Course:</label>
+    //     <select id="courses" onChange={handleCourseChange}>
+    //       <option value="">--Select Course--</option>
+    //       {courses.map(course => (
+    //         <option key={course._id} value={course.code}>
+    //           {course.name + " [" + course.faculty + "]"}
+    //         </option>
+    //       ))}
+    //     </select>
+    //   </div>
+    //   <button type="submit">Submit</button>
+    //   <button type="button">Back</button>
+    // </form>
+    <form onSubmit={handleSubmit} onLoad={popInstructors} className="d-flex flex-column align-items-center">
+      <div className="form-group">
         <label htmlFor="instructors">Select Instructor:</label>
-        <select id="instructors" onChange={handleInstructorChange}>
+        <select id="instructors" onChange={handleInstructorChange} className="form-control">
           <option value="">--Select Instructor--</option>
           {instructors.map(instructor => (
             <option key={instructor.id} value={instructor.username}>
@@ -124,9 +148,9 @@ const AssignInstructor = () => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="courses">Select Course:</label>
-        <select id="courses" onChange={handleCourseChange}>
+        <select id="courses" onChange={handleCourseChange} className="form-control">
           <option value="">--Select Course--</option>
           {courses.map(course => (
             <option key={course._id} value={course.code}>
@@ -135,8 +159,10 @@ const AssignInstructor = () => {
           ))}
         </select>
       </div>
-      <button type="submit">Submit</button>
-      <button type="button">Back</button>
+      <br></br>
+      <div className="form-group d-flex justify-content-between">
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </div>
     </form>
   );
 };
