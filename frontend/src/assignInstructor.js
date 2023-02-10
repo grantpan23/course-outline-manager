@@ -40,9 +40,11 @@ const AssignInstructor = () => {
       instructorUsername: instructor,
       courseCode: course
     }
-    fetch(`/assign-instructors`, {
+    fetch(`/api/admin/testadmin/courses/${course}/instructors`, {
       method: 'PUT',
-      headers: {'Content-type': 'application/json'},
+      headers: {'Content-type': 'application/json',
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NTU2NDAzN30.gaZ8CcaY_6rLyOrZ2N0zP_t8qLCACFtNb_G6HrHWwNA'
+              },
       body: JSON.stringify(obj)
     })
     .then(async res => {
