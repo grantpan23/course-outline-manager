@@ -2,7 +2,8 @@
 import CreateOutline from "./createOutline";
 import Home from "./home";
 import Login from "./login";
-import AssignInstructor from "./admin";
+import AssignInstructor from "./admin"
+import InstructorHistory from "./instructorHistory"
 import { Link, Route, Routes} from "react-router-dom";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         {/* change routes to begin with role */}
       <Route path= "/" element={<Login />} />
       <Route path= "/home" element={<Home />} />
+      <Route path = "/instructorhistory" element={<InstructorHistory />}/>
 
       <Route path= "/create" element={<CreateOutline />} />
       <Route path= "/assign-instructor" element={<AssignInstructor />} />
