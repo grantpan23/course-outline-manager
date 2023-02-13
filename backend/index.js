@@ -5,6 +5,8 @@ const port = process.env.PORT || 4000;
 const mongoose = require('mongoose');
 require('dotenv/config');
 
+// setting up socket 
+
 //import routes
 const admin = require('./routes/admin');
 const auth = require('./routes/auth')
@@ -22,6 +24,24 @@ mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology:
     console.log(err);
 })
 
-app.listen(port, () => {
+
+var server = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+//connect to socket
+const io = require ("socket.io")( server, {
+    cors: {
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST'],
+
+    },
+})
+
+io.on("connection", socket => {
+    socket.on("send-changes", delta => {
+        console.log(delta)
+    })
+    
+})
+
