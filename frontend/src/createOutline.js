@@ -31,6 +31,7 @@ export default function CreateOutline(){
 
     }, [])
 
+    //sending text
     useEffect(() => {
 
         if ( socket == null || quill == null) return
@@ -43,6 +44,22 @@ export default function CreateOutline(){
 
         return() => {
             quill.off('text-change', handler)
+        }
+
+    }, [socket,quill])
+
+    //receiving text 
+    useEffect(() => {
+
+        if ( socket == null || quill == null) return
+
+        const handler  = (delta, oldDelta, source) => {
+            quill.updateContents(delta)
+        }
+        socket.on('receive-changes', handler)
+
+        return() => {
+            socket.off('text-changes', handler)
         }
 
     }, [socket,quill])

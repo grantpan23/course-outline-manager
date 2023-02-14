@@ -4,7 +4,13 @@ import Home from "./home";
 import CourseOutlineHome from "./courseOutlineHome";
 import Login from "./login";
 import AssignInstructor from "./admin";
-import { Link, Route, Routes} from "react-router-dom";
+import { 
+  BrowserRouter as Router, 
+  Switch,
+  Redirect,
+  Link, 
+  Route, 
+  Routes} from "react-router-dom";
 
 function App() {
   return (
@@ -24,6 +30,7 @@ function App() {
       <Route path= "/home" element={<Home />} />
       <Route path= "/courseOutlineHome" element={<CourseOutlineHome />} />
       <Route path= "/create" element={<CreateOutline />} />
+      <Route path="/documents/:id"></Route>
       <Route path= "/assign-instructor" element={<AssignInstructor />} />
       </Routes>
     </>

@@ -40,7 +40,8 @@ const io = require ("socket.io")( server, {
 
 io.on("connection", socket => {
     socket.on("send-changes", delta => {
-        console.log(delta)
+        //console.log(delta)
+        socket.broadcast.emit("receive-changes", delta)
     })
     
 })
