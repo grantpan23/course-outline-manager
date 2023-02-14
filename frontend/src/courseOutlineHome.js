@@ -3,9 +3,16 @@ import React from "react";
 function courseOutlineHome() {
     return (
          <div>
-      <button style={format}>Create New Course Outline</button>
-      <button style={format}>Use Old Outline</button>
+    
+        <Link to= "/create"> 
+      <button style={format} onclick>Create new course outline</button>
+      </Link>
+      <Link to= ""> 
+      <button style={format} onclick>Use past course outline</button>
+      </Link>
+      
      </div>
+    
     );
 }
       const format={

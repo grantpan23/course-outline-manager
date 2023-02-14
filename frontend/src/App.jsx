@@ -18,7 +18,6 @@ function App() {
     <nav>
       <ul>
         <li><Link to= "/home"> Home </Link> </li>
-        <li><Link to= "/create"> Create Outline </Link> </li>
         <li><Link to= "/assign-instructor"> Assign Instructor </Link> </li>
         <li><Link to= "/courseOutlineHome"> Course Outline  </Link> </li>
 
