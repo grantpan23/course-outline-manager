@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const {model} = require('mongoose');
 
 //schema creations
 const userSchema = new Schema({
@@ -32,11 +33,17 @@ const courseSchema = new Schema({
       }
 });
 
+const documentSchema = new Schema({
+  _id: String, 
+  data: Object
+})
+
   //model creations
 const User = mongoose.model('User', userSchema);
 const Course = mongoose.model('Course',courseSchema);
+const Document = mongoose.model('Doucment',documentSchema);
 
 //aggregate models
-const mySchemas = {'User':User,'Course':Course};
+const mySchemas = {'User':User,'Course':Course, 'Document': Document};
 
 module.exports = mySchemas;
