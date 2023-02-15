@@ -3,7 +3,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const mongoose = require('mongoose');
-const Document = require("./models/schemas")
+const Schemas = require("./models/schemas")
+const Document = Schemas.Document;
 require('dotenv/config');
 
 // setting up socket 
@@ -39,8 +40,8 @@ const io = require ("socket.io")( server, {
     },
 })
 
-const defalutValue = " "
 io.on("connection", socket => {
+    console.log("connected");
     socket.on('get-document', documentId => {
         const document = findOrCreateDocument(documentId)
         socket.join(documentId)
@@ -58,9 +59,9 @@ io.on("connection", socket => {
 async function findOrCreateDocument(id){
     if (id==null) return
 
-    const document = await document.findById(id)
+    const document = await Document.findById(id)
     if(document) return document 
-    return await Document.create({_id: id, data: defaultValue })
+    return await Document.create({_id: id, data: '' })
 
 }
 

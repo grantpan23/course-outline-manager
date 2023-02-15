@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateOutline from "./createOutline";
+import Editor from "./Editor";
 import CreateBlankOutline from "./createBlankOutline";
 import Home from "./home";
 import CourseOutlineHome from "./courseOutlineHome";
@@ -10,7 +10,7 @@ import {
   Link, 
   Route, 
   Routes} from "react-router-dom";
-import {v4 as uuidv4} from 'uuid'
+import {v4 as uuidV4} from 'uuid'
 
 function App() {
   return (
@@ -28,8 +28,9 @@ function App() {
       <Route exact path= "/" component={<Home />} />
       <Route path= "/home" element={<Home />} />
       <Route path= "/courseOutlineHome" element={<CourseOutlineHome />} />
-      <Route path="/create" element={<CreateOutline />}></Route>
+      <Route path="/create" element={<Navigate to={`/documents/${uuidV4()}`} />}/>
       <Route path= "/assign-instructor" element={<AssignInstructor />} />
+      <Route path="/documents/:id" element={<Editor/>}/>
       </Routes>
       
 

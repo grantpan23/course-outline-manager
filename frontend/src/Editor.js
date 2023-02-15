@@ -1,5 +1,6 @@
 import React from 'react'
 import { useCallback, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import Quill from "quill"
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
@@ -18,10 +19,11 @@ const TOOLBAR_OPTIONS = [
 ]
 
 
-export default function CreateOutline(){
+export default function Editor(){
+    const {id: documentId} = useParams();
     const [socket, setSocket] = useState()
     const [quill, setQuill] = useState()
-    const documentId =1;
+    console.log(documentId);
 
     
     useEffect(() => {
@@ -76,14 +78,14 @@ export default function CreateOutline(){
         })
         socket.emit('get-document', documentId)
 
-    },[socket, quill])
+    },[socket, quill, documentId])
 
     useEffect(() => {
         if (socket == null || quill == null) return 
 
         const interval = setInterval(() => {
 
-            socket.emit("save-document", quill.getContents)
+            socket.emit("save-document", quill.getContents())
         }, SAVE_INTERVAL_MS)
 
         
@@ -100,7 +102,7 @@ export default function CreateOutline(){
         const editor = document.createElement('div')
         wrapper.append(editor)
         const q = new Quill(editor, {theme : "snow", modules: {toolbar : TOOLBAR_OPTIONS } })
-        q.enable(false)
+        q.disable();
         q.setText("Loading...")
         setQuill(q)
     }, [])
