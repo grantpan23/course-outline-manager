@@ -1,25 +1,18 @@
 import { Link} from "react-router-dom";
 import React from "react";
-import { useNavigate } from 'react-router-dom';
-import {v4 as uuidv4} from 'uuid';
-import { useEffect } from 'react';
+
 function courseOutlineHome() {
-const navigate = useNavigate; 
 
 
-  function handleClick() {
-    useEffect (() => {
-      navigate(`/documents/${uuidv4()}`);
 
-    }, [])
-    
-  }
+
 
     return (
          <div>
     
-      <button style={format} onclick={handleClick()}> Create new course outline</button>
-
+    <Link to= "/create"> 
+      <button style={format} onclick> Create new course outline</button>
+      </Link>
       <Link to= ""> 
       <button style={format} onclick>Use past course outline</button>
       </Link>

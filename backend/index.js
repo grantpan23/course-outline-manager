@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const mongoose = require('mongoose');
+const Document = require("./models/schemas")
 require('dotenv/config');
 
 // setting up socket 
@@ -38,11 +39,28 @@ const io = require ("socket.io")( server, {
     },
 })
 
+const defalutValue = " "
 io.on("connection", socket => {
-    socket.on("send-changes", delta => {
-        //console.log(delta)
-        socket.broadcast.emit("receive-changes", delta)
+    socket.on('get-document', documentId => {
+        const document = findOrCreateDocument(documentId)
+        socket.join(documentId)
+        socket.emit('load-document', document.data)
+        socket.on("send-changes", delta => {
+            socket.broadcast.to(documentId).emit("receive-changes", delta)
+        })
+
+    socket.on("save-document", async data => {
+        await Document.findByIdAndUpdate(documentId, { data })
     })
-    
+    }) 
 })
+
+async function findOrCreateDocument(id){
+    if (id==null) return
+
+    const document = await document.findById(id)
+    if(document) return document 
+    return await Document.create({_id: id, data: defaultValue })
+
+}
 

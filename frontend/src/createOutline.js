@@ -4,6 +4,7 @@ import Quill from "quill"
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 
+const SAVE_INTERVAL_MS =2000;
 const TOOLBAR_OPTIONS = [
  [{header :[1,2,3,4,5,6,false]}],
  [{font: []}],
@@ -20,6 +21,7 @@ const TOOLBAR_OPTIONS = [
 export default function CreateOutline(){
     const [socket, setSocket] = useState()
     const [quill, setQuill] = useState()
+    const documentId =1;
 
     
     useEffect(() => {
@@ -64,6 +66,33 @@ export default function CreateOutline(){
         }
 
     }, [socket,quill])
+
+    useEffect(() => {
+        if (socket == null || quill == null) return 
+
+        socket.once("load-document",document => { 
+            quill.setContents(document)
+            quill.enable()
+        })
+        socket.emit('get-document', documentId)
+
+    },[socket, quill])
+
+    useEffect(() => {
+        if (socket == null || quill == null) return 
+
+        const interval = setInterval(() => {
+
+            socket.emit("save-document", quill.getContents)
+        }, SAVE_INTERVAL_MS)
+
+        
+        return () => {
+            clearInterval(interval)
+        }
+
+    },[socket, quill])
+
     const wrapperRef = useCallback((wrapper) => {
         if (wrapper == null) return
 
@@ -71,6 +100,8 @@ export default function CreateOutline(){
         const editor = document.createElement('div')
         wrapper.append(editor)
         const q = new Quill(editor, {theme : "snow", modules: {toolbar : TOOLBAR_OPTIONS } })
+        q.enable(false)
+        q.setText("Loading...")
         setQuill(q)
     }, [])
     return <div className="container" ref = {wrapperRef}></div>

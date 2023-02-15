@@ -28,7 +28,7 @@ function App() {
       <Route exact path= "/" component={<Home />} />
       <Route path= "/home" element={<Home />} />
       <Route path= "/courseOutlineHome" element={<CourseOutlineHome />} />
-      <Route path="/documents/:id" element={<CreateOutline />}></Route>
+      <Route path="/create" element={<CreateOutline />}></Route>
       <Route path= "/assign-instructor" element={<AssignInstructor />} />
       </Routes>
       
