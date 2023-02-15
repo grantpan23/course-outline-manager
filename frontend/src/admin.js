@@ -7,13 +7,15 @@ const AssignInstructor = () => {
   const instructors = [
     { id: 1, name: "John Doe" },
     { id: 2, name: "Jane Doe" },
-    { id: 3, name: "Jim Smith" }
+    { id: 3, name: "Jim Smith" },
+    { id: 4, name: "testinstructor"}
   ];
 
   const courses = [
     { id: 1, name: "React 101" },
     { id: 2, name: "JavaScript 102" },
-    { id: 3, name: "Node.js 103" }
+    { id: 3, name: "Node.js 103" },
+    { id: 4, name: "Software Engineering Design I"}
   ];
 
   const handleInstructorChange = event => {
@@ -27,7 +29,33 @@ const AssignInstructor = () => {
   const handleSubmit = event => {
     event.preventDefault();
     // Add your submit logic here
+    // call the  saveToDB put api
+    saveToDB(selectedInstructor, selectedCourse);
     console.log(`Instructor: ${selectedInstructor} assigned to Course: ${selectedCourse}`);
+  };
+
+  // saveToDB
+  const saveToDB = async (instructor, course) => {
+    const obj = {
+      instructorUsername: instructor,
+      courseCode: course
+    }
+    fetch(`/:${course}/instructors`, {
+      method: "PUT",
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify(obj)
+    })
+    .then(async res => {
+      if (res.ok){
+        let data = await res.json();
+        console.log(data);
+      }
+      else{
+        let data = res.json();
+        console.log(res);
+        console.log(data);
+      }
+    })
   };
 
   return (
