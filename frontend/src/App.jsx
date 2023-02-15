@@ -1,16 +1,16 @@
-
+import React from 'react'
 import CreateOutline from "./createOutline";
+import CreateBlankOutline from "./createBlankOutline";
 import Home from "./home";
 import CourseOutlineHome from "./courseOutlineHome";
 import Login from "./login";
 import AssignInstructor from "./admin";
-import { 
-  BrowserRouter as Router, 
-  Switch,
-  Redirect,
+import {  
+  Navigate,
   Link, 
   Route, 
   Routes} from "react-router-dom";
+import {v4 as uuidv4} from 'uuid'
 
 function App() {
   return (
@@ -23,15 +23,17 @@ function App() {
 
       </ul>
     </nav>
-      <Routes>
+    <Routes>
         {/* change routes to begin with role */}
-      <Route path= "/" element={<Login />} />
+      <Route exact path= "/" component={<Home />} />
       <Route path= "/home" element={<Home />} />
       <Route path= "/courseOutlineHome" element={<CourseOutlineHome />} />
-      <Route path= "/create" element={<CreateOutline />} />
-      <Route path="/documents/:id"></Route>
+      <Route path="/documents/:id" element={<CreateOutline />}></Route>
       <Route path= "/assign-instructor" element={<AssignInstructor />} />
       </Routes>
+      
+
+      
     </>
     
 
