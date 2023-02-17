@@ -4,27 +4,35 @@ import { useNavigate} from "react-router-dom";
 
 export default function InstructionHistory() {
 
-    const [courses, setUsers] = useState([])
+    const [courses, setCourses] = useState([])
     const history =useNavigate()
 
-    
-    async function Courses(){
-        
-        const res = await fetch("localhost:4000/api/admin/testadmin/courses",{
-            method: 'GET',
-            headers: {'Authorization': 'LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0'}
-        }
-        )
-    }
+  
+
+
+     
 
     useEffect(() =>{
-        const getCourses = async() => {
-            
-        }
 
+        const getCourses =async() => {
 
-        getCourses()
-
+            fetch ("/api/admin/testadmin/courses",{
+               method: 'GET',
+               headers: {'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NjQ5NTk0OH0.LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0',
+               'Content-type': 'application/json'}
+           })
+           .then(async (res) => {
+               if (res.ok) {
+           const data = await res.json();
+          
+           console.log(data);
+           setCourses(data)     
+           
+           }
+       })
+   }
+        
+   getCourses()
     }, [])
     return(
 
@@ -33,24 +41,29 @@ export default function InstructionHistory() {
         
           <div>
           <table>
+<thead>
+
   <tr>
-    {courses.map((course)=>{
-         <div>
-            <th>Courses: {course.name}</th>
-         <th>Instructors: {course.instructors}</th>
-         </div>
-    })}
+   
     <th>Courses: </th>
     <th>Instructors</th>
   </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-  </tr>
-  <tr>
-    <td>Centro ssssssssss</td>
-    <td>Francisco Chang</td>
-  </tr>
+  </thead>
+
+  <tbody>
+  {courses.map((course)=>{
+    return(
+        <tr>
+        <td>{course.code}</td>
+        <td>{course.instructors}</td>
+
+    </tr>
+    )
+     
+    })}
+
+  </tbody>
+  
 </table>
           </div>
         </div>
