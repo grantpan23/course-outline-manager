@@ -1,4 +1,4 @@
-import React, {useRef, useState, ReactDOM} from 'react'
+import React, {useEffect, useState, ReactDOM} from 'react'
 import { useNavigate} from "react-router-dom";
 
 
@@ -23,7 +23,7 @@ export default function InstructionHistory() {
         }
 
 
-        getUsers()
+        getCourses()
 
     }, [])
     return(
