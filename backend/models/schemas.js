@@ -41,7 +41,7 @@ const documentSchema = new Schema({
   //model creations
 const User = mongoose.model('User', userSchema);
 const Course = mongoose.model('Course',courseSchema);
-const Document = mongoose.model('Doucment',documentSchema);
+const Document = mongoose.model('Document',documentSchema);
 
 //aggregate models
 const mySchemas = {'User':User,'Course':Course, 'Document': Document};
