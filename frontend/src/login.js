@@ -41,10 +41,10 @@ export default function Login() {const emailRef = useRef();
     // note: don't need to use .then when using async/await. should be const res = await fetch()...
     const login = async () => {
         const user = {
-            username: "testadmin",
-            password: "password"
+            username: emailRef.current.value,
+            password: passwordRef.current.value
         }
-        const res = await fetch("/api/auth/users/login", {
+        const res = await fetch("api/auth/users/login", {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(user)
@@ -59,7 +59,9 @@ export default function Login() {const emailRef = useRef();
         console.log(data);
 
         //store jwt somewhere
+
         //nav to somewhere
+     
 
     }
   
@@ -72,6 +74,7 @@ export default function Login() {const emailRef = useRef();
       try{
           setError('')
           setLoading(true)
+          history("/home")
           login(emailRef.current.value, passwordRef.current.value)
 
           //backend verifying the password and email combo
