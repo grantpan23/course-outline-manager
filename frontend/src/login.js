@@ -44,7 +44,7 @@ export default function Login() {const emailRef = useRef();
             username: emailRef.current.value,
             password: passwordRef.current.value
         }
-        const res = await fetch("localhost:4000/api/auth/users/login", {
+        const res = await fetch("api/auth/users/login", {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(user)
@@ -61,7 +61,7 @@ export default function Login() {const emailRef = useRef();
         //store jwt somewhere
 
         //nav to somewhere
-        history("/home")
+     
 
     }
   
@@ -74,6 +74,7 @@ export default function Login() {const emailRef = useRef();
       try{
           setError('')
           setLoading(true)
+          history("/home")
           login(emailRef.current.value, passwordRef.current.value)
 
           //backend verifying the password and email combo
