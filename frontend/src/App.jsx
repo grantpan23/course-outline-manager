@@ -5,7 +5,7 @@ import Home from "./home";
 import CourseOutlineHome from "./courseOutlineHome";
 import Login from "./login";
 import AssignInstructor from "./assignInstructor";
-import InstructionHistory from './instructorHistory';
+
 
 import {  
   Navigate,
@@ -33,7 +33,6 @@ function App() {
       <Route path="/create" element={<Navigate to={`/documents/${uuidV4()}`} />}/>
       <Route path= "/assign-instructor" element={<AssignInstructor />} />
       <Route path="/documents/:id" element={<Editor/>}/>
-      <Route path= "/instructorhistory" element={<InstructionHistory />} />
 
       </Routes>
       
