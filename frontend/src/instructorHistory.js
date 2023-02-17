@@ -4,16 +4,28 @@ import { useNavigate} from "react-router-dom";
 
 export default function InstructionHistory() {
 
-    const [error, setError] =useState("")
-    const [loading, setLoading] =useState(false)
+    const [courses, setUsers] = useState([])
     const history =useNavigate()
 
+    
+    async function Courses(){
+        
+        const res = await fetch("localhost:4000/api/admin/testadmin/courses",{
+            method: 'GET',
+            headers: {'Authorization': 'LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0'}
+        }
+        )
+    }
 
-  //  const editor = document.createElement('div')
+    useEffect(() =>{
+        const getCourses = async() => {
+            
+        }
 
-   //const root = ReactDOM.createRoot(
-  //document.getElementById('root'));
 
+        getUsers()
+
+    }, [])
     return(
 
         <div>
@@ -22,7 +34,13 @@ export default function InstructionHistory() {
           <div>
           <table>
   <tr>
-    <th>Courses</th>
+    {courses.map((course)=>{
+         <div>
+            <th>Courses: {course.name}</th>
+         <th>Instructors: {course.instructors}</th>
+         </div>
+    })}
+    <th>Courses: </th>
     <th>Instructors</th>
   </tr>
   <tr>
@@ -30,7 +48,7 @@ export default function InstructionHistory() {
     <td>Maria Anders</td>
   </tr>
   <tr>
-    <td>Centro comercial Moctezuma</td>
+    <td>Centro ssssssssss</td>
     <td>Francisco Chang</td>
   </tr>
 </table>
