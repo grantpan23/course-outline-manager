@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const helpers = require('./helpers.js');
 const Schemas = require('../models/schemas.js');
@@ -12,6 +13,7 @@ const User = Schemas.User;
 //import middleware
 router.use(express.json());
 router.use(bodyParser.json());
+router.use(cookieParser());
 
 //functional middleware
 router.use(helpers.authenticateToken);
