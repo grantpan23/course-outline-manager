@@ -34,7 +34,10 @@ async function findOrCreateDocument(id) {
 
   const document = await Document.findById(id);
   if (document) return document;
-  return await Document.create({ _id: id, data: "" });
+
+  const template = await Document.findById(0);
+  return await Document.create({_id : id, data: template.data})
+
 }
 
 module.exports = initSocket;
