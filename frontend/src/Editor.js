@@ -3,29 +3,29 @@ import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Quill from "quill"
 import "quill/dist/quill.snow.css"
-import {io} from 'socket.io-client'
+import { io } from 'socket.io-client'
 
-const SAVE_INTERVAL_MS =2000;
+const SAVE_INTERVAL_MS = 2000;
 const TOOLBAR_OPTIONS = [
- [{header :[1,2,3,4,5,6,false]}],
- [{font: []}],
- [{list: "ordered"}, {list: "bullet"}],
- ["bold", "italic", "underline"],
- [ {color :[] }, {background: [] }],
- [{script : "sub"}, {script : "super"}],
- [{align : []}],
- ["image", "blockquote", "code-block"],
- ["clean"],
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    [{ font: [] }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["bold", "italic", "underline"],
+    [{ color: [] }, { background: [] }],
+    [{ script: "sub" }, { script: "super" }],
+    [{ align: [] }],
+    ["image", "blockquote", "code-block"],
+    ["clean"],
 ]
 
 
-export default function Editor(){
-    const {id: documentId} = useParams();
+export default function Editor() {
+    const { id: documentId } = useParams();
     const [socket, setSocket] = useState()
     const [quill, setQuill] = useState()
     console.log(documentId);
 
-    
+
     useEffect(() => {
         const s = (io("http://localhost:4000"))
         setSocket(s)
@@ -39,61 +39,85 @@ export default function Editor(){
     //sending text
     useEffect(() => {
 
-        if ( socket == null || quill == null) return
+        if (socket == null || quill == null) return
 
-        const handler  = (delta, oldDelta, source) => {
-            if (source !== 'user') return 
+        const handler = (delta, oldDelta, source) => {
+            if (source !== 'user') return
             socket.emit("send-changes", delta)
         }
         quill.on('text-change', handler)
 
-        return() => {
+        return () => {
             quill.off('text-change', handler)
         }
 
-    }, [socket,quill])
+    }, [socket, quill])
 
     //receiving text 
     useEffect(() => {
 
-        if ( socket == null || quill == null) return
+        if (socket == null || quill == null) return
 
-        const handler  = (delta, oldDelta, source) => {
+        const handler = (delta, oldDelta, source) => {
             quill.updateContents(delta)
         }
         socket.on('receive-changes', handler)
 
-        return() => {
+        return () => {
             socket.off('text-changes', handler)
         }
 
-    }, [socket,quill])
+    }, [socket, quill])
 
     useEffect(() => {
-        if (socket == null || quill == null) return 
+        if (socket == null || quill == null) return
 
-        socket.once("load-document",document => { 
+        socket.once("load-document", document => {
             quill.setContents(document)
             quill.enable()
         })
         socket.emit('get-document', documentId)
 
-    },[socket, quill, documentId])
+    }, [socket, quill, documentId])
 
     useEffect(() => {
-        if (socket == null || quill == null) return 
+        if (socket == null || quill == null) return
 
         const interval = setInterval(() => {
 
             socket.emit("save-document", quill.getContents())
         }, SAVE_INTERVAL_MS)
 
-        
+        // const recordEdit = async () => {
+        //     try {
+        //         await fetch(`/api/edits/edit/${documentId}`, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //         })
+        //         .then(async res => {
+        //             if (res.ok) {
+        //                 let data = await res.json();
+        //                 alert(`check`);
+        //             }
+        //             else {
+        //                 let data = res.json();
+        //                 alert('Unsuccessful')
+        //             }
+        //         });
+        //     } catch (error) {
+        //         console.error(error);
+        //     }
+        // }
+
         return () => {
+            console.log(new Date().toISOString());
+            // recordEdit();
             clearInterval(interval)
         }
 
-    },[socket, quill])
+    }, [socket, quill, documentId])
 
     const wrapperRef = useCallback((wrapper) => {
         if (wrapper == null) return
@@ -101,10 +125,10 @@ export default function Editor(){
         wrapper.innerHTML = ' '
         const editor = document.createElement('div')
         wrapper.append(editor)
-        const q = new Quill(editor, {theme : "snow", modules: {toolbar : TOOLBAR_OPTIONS } })
+        const q = new Quill(editor, { theme: "snow", modules: { toolbar: TOOLBAR_OPTIONS } })
         q.disable();
         q.setText("Loading...")
         setQuill(q)
     }, [])
-    return <div className="container" ref = {wrapperRef}></div>
+    return <div className="container" ref={wrapperRef}></div>
 }
