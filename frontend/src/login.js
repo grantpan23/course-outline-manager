@@ -57,6 +57,7 @@ export default function Login() {const emailRef = useRef();
         }
 
         console.log(data);
+    
 
         //store jwt somewhere
 
