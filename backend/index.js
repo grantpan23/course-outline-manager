@@ -3,7 +3,10 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const mongoose = require('mongoose');
+const initSocket = require("./services/quillSocket");
 require('dotenv/config');
+
+// setting up socket 
 
 //import routes
 const admin = require('./routes/admin');
@@ -22,6 +25,8 @@ mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology:
     console.log(err);
 })
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+const io = initSocket(server);
