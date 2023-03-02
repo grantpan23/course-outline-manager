@@ -103,21 +103,14 @@ export default function Editor(){
         const editor = document.createElement('div')
         wrapper.append(editor)
         const q = new Quill(editor, {theme : "snow", modules: {toolbar : TOOLBAR_OPTIONS } })
-
-        // const justification = document.createElement('div')
-        // const justficiationButton = document.createElement('button')
-        // justficiationButton.appendChild("Comment")
-        // justification.appendChild(justficiationButton)
-        // wrapper.append(justification)
-
-
+        
         q.disable();
         q.setText("Loading...")
         setQuill(q)
     }, [])
     return <>
+        <Comment quill={quill}/>
         <div className="container" ref = {wrapperRef}>
         </div>
-        <Comment/>
     </> 
 }
