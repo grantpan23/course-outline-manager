@@ -51,8 +51,10 @@ export default function Comment(props) {
         });
     };
 
+    // THIS CURRENTLY DOES NOT GET SAVED
+    // AND CLICK DOES NOT FUNCTION AS WELL
     const handleCommentLinkClick = (event) => {
-        const index = event.target.getAttribute("data-index");
+        const index = event.currentTarget.dataset.index;
         console.log("comment link called", index);
         const data = metaData[index];
         props.quill.setSelection(data.range.index, data.range.length);
@@ -68,7 +70,7 @@ export default function Comment(props) {
                     <div id="snow-container"></div>
                 </div>
             </div>
-            <div className="col-md-3">
+            <div className="col-md-2">
                 Comments
                 <ul className="list-group" id="comments-container">
                 </ul>

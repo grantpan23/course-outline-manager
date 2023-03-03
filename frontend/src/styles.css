@@ -102,10 +102,7 @@ nav li:hover {
 }
 .standalone-container {
     margin: 50px auto;
-    max-width: 720px;
-  }
-  #snow-container {
-    height: 150px;
+    max-width: 450px;
   }
   
 
