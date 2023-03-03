@@ -57,7 +57,6 @@ const config = {
       },
       {
         test: /\.cs$/,
-        exclude: /(node_modules)/,
         use: 'raw-loader'
       },
 
