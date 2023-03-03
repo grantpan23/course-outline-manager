@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: {
     frontend: './frontend/src/index.js',
-    backend: './backend/src/index.js',
+    backend: './backend/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
