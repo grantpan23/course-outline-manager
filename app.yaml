@@ -11,7 +11,7 @@ handlers:
     static_files: frontend/dist/\1
     upload: frontend/dist/(.*)
 
-\# Serve the backend on all URLs that start with /api
+  # Serve the backend on all URLs that start with /api
   - url: /api/.*
     script: backend/index.js
 
