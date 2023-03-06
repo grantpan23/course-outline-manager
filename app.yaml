@@ -3,13 +3,13 @@ runtime: nodejs16
 handlers:
   # Serve the React app on all URLs
   - url: /.*
-    static_files: dist/index.html
-    upload: dist/index.html
+    static_files: ./frontend/build/index.html
+    upload: ./frontend/build/index.html
 
   # Serve static files for the React app
   - url: /(.*)
-    static_files: dist/\1
-    upload: dist/(.*)
+    static_files: ./frontend/build/\1
+    upload: ./frontend.build/(.*)
 
   # Serve the backend on all URLs that start with /api
   - url: /api/.*
