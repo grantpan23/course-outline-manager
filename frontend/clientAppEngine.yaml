@@ -3,7 +3,7 @@ service: default
 
 handlers:
   # Serve the React app on all URLs
-  - url: /
+  - url: /.*
     static_files: build/index.html
     upload: build/index.html
 
