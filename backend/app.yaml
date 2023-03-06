@@ -7,4 +7,4 @@ env_variables:
 handlers:
   # Serve the backend on all URLs that start with /api
   - url: /api/.*
-    script: index.js
+    script: server.js

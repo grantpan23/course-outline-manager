@@ -13,7 +13,7 @@ handlers:
 
   # Serve the backend on all URLs that start with /api
   - url: /api/.*
-    script: backend/index.js
+    script: backend/server.js
 
 env_variables:
   DB_URI: "mongodb+srv://grantpan:gpan7879@cluster0.mgtgo2g.mongodb.net/3350_project?retryWrites=true&w=majority"
