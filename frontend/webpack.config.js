@@ -11,17 +11,14 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 
 const config = {
   target:'node',
-  entry: {
-    frontend: './frontend/src/index.js',
-    backend: './backend/index.js'
-  },
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: '[name].bundle.js'
+    filename: 'bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./frontend/public/index.html",
+      template: ".public/index.html",
     }),
 
     new MiniCssExtractPlugin(),
