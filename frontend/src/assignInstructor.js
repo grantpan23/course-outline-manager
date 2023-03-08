@@ -18,12 +18,12 @@ const AssignInstructor = () => {
   }, []);
 
   const popInstructors = async () => {
-    fetch(`/api/admin/testadmin/users/instructors`,
+    fetch(`/api/admin/gpan7/users/instructors`,
       {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
-          'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NTU2NDAzN30.gaZ8CcaY_6rLyOrZ2N0zP_t8qLCACFtNb_G6HrHWwNA'
+          // 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NTU2NDAzN30.gaZ8CcaY_6rLyOrZ2N0zP_t8qLCACFtNb_G6HrHWwNA'
         }
       })
       .then(async (res) => {
@@ -41,7 +41,7 @@ const AssignInstructor = () => {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
-          'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NTU2NDAzN30.gaZ8CcaY_6rLyOrZ2N0zP_t8qLCACFtNb_G6HrHWwNA'
+          // 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NTU2NDAzN30.gaZ8CcaY_6rLyOrZ2N0zP_t8qLCACFtNb_G6HrHWwNA'
         }
       })
       .then(async (res) => {

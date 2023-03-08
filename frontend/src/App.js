@@ -28,7 +28,7 @@ function App() {
     </nav>
     <Routes>
         {/* change routes to begin with role */}
-      <Route exact path= "/" component={<Home />} />
+      <Route path= "/" element={<Login />} />
       <Route path= "/home" element={<Home />} />
       <Route path= "/courseOutlineHome" element={<CourseOutlineHome />} />
       <Route path="/create" element={<Navigate to={`/documents/${uuidV4()}`} />}/>

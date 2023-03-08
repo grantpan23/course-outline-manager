@@ -56,35 +56,23 @@ export default function Login() {const emailRef = useRef();
             //handle error
         }
 
-        console.log(data);
-
-        //store jwt somewhere
-
         //nav to somewhere
-     
-
+        history("/home")
     }
   
 
   async function handleSubmit(e){
       e.preventDefault()
 
-     
-
       try{
           setError('')
           setLoading(true)
-          history("/home")
-          login(emailRef.current.value, passwordRef.current.value)
-
           //backend verifying the password and email combo
           //api call
-         
-         
-
+          login()
       }
       catch{
-          setError('Failed to log in')
+          
       }
       setLoading(false)
       
@@ -92,8 +80,8 @@ export default function Login() {const emailRef = useRef();
 
 return (
   <>
-<h1 className ="text-center mb-4">UWO Course Outline Manager </h1> 
-          <Card>
+    <h1 className ="text-center mb-4">UWO Course Outline Manager </h1> 
+        <Card>
           <Card.Body>
               <h2 className ="text-center mb-4">Log In</h2>
             
@@ -116,32 +104,14 @@ return (
               </Form.Group>
 
             
-              <Button disabled={loading} className = "w-100" type="submit"> Log In
-              <Link to= "/home"> </Link></Button>
+              <Button disabled={loading} className = "w-100" type="submit"> Log In</Button>
           </Form>
-
-            {/* LOGIN FORM ANDY ADDED */}
-            {/* login user */}
-            <div className="login">
-                <h1>Login</h1>
-                <form>
-                    <label>Email</label>
-                    <input id="loginEmail" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="Enter your email" type="email" />
-
-                    <label>Password</label>
-                    <input id="loginPassword" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="Enter your password" type="password" />
-
-                    <button id="btnLogin" type="button" onClick={login}>Log in</button>
-                </form>
-            </div>
 
           <div className ="w-100 text-center mt-3">
          
-  </div>
+            </div>
           </Card.Body>
       </Card>
- 
-
   </>
 )
 }

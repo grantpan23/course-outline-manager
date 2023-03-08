@@ -3,7 +3,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Quill from "quill"
 import "quill/dist/quill.snow.css"
-import { io } from 'socket.io-client'
+import {io} from 'socket.io-client'
+import Comment from './Comment';
 
 const SAVE_INTERVAL_MS = 2000;
 const TOOLBAR_OPTIONS = [
@@ -125,10 +126,15 @@ export default function Editor() {
         wrapper.innerHTML = ' '
         const editor = document.createElement('div')
         wrapper.append(editor)
-        const q = new Quill(editor, { theme: "snow", modules: { toolbar: TOOLBAR_OPTIONS } })
+        const q = new Quill(editor, {theme : "snow", modules: {toolbar : TOOLBAR_OPTIONS } })
+        
         q.disable();
         q.setText("Loading...")
         setQuill(q)
     }, [])
-    return <div className="container" ref={wrapperRef}></div>
+    return <>
+        <Comment quill={quill}/>
+        <div className="container" ref = {wrapperRef}>
+        </div>
+    </> 
 }
