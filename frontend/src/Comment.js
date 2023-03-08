@@ -60,14 +60,23 @@ export default function Comment(props) {
         props.quill.setSelection(data.range.index, data.range.length);
     };
 
+    // Save Version
+    const handleSaveButtonClick = (event) => {
+        alert("save version")
+    }
+
     return <>
         <div className="row">
             <div className="col-md-9">
                 <div className="standalone-container">
+                    {/* COMMENT / JUSTIFICATION */}
                     <div id="custom-toolbar" className="ql-toolbar ql-snow">
                         <button type="button" id="comment-button" onClick={handleCommentButtonClick} style={{ width: '60px', color: 'red' }}>Comment</button>
                     </div>
-                    <div id="snow-container"></div>
+
+                    {/* SAVE VERSION */}
+                    <button type="button" id="comment-button" onClick={handleSaveButtonClick}>Save Version</button>
+                    {/* <div id="snow-container"></div> */}
                 </div>
             </div>
             <div className="col-md-2">
