@@ -9,6 +9,7 @@ const Schemas = require('../models/schemas.js');
 
 const Course = Schemas.Course;
 const User = Schemas.User;
+const EditHistory = Schemas.EditHistory;
 
 //import middleware
 router.use(express.json());
@@ -20,6 +21,28 @@ router.use(helpers.authenticateToken);
 router.use(helpers.authenticateAdmin);
 
 //routes
+
+//admin
+
+router
+    .route('/admin/activity')
+    .post((req,res) => {
+            
+    const newChange = new EditHistory({
+        email: req.body.email,
+        username: req.body.email.split('@')[0],
+        doc: req.body.docID,
+        lastName: req.body.lastName
+    })
+
+    newInstructor.save((err) => {
+        if(err){
+            return res.status(500).send(err);
+        } else {
+            return res.json(newInstructor);
+        }
+    })
+})
 
 //instructor routes
 router
