@@ -35,11 +35,11 @@ router
         lastName: req.body.lastName
     })
 
-    newInstructor.save((err) => {
+    newChange.save((err) => {
         if(err){
             return res.status(500).send(err);
         } else {
-            return res.json(newInstructor);
+            return res.json(newChange);
         }
     })
 })
