@@ -24,15 +24,17 @@ router.use(helpers.authenticateAdmin);
 
 //admin
 
+//Edit History Routes
 router
     .route('/admin/activity')
     .post((req,res) => {
             
     const newChange = new EditHistory({
-        email: req.body.email,
-        username: req.body.email.split('@')[0],
-        doc: req.body.docID,
-        lastName: req.body.lastName
+        userID: req.body.userID,
+        timeStamp:req.body.timeStamp,
+        activity: req.body.activity,
+        doc: req.body.docID
+       
     })
 
     newChange.save((err) => {
@@ -40,6 +42,16 @@ router
             return res.status(500).send(err);
         } else {
             return res.json(newChange);
+        }
+    })
+})
+.get((req,res) => {
+    EditHistory.find({}, (err,data) => {
+        if(err){
+            return res.status(500).send(err);
+        } else {
+            const editHistory = data;
+            return res.json(editHistory);
         }
     })
 })
