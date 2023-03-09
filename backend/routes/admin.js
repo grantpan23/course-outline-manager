@@ -26,7 +26,7 @@ router.use(helpers.authenticateAdmin);
 
 //Edit History Routes
 router
-    .route('/admin/activity')
+    .route('/activity')
     .post((req,res) => {
             
     const newChange = new EditHistory({
