@@ -27,6 +27,7 @@ export default function InstructionHistory() {
           
            console.log(data);
            seteditHistory(data)     
+
            
            }
        })
