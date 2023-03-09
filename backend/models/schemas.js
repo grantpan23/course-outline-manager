@@ -38,7 +38,7 @@ const documentSchema = new Schema({
   data: Object
 })
 
-const editHistory = new Schema ({
+const editHistorySchema = new Schema ({
   userID:{type:String,required:true},
   timeStamp:{type:Date,required:true,unique:true},
   activity:{type:String,required:true},
@@ -50,7 +50,7 @@ const editHistory = new Schema ({
 const User = mongoose.model('User', userSchema);
 const Course = mongoose.model('Course',courseSchema);
 const Document = mongoose.model('Document',documentSchema);
-const EditHistory = mongoose.model('EditHistory', editHistory)
+const EditHistory = mongoose.model('EditHistory', editHistorySchema);
 
 //aggregate models
 const mySchemas = {'User':User,'Course':Course, 'Document': Document, "EditHistory":EditHistory};
