@@ -126,6 +126,7 @@ export default function Editor(){
         const editor = document.createElement('div')
         wrapper.append(editor)
 
+
         
         const q = new Quill(editor, { ref: {reactQuillRef}, theme : "snow", 
         modules:{
@@ -139,10 +140,13 @@ export default function Editor(){
                   }
              }
             },
+            keyboard: {
+                bindings: QuillBetterTable.keyboardBindings
+            },
             toolbar : 
             {
                 container: [
-                    ['table'],
+                     
                     [{header :[1,2,3,4,5,6,false]}],
                     [{font: []}],
                     [{list: "ordered"}, {list: "bullet"}],
@@ -152,20 +156,19 @@ export default function Editor(){
                     [{align : []}],
                     ["image", "blockquote", "code-block"],
                     ["clean"], 
+                    ['table'],
                 ],
-                   handlers: {
-                      'table': () => this.tableTable()
-                    }
+                //    handlers: {
+                //       'table': () => {
+                //         const t = q.getModule('better-table')
+                //         t.insertTable(3,3)
+                //         console.log('click')
+                //         console.log(t)
+                //       }
+                //     }
             
         }
         } })
-
-        const tableTable = () => {
-            console.log(q.getModule('better-table'))
-            const table = q.getModule('better-table')
-            table.insertTable(2, 2);
-        }
-
         
 
         //const tableButton = document.createElement('button')
