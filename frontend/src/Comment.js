@@ -6,6 +6,7 @@ import Quill from "quill";
 
 export default function Comment(props) {
     // const [commentQuill, setCommentQuill] = useState(null);
+    const {id: documentId} = useParams();
     const [metaData, setMetaData] = useState([]);
     const {socket} = props;
 

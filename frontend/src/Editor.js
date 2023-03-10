@@ -24,8 +24,6 @@ export default function Editor(){
     const {id: documentId} = useParams();
     const [socket, setSocket] = useState()
     const [quill, setQuill] = useState()
-    console.log(documentId);
-
     
     useEffect(() => {
         const s = (io("http://localhost:4000"))
@@ -36,7 +34,6 @@ export default function Editor(){
         }
 
     }, [])
-    console.log(socket);
 
     //sending text
     useEffect(() => {
