@@ -43,7 +43,13 @@ const editHistorySchema = new Schema ({
   timeStamp:{type:Date,required:true,unique:true},
   activity:{type:String,required:true},
   docID:{type:String,required:true,unique:true},
+})
 
+const editSchema = new Schema({
+  id: String,
+  time: Date,
+  username: String,
+  document: String
 })
 
   //model creations
@@ -54,5 +60,8 @@ const EditHistory = mongoose.model('EditHistory', editHistorySchema);
 
 //aggregate models
 const mySchemas = {'User':User,'Course':Course, 'Document': Document, "EditHistory":EditHistory};
+const Edit = mongoose.model('Edit',editSchema);
+
+
 
 module.exports = mySchemas;
