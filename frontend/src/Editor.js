@@ -130,7 +130,7 @@ export default function Editor(){
                     [{align : []}],
                     ["image", "blockquote", "code-block"],
                     ["clean"], 
-                    // ['table'],
+                    ['table'],
                 ],
                    handlers: {
                       'tableD': () => {
