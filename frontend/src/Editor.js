@@ -5,11 +5,16 @@ import ReactQuill, { Quill } from "react-quill-with-table";
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import Comment from './Comment';
-import QuillBetterTable from "quill-better-table";
+import * as quillBetterTable from 'quill-better-table';
 import "react-quill-with-table/dist/quill.snow.css";
 import "quill-better-table/dist/quill-better-table.css";
+import {} from "stylis-plugin-rtl"
 
-Quill.register({ "modules/better-table": QuillBetterTable });
+
+Quill.register({
+      'modules/better-table': quillBetterTable
+    }, true);
+
 
 const SAVE_INTERVAL_MS =2000;
 const TOOLBAR_OPTIONS = [
@@ -34,11 +39,7 @@ export default function Editor(){
     console.log(documentId);
 
     //whenever we call the insert table function we are using the insert table method provided by quill libary and applying it to this editor
-    const insertTable = () => {
-        const editor = wrapperRef.current.getEditor();
-        const tableModule = editor.getModule("better-table");
-        tableModule.insertTable(3, 3);
-      };
+    
 
     
 // this is not working rn, but I'll try and fix it for a later sprint -Tife
@@ -130,7 +131,7 @@ export default function Editor(){
         
         const q = new Quill(editor, { ref: {reactQuillRef}, theme : "snow", 
         modules:{
-            table: false,
+            table: true,
             'better-table': {
                 operationMenu: {
                   items: {
@@ -141,7 +142,7 @@ export default function Editor(){
              }
             },
             keyboard: {
-                bindings: QuillBetterTable.keyboardBindings
+                bindings: quillBetterTable.keyboardBindings
             },
             toolbar : 
             {
@@ -158,18 +159,19 @@ export default function Editor(){
                     ["clean"], 
                     ['table'],
                 ],
-                //    handlers: {
-                //       'table': () => {
-                //         const t = q.getModule('better-table')
-                //         t.insertTable(3,3)
-                //         console.log('click')
-                //         console.log(t)
-                //       }
-                //     }
+                   handlers: {
+                      'tableD': () => {
+                        const t = q.getModule('better-table')
+                        t.insertTable(3,3)
+                        console.log('click')
+                        console.log(t)
+                      }
+                    }
             
         }
         } })
         
+    
 
         //const tableButton = document.createElement('button')
         
@@ -178,26 +180,8 @@ export default function Editor(){
         setQuill(q)
     }, [])
 
-    const modules = useMemo(
-        () => ({
-          table: false,
-          "better-table": {
-            operationMenu: {
-              items: {
-                unmergeCells: {
-                  text: "Another unmerge cells name"
-                }
-              }
-            }
-          },
-          keyboard: {
-            bindings: QuillBetterTable.keyboardBindings
-          },
-          toolbar: TOOLBAR_OPTIONS
-        }),
-        []
-      );
     return <>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.0-dev.3/quill.min.js" type="text/javascript"></script>
         <Comment quill={quill}/>
         <div className="container" ref = {wrapperRef}>
        
