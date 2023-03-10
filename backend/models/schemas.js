@@ -38,12 +38,20 @@ const documentSchema = new Schema({
   data: Object
 })
 
+const editSchema = new Schema({
+  id: String,
+  time: Date,
+  username: String,
+  document: String
+})
+
   //model creations
 const User = mongoose.model('User', userSchema);
 const Course = mongoose.model('Course',courseSchema);
 const Document = mongoose.model('Document',documentSchema);
+const Edit = mongoose.model('Edit',editSchema);
 
 //aggregate models
-const mySchemas = {'User':User,'Course':Course, 'Document': Document};
+const mySchemas = {'User':User,'Course':Course, 'Document': Document, 'Edit': Edit};
 
 module.exports = mySchemas;
