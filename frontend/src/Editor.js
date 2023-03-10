@@ -36,6 +36,7 @@ export default function Editor(){
         }
 
     }, [])
+    console.log(socket);
 
     //sending text
     useEffect(() => {
@@ -81,20 +82,20 @@ export default function Editor(){
 
     },[socket, quill, documentId])
 
-    useEffect(() => {
-        if (socket == null || quill == null) return 
+    // useEffect(() => {
+    //     if (socket == null || quill == null) return 
 
-        const interval = setInterval(() => {
+    //     const interval = setInterval(() => {
 
-            socket.emit("save-document", quill.getContents())
-        }, SAVE_INTERVAL_MS)
+    //         socket.emit("save-document", quill.getContents())
+    //     }, SAVE_INTERVAL_MS)
 
         
-        return () => {
-            clearInterval(interval)
-        }
+    //     return () => {
+    //         clearInterval(interval)
+    //     }
 
-    },[socket, quill])
+    // },[socket, quill])
 
     const wrapperRef = useCallback((wrapper) => {
         if (wrapper == null) return
@@ -109,7 +110,7 @@ export default function Editor(){
         setQuill(q)
     }, [])
     return <>
-        <Comment quill={quill}/>
+        <Comment quill={quill} socket={socket}/>
         <div className="container" ref = {wrapperRef}>
         </div>
     </> 

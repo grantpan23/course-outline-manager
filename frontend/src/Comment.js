@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from 'react-router-dom';
+
+import {io} from 'socket.io-client'
 import Quill from "quill";
 
 export default function Comment(props) {
     // const [commentQuill, setCommentQuill] = useState(null);
     const [metaData, setMetaData] = useState([]);
+    const {socket} = props;
 
     const handleCommentButtonClick = () => {
-
         const promptText = window.prompt("Please enter Comment", "");
         if (!promptText) {
             console.log("User cancelled the prompt.");
@@ -61,7 +64,9 @@ export default function Comment(props) {
     };
 
     // Save Version
-    const handleSaveButtonClick = (event) => {
+    const handleSaveButtonClick = () => {    
+        socket.emit("save-document", props.quill.getContents())
+        // console.log(props.quill.getContents());
         alert("save version")
     }
 
@@ -69,8 +74,8 @@ export default function Comment(props) {
         <div className="row">
             <div className="col-md-9">
                 <div className="standalone-container">
-                    {/* COMMENT / JUSTIFICATION */}
                     <div id="custom-toolbar" className="ql-toolbar ql-snow">
+                        {/* COMMENT / JUSTIFICATION */}
                         <button type="button" id="comment-button" onClick={handleCommentButtonClick} style={{ width: '60px', color: 'red' }}>Comment</button>
                     </div>
 
