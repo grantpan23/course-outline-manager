@@ -13,8 +13,8 @@ function courseOutlineHome() {
     <Link to= "/create"> 
       <button style={format} onclick> Create new course outline</button>
       </Link>
-      <Link to= ""> 
-      <button style={format} onclick>Use past course outline</button>
+      <Link to= "/rubric"> 
+      <button style={format} onclick>View CEAB Graduate Attribute Generic Rubric</button>
       </Link>
       
      </div>

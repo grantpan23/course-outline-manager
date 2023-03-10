@@ -32,8 +32,10 @@ function App() {
       <Route path= "/home" element={<Home />} />
       <Route path= "/courseOutlineHome" element={<CourseOutlineHome />} />
       <Route path="/create" element={<Navigate to={`/documents/${uuidV4()}`} />}/>
+      <Route path="/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />}/>
       <Route path= "/assign-instructor" element={<AssignInstructor />} />
       <Route path="/documents/:id" element={<Editor/>}/>
+      //add
       <Route path= "/instructorhistory" element={<InstructorHistory />} />
 
       </Routes>

@@ -5,31 +5,17 @@ import ReactQuill, { Quill } from "react-quill-with-table";
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import Comment from './Comment';
-import * as quillBetterTable from 'quill-better-table';
+// import * as quillBetterTable from 'quill-better-table';
 import "react-quill-with-table/dist/quill.snow.css";
-import "quill-better-table/dist/quill-better-table.css";
-import {} from "stylis-plugin-rtl"
+// import "quill-better-table/dist/quill-better-table.css";
 
 
-Quill.register({
-      'modules/better-table': quillBetterTable
-    }, true);
+// Quill.register({
+//       'modules/better-table': quillBetterTable
+//     }, true);
 
 
 const SAVE_INTERVAL_MS =2000;
-const TOOLBAR_OPTIONS = [
- [{header :[1,2,3,4,5,6,false]}],
- [{font: []}],
- [{list: "ordered"}, {list: "bullet"}],
- ["bold", "italic", "underline"],
- [ {color :[] }, {background: [] }],
- [{script : "sub"}, {script : "super"}],
- [{align : []}],
- ["image", "blockquote", "code-block"],
- ["clean"],
-
- ,
-]
 
 export default function Editor(){
     const reactQuillRef = useRef(null); 
@@ -37,19 +23,6 @@ export default function Editor(){
     const [socket, setSocket] = useState()
     const [quill, setQuill] = useState()
     console.log(documentId);
-
-    //whenever we call the insert table function we are using the insert table method provided by quill libary and applying it to this editor
-    
-
-    
-// this is not working rn, but I'll try and fix it for a later sprint -Tife
-    // useEffect(() => {
-    //     const editor = reactQuillRef.current.getEditor();
-    //     const toolbar = editor.getModule("toolbar");
-    //     toolbar.addHandler("table", () => {
-    //       insertTable(); // when we click table button on the toolbar, overide current behaviour with that specified in the provided function
-    //     });
-    // }, []);
 
     useEffect(() => {
         const s = (io("http://localhost:4000"))
@@ -141,9 +114,9 @@ export default function Editor(){
                   }
              }
             },
-            keyboard: {
-                bindings: quillBetterTable.keyboardBindings
-            },
+            // keyboard: {
+            //     bindings: quillBetterTable.keyboardBindings
+            // },
             toolbar : 
             {
                 container: [
@@ -157,7 +130,7 @@ export default function Editor(){
                     [{align : []}],
                     ["image", "blockquote", "code-block"],
                     ["clean"], 
-                    ['table'],
+                    // ['table'],
                 ],
                    handlers: {
                       'tableD': () => {
@@ -184,7 +157,8 @@ export default function Editor(){
         <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.0-dev.3/quill.min.js" type="text/javascript"></script>
         <Comment quill={quill}/>
         <div className="container" ref = {wrapperRef}>
-       
         </div>
+        
+    
     </> 
 }
