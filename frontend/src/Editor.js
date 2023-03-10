@@ -105,15 +105,15 @@ export default function Editor(){
         const q = new Quill(editor, { ref: {reactQuillRef}, theme : "snow", 
         modules:{
             table: true,
-            'better-table': {
-                operationMenu: {
-                  items: {
-                    unmergeCells: {
-                      text: 'Another unmerge cells name'
-                    }
-                  }
-             }
-            },
+            // 'better-table': {
+            //     operationMenu: {
+            //       items: {
+            //         unmergeCells: {
+            //           text: 'Another unmerge cells name'
+            //         }
+            //       }
+            //  }
+            // },
             // keyboard: {
             //     bindings: quillBetterTable.keyboardBindings
             // },
@@ -132,14 +132,14 @@ export default function Editor(){
                     ["clean"], 
                     ['table'],
                 ],
-                   handlers: {
-                      'tableD': () => {
-                        const t = q.getModule('better-table')
-                        t.insertTable(3,3)
-                        console.log('click')
-                        console.log(t)
-                      }
-                    }
+                //    handlers: {
+                //       'tableD': () => {
+                //         const t = q.getModule('better-table')
+                //         t.insertTable(3,3)
+                //         console.log('click')
+                //         console.log(t)
+                //       }
+                //     }
             
         }
         } })
