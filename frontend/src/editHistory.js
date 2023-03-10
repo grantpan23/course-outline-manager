@@ -46,10 +46,10 @@ export default function InstructionHistory() {
 
   <tr>
    
-    <th>User: </th>
-    <th>Activity: </th>
-    <th>Document: </th>
-    <th>Time Stamp: </th>
+    <th>User </th>
+    <th>Activity </th>
+    <th>Document </th>
+    <th>Time Stamp </th>
   </tr>
   </thead>
 
