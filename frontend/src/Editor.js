@@ -79,58 +79,19 @@ export default function Editor() {
 
     }, [socket, quill, documentId])
 
-<<<<<<< HEAD
     // useEffect(() => {
     //     if (socket == null || quill == null) return 
-=======
-    useEffect(() => {
-        if (socket == null || quill == null) return
->>>>>>> 9bb12d3cd3b930651849e29912502beebd098b8d
 
     //     const interval = setInterval(() => {
 
     //         socket.emit("save-document", quill.getContents())
     //     }, SAVE_INTERVAL_MS)
 
-<<<<<<< HEAD
-        
     //     return () => {
     //         clearInterval(interval)
     //     }
 
     // },[socket, quill])
-=======
-        // const recordEdit = async () => {
-        //     try {
-        //         await fetch(`/api/edits/edit/${documentId}`, {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //         })
-        //         .then(async res => {
-        //             if (res.ok) {
-        //                 let data = await res.json();
-        //                 alert(`check`);
-        //             }
-        //             else {
-        //                 let data = res.json();
-        //                 alert('Unsuccessful')
-        //             }
-        //         });
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // }
-
-        return () => {
-            console.log(new Date().toISOString());
-            // recordEdit();
-            clearInterval(interval)
-        }
-
-    }, [socket, quill, documentId])
->>>>>>> 9bb12d3cd3b930651849e29912502beebd098b8d
 
     const wrapperRef = useCallback((wrapper) => {
         if (wrapper == null) return
