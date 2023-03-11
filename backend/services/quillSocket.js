@@ -21,8 +21,10 @@ function initSocket(server) {
         socket.broadcast.to(documentId).emit("receive-changes", delta);
       });
 
-      socket.on("save-document", async (data) => {
-        await Document.findByIdAndUpdate(documentId, { data });
+      socket.on("save-document", async (document) => {
+        // const data = document.data
+        // const metadata = document.metadata
+        await Document.findByIdAndUpdate(documentId, document);
       });
     });
   });
