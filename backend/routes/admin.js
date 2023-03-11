@@ -9,6 +9,7 @@ const Schemas = require('../models/schemas.js');
 
 const Course = Schemas.Course;
 const User = Schemas.User;
+const EditHistory = Schemas.EditHistory;
 
 //import middleware
 router.use(express.json());
@@ -20,6 +21,40 @@ router.use(helpers.authenticateToken);
 router.use(helpers.authenticateAdmin);
 
 //routes
+
+//admin
+
+//Edit History Routes
+router
+    .route('/activity')
+    .post  (async(req,res) => {
+            
+    const newChange = new EditHistory({
+        userID: req.body.userID,
+        timeStamp:req.body.timeStamp,
+        activity: req.body.activity,
+        doc: req.body.docID
+       
+    })
+
+    await newChange.save((err) => {
+        if(err){
+            return res.status(500).send(err);
+        } else {
+            return res.json(newChange);
+        }
+    })
+})
+.get((req,res) => {
+    EditHistory.find({}, (err,data) => {
+        if(err){
+            return res.status(500).send(err);
+        } else {
+            const editHistory = data;
+            return res.json(editHistory);
+        }
+    })
+})
 
 //instructor routes
 router

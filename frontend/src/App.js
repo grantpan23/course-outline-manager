@@ -6,6 +6,7 @@ import CourseOutlineHome from "./courseOutlineHome";
 import Login from "./login";
 import AssignInstructor from "./assignInstructor";
 import InstructorHistory from "./instructorHistory"
+import EditHistory from "./editHistory"
 
 
 import {  
@@ -35,6 +36,7 @@ function App() {
       <Route path= "/assign-instructor" element={<AssignInstructor />} />
       <Route path="/documents/:id" element={<Editor/>}/>
       <Route path= "/instructorhistory" element={<InstructorHistory />} />
+      <Route path= "/edithistory" element={<EditHistory />} />
 
       </Routes>
       
