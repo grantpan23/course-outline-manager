@@ -96,8 +96,8 @@ export default function Comment(props) {
 
     // Save Version
     const handleSaveButtonClick = () => {    
-        //socket.emit("save-document", props.quill.getContents())
-        // console.log(props.quill.getContents());
+        socket.emit("save-document", props.quill.getContents())
+         console.log(props.quill.getContents());
 
        
 
