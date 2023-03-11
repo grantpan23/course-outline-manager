@@ -5,6 +5,7 @@ import Quill from "quill"
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import Comment from './Comment';
+// import {drawComments} from './Comment';
 
 const SAVE_INTERVAL_MS =2000;
 const TOOLBAR_OPTIONS = [
@@ -76,6 +77,11 @@ export default function Editor(){
             quill.enable()
         })
         socket.emit('get-document', documentId)
+
+        socket.on("load-document", (documentData) => {
+            // drawComments(documentData.metadata);
+            // console.log(documentData.metadata);
+          });
 
     },[socket, quill, documentId])
 

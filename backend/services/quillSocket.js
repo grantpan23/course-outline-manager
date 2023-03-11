@@ -22,8 +22,6 @@ function initSocket(server) {
       });
 
       socket.on("save-document", async (document) => {
-        // const data = document.data
-        // const metadata = document.metadata
         await Document.findByIdAndUpdate(documentId, document);
       });
     });
