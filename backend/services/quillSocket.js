@@ -36,7 +36,7 @@ async function findOrCreateDocument(id) {
   if (document) return document;
 
   
-  const template = await Document.findById('1a409604-0d03-4857-82f1-45e0c10852f0');
+  const template = await Document.findById('1d95c4b1-7381-44e1-9fbd-39138db53f2a');
   return await Document.create({_id : id, data: template.data})
 
 }
