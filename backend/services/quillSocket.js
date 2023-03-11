@@ -22,7 +22,7 @@ function initSocket(server) {
       });
 
       socket.on("save-document", async (data) => {
-        await Document.findByIdAndUpdate(documentId, data);
+        await Document.findByIdAndUpdate(documentId, { data });
       });
     });
   });
