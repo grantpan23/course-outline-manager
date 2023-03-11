@@ -27,6 +27,7 @@ export default function Comment(props) {
                 props.quill.formatText(range.index, range.length, {
                     background: "#fff72b"
                 });
+                // highlight
                 drawComments(newMetaData);
             }
         } else {
@@ -63,8 +64,12 @@ export default function Comment(props) {
     };
 
     // Save Version
-    const handleSaveButtonClick = () => {    
-        socket.emit("save-document", props.quill.getContents())
+    const handleSaveButtonClick = () => {
+        const ops = props.quill.getContents().ops;
+        const document = {ops, metadata: metaData}; 
+        console.log(document);
+
+        socket.emit("save-document", document)
         // console.log(props.quill.getContents());
         alert("save version")
     }
