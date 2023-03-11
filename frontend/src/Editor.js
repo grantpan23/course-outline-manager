@@ -1,10 +1,13 @@
 import React from 'react'
 import { useCallback, useEffect, useState, useRef, useMemo } from 'react'
 import { useParams } from 'react-router-dom';
-import ReactQuill, { Quill } from "react-quill-with-table";
+import ReactQuill, { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import Comment from './Comment';
+// import * as quillBetterTable from 'quill-better-table';
+import "react-quill-with-table/dist/quill.snow.css";
+// import "quill-better-table/dist/quill-better-table.css";
 
 
 // Quill.register({
@@ -103,7 +106,7 @@ export default function Editor(){
         
         const q = new Quill(editor, { ref: {reactQuillRef}, theme : "snow", 
         modules:{
-            table: true,
+            // table: true,
             // 'better-table': {
             //     operationMenu: {
             //       items: {
@@ -129,7 +132,7 @@ export default function Editor(){
                     [{align : []}],
                     ["image", "blockquote", "code-block"],
                     ["clean"], 
-                    ['table'],
+                    // ['table'],
                 ],
                 //    handlers: {
                 //       'tableD': () => {
