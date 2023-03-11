@@ -16,7 +16,6 @@ function courseOutlineHome() {
     );
 }
       const format={
-       // padding: '150px 150px',
         width: '500px',
         height: '500px',
         borderRadius: '75px',
