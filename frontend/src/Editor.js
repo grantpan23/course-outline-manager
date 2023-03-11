@@ -5,13 +5,7 @@ import ReactQuill, { Quill } from "react-quill-with-table";
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import Comment from './Comment';
-<<<<<<< HEAD
 // import {drawComments} from './Comment';
-=======
-// import * as quillBetterTable from 'quill-better-table';
-import "react-quill-with-table/dist/quill.snow.css";
-// import "quill-better-table/dist/quill-better-table.css";
->>>>>>> 565d5989cb61dccf6c98074dc60e478b6c667a08
 
 
 // Quill.register({
@@ -80,14 +74,11 @@ export default function Editor(){
         })
         socket.emit('get-document', documentId)
 
-<<<<<<< HEAD
         socket.on("load-document", (documentData) => {
             // drawComments(documentData.metadata);
             // console.log(documentData.metadata);
           });
 
-=======
->>>>>>> 565d5989cb61dccf6c98074dc60e478b6c667a08
     },[socket, quill, documentId])
 
     useEffect(() => {

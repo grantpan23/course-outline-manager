@@ -8,7 +8,6 @@ export default function Comment(props) {
     const {id: documentId} = useParams();
     const [metaData, setMetaData] = useState([]);
     const {socket} = props;
-    const { id: documentId } = useParams();
 
     const saveEditHistory = async (UID, doc) => {
         const today = new Date()
@@ -95,7 +94,6 @@ export default function Comment(props) {
     };
 
     // Save Version
-<<<<<<< HEAD
     const handleSaveButtonClick = () => {
         const ops = props.quill.getContents().ops;
         const document = {ops, metadata: metaData}; 
@@ -103,16 +101,6 @@ export default function Comment(props) {
 
         socket.emit("save-document", document)
         // console.log(props.quill.getContents());
-=======
-    const handleSaveButtonClick = () => {    
-        socket.emit("save-document", props.quill.getContents())
-         console.log(props.quill.getContents());
-
-       
-
-        saveEditHistory("gpan7", "doc");
-
->>>>>>> 565d5989cb61dccf6c98074dc60e478b6c667a08
         alert("save version")
     }
 
