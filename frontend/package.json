@@ -8,11 +8,8 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.3",
     "firebase": "^9.16.0",
-<<<<<<< HEAD
     "mongoose": "^7.0.1",
-=======
     "html-to-react": "^1.5.0",
->>>>>>> 565d5989cb61dccf6c98074dc60e478b6c667a08
     "ngx-quill": "^20.0.1",
     "quill": "^1.3.7",
     "quill-better-table": "^1.2.10",
