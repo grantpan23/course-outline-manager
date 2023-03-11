@@ -5,7 +5,6 @@ import ReactQuill, { Quill } from "react-quill-with-table";
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import Comment from './Comment';
-// import {drawComments} from './Comment';
 
 
 // Quill.register({
@@ -22,6 +21,7 @@ export default function Editor(){
     const [quill, setQuill] = useState()
     console.log(documentId);
 
+    
     useEffect(() => {
         const s = (io("http://localhost:4000"))
         setSocket(s)
@@ -31,6 +31,7 @@ export default function Editor(){
         }
 
     }, [])
+    console.log(socket);
 
     //sending text
     useEffect(() => {
@@ -73,11 +74,6 @@ export default function Editor(){
             quill.enable()
         })
         socket.emit('get-document', documentId)
-
-        socket.on("load-document", (documentData) => {
-            // drawComments(documentData.metadata);
-            // console.log(documentData.metadata);
-          });
 
     },[socket, quill, documentId])
 

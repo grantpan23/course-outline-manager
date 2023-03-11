@@ -5,7 +5,6 @@ import {io} from 'socket.io-client'
 import Quill from "quill";
 
 export default function Comment(props) {
-    const {id: documentId} = useParams();
     const [metaData, setMetaData] = useState([]);
     const {socket} = props;
 
@@ -86,6 +85,8 @@ export default function Comment(props) {
         });
     };
 
+    // THIS CURRENTLY DOES NOT GET SAVED
+    // AND CLICK DOES NOT FUNCTION AS WELL
     const handleCommentLinkClick = (event) => {
         const index = event.currentTarget.dataset.index;
         console.log("comment link called", index);
@@ -103,15 +104,6 @@ export default function Comment(props) {
         // console.log(props.quill.getContents());
         alert("save version")
     }
-
-    // socket.emit("get-document", documentId)
-    // socket.on("load-document", (documentData) => {
-    //     // do something with the document data
-    //     console.log("hi");
-    // });
-
-    // Call to load metadata
-    // 
 
     return <>
         <div className="row">
