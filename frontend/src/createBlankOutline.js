@@ -13,6 +13,6 @@ export default function CreateBlankOutline(){
 
     }, [])
     
-
+// add print functionality
     return <h1>Redirect</h1>
 }
