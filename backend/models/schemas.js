@@ -39,10 +39,10 @@ const documentSchema = new Schema({
 })
 
 const editHistorySchema = new Schema ({
-  userID:{type:String,required:true},
-  timeStamp:{type:Date,required:true,unique:true},
-  activity:{type:String,required:true},
-  docID:{type:String,required:true,unique:true},
+  userID:  String,
+  timeStamp: String,
+  activity: String,
+  docID: String
 })
 
 const editSchema = new Schema({

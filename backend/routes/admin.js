@@ -27,7 +27,7 @@ router.use(helpers.authenticateAdmin);
 //Edit History Routes
 router
     .route('/activity')
-    .post((req,res) => {
+    .post  (async(req,res) => {
             
     const newChange = new EditHistory({
         userID: req.body.userID,
@@ -37,7 +37,7 @@ router
        
     })
 
-    newChange.save((err) => {
+    await newChange.save((err) => {
         if(err){
             return res.status(500).send(err);
         } else {
