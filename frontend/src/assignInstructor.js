@@ -23,7 +23,7 @@ const AssignInstructor = () => {
   }, []);
 
   const popInstructors = async () => {
-    fetch(`/api/admin/gpan7/users/instructors`,
+    fetch(`https://server-dot-course-outline-manager-379502.nn.r.appspot.com/api/admin/gpan7/users/instructors`,
       {
         method: 'GET',
         headers: {
@@ -41,7 +41,7 @@ const AssignInstructor = () => {
 
   // Needs to have dynamic checking of admin (change URL 'test admin' + authorizaiton + use of jwt)
   const popCourses = async () => {
-    fetch(`/api/admin/testadmin/courses`,
+    fetch(`https://server-dot-course-outline-manager-379502.nn.r.appspot.com/api/admin/testadmin/courses`,
       {
         method: 'GET',
         headers: {
@@ -78,7 +78,7 @@ const AssignInstructor = () => {
       courseCode: course
     };
     if (validAssign(instructor, course)) {
-      fetch(`/api/admin/testadmin/courses/${course}/instructors`, {
+      fetch(`https://server-dot-course-outline-manager-379502.nn.r.appspot.com/api/admin/testadmin/courses/${course}/instructors`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',

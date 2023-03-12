@@ -44,7 +44,7 @@ export default function Login() {const emailRef = useRef();
             username: emailRef.current.value,
             password: passwordRef.current.value
         }
-        const res = await fetch("api/auth/users/login", {
+        const res = await fetch("https://server-dot-course-outline-manager-379502.nn.r.appspot.com/api/auth/users/login", {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(user)
