@@ -31,4 +31,4 @@ const server = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-const io = initSocket(server);
+const io = initSocket('https://server-dot-course-outline-manager-379502.nn.r.appspot.com');

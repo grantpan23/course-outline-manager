@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const Schemas = require("../models/schemas");
+const https = require('https');
 const Document = Schemas.Document;
 const socketIO = require("socket.io");
 
 function initSocket(server) {
-  const io = socketIO(server, {
+  const io = socketIO(https.createServer().listen(server), {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "*",
       methods: ["GET", "POST"],
     },
   });
