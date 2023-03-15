@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./styles.css"
+import "./styles/styles.css"
 import {BrowserRouter } from "react-router-dom";
 
 
