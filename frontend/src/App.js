@@ -1,11 +1,11 @@
 import React from 'react'
 import Editor from "./components/Editor";
 import Home from "./pages/home";
-import CourseOutlineHome from "./courseOutlineHome";
-import Login from "./login";
-import AssignInstructor from "./assignInstructor";
-import InstructorHistory from "./instructorHistory"
-import EditHistory from "./editHistory"
+import CourseOutlineHome from "./pages/courseOutlineHome";
+import Login from "./components/login";
+import AssignInstructor from "./components/assignInstructor";
+import InstructorHistory from "./components/instructorHistory"
+import EditHistory from "./components/editHistory"
 
 
 import {  
