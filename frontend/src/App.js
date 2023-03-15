@@ -7,7 +7,6 @@ import AssignInstructor from "./components/assignInstructor";
 import InstructorHistory from "./components/instructorHistory"
 import EditHistory from "./components/editHistory"
 
-
 import {  
   Navigate,
   Link, 
