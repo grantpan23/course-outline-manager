@@ -95,7 +95,8 @@ export default function Comment(props) {
     };
 
     // Save Version
-    const handleSaveButtonClick = () => {    
+    const handleSaveButtonClick = () => {   
+        saveEditHistory("gpan7", "doc"); 
         socket.emit("save-document", props.quill.getContents())
          console.log(props.quill.getContents());
 
