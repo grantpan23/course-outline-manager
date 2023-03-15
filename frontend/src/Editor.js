@@ -5,15 +5,6 @@ import ReactQuill, { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import Comment from './Comment';
-// import * as quillBetterTable from 'quill-better-table';
-// import "react-quill-with-table/dist/quill.snow.css";
-// import "quill-better-table/dist/quill-better-table.css";
-
-
-// Quill.register({
-//       'modules/better-table': quillBetterTable
-//     }, true);
-
 
 const SAVE_INTERVAL_MS =2000;
 
@@ -36,7 +27,6 @@ export default function Editor(){
     }, [])
     console.log(socket);
 
-    //sending text
     useEffect(() => {
 
         if ( socket == null || quill == null) return
@@ -53,7 +43,6 @@ export default function Editor(){
 
     }, [socket,quill])
 
-    //receiving text 
     useEffect(() => {
 
         if ( socket == null || quill == null) return
@@ -106,19 +95,6 @@ export default function Editor(){
         
         const q = new Quill(editor, { ref: {reactQuillRef}, theme : "snow", 
         modules:{
-            // table: true,
-            // 'better-table': {
-            //     operationMenu: {
-            //       items: {
-            //         unmergeCells: {
-            //           text: 'Another unmerge cells name'
-            //         }
-            //       }
-            //  }
-            // },
-            // keyboard: {
-            //     bindings: quillBetterTable.keyboardBindings
-            // },
             toolbar : 
             {
                 container: [
@@ -132,23 +108,11 @@ export default function Editor(){
                     [{align : []}],
                     ["image", "blockquote", "code-block"],
                     ["clean"], 
-                    // ['table'],
-                ],
-                //    handlers: {
-                //       'tableD': () => {
-                //         const t = q.getModule('better-table')
-                //         t.insertTable(3,3)
-                //         console.log('click')
-                //         console.log(t)
-                //       }
-                //     }
             
+                ],
+        
         }
         } })
-        
-    
-
-        //const tableButton = document.createElement('button')
         
         q.disable();
         q.setText("Loading...")
@@ -156,7 +120,6 @@ export default function Editor(){
     }, [])
 
     return <>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.0-dev.3/quill.min.js" type="text/javascript"></script>
         <Comment quill={quill}/>
         <div className="container" ref = {wrapperRef}>
         </div>

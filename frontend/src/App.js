@@ -1,6 +1,5 @@
 import React from 'react'
 import Editor from "./Editor";
-import CreateBlankOutline from "./createBlankOutline";
 import Home from "./home";
 import CourseOutlineHome from "./courseOutlineHome";
 import Login from "./login";
