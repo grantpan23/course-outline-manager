@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import ReactQuill, { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
-import Comment from './Comment';
+import Comment from '../Comment';
 
 const SAVE_INTERVAL_MS =2000;
 
