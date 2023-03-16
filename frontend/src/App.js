@@ -24,8 +24,6 @@ function App() {
         <li><Link to= "/home"> Home </Link> </li>
         <li><Link to= "/assign-instructor"> Assign Instructor </Link> </li>
         <li><Link to= "/courseOutlineHome"> Course Outline  </Link> </li>
-        <li><Link to= "/gaPage">GA Indicator Test</Link></li>
-
       </ul>
     </nav>
     <Routes>
