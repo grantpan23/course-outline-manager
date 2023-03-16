@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function gAForm() {
+function GAForm() {
     const [KB, setKB] = useState('');
     const [PA, setPA] = useState('');
     const [I, setI] = useState('');
@@ -76,6 +76,10 @@ function gAForm() {
         setLL(event.target.value);
     };
 
+    const showAlert = () => {
+        alert(JSON.stringify(formInput));
+      };
+
     const handleFormInputChange = () => {
         setFormInput({
             "Knowledge Base": KB,
@@ -91,6 +95,7 @@ function gAForm() {
             "Economics and Project Management": EPM,
             "Life-Long Learning": LL
         });
+        showAlert();
     };
 
     const handleSubmit = (event) => {
@@ -212,4 +217,4 @@ function gAForm() {
     );
 }
 
-export default gAForm;
+export default GAForm;

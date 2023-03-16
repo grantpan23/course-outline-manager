@@ -6,6 +6,7 @@ import Login from "./login";
 import AssignInstructor from "./assignInstructor";
 import InstructorHistory from "./instructorHistory"
 import EditHistory from "./editHistory"
+import GAForm from './GASelect';
 
 
 import {  
@@ -23,6 +24,7 @@ function App() {
         <li><Link to= "/home"> Home </Link> </li>
         <li><Link to= "/assign-instructor"> Assign Instructor </Link> </li>
         <li><Link to= "/courseOutlineHome"> Course Outline  </Link> </li>
+        <li><Link to= "/gaPage">GA Indicator Test</Link></li>
 
       </ul>
     </nav>
@@ -38,7 +40,8 @@ function App() {
       //add
       <Route path= "/instructorhistory" element={<InstructorHistory />} />
       <Route path= "/edithistory" element={<EditHistory />} />
-
+      <Route path="/gaPage" element={<GAForm/>} />
+      
       </Routes>
       
 
