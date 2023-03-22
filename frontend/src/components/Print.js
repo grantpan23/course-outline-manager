@@ -1,12 +1,16 @@
-export default function Print() {
-    const printClick = () => {
-        window.print();
-    }
+import React from 'react';
+import { Link } from "react-router-dom";
+
+
+
+function Print() {
     return (
-        <button onClick={printClick}>
+        <button>
           Print
         </button>
       );
 }
+
+export default Print;
 
 
