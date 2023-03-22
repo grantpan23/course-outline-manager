@@ -4,7 +4,9 @@ import React from "react";
 function courseOutlineHome() {
 
 
-
+// THIS FILE IS DEPRACTED
+// DO NOT USE
+// TO BE DELETED
 
 
   return (
