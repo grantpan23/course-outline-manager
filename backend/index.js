@@ -4,7 +4,6 @@ const app = express();
 const cors = require ('cors');
 const port = process.env.PORT || 4000;
 const mongoose = require('mongoose');
-const initSocket = require("./services/quillSocket");
 require('dotenv/config');
 
 // setting up socket 
