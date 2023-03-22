@@ -31,8 +31,6 @@ mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology:
     console.log(err);
 })
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
-
-const io = initSocket(server);

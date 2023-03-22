@@ -1,12 +1,9 @@
 import React from 'react'
 import { useCallback, useEffect, useState, useRef, } from 'react'
 import { useParams } from 'react-router-dom';
-import ReactQuill, { Quill } from "react-quill";
+import { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
-import {io} from 'socket.io-client'
 import Comment from './Comment';
-
-const SAVE_INTERVAL_MS =2000;
 
 export default function Editor(){
     const reactQuillRef = useRef(null); 
@@ -36,79 +33,10 @@ export default function Editor(){
         body: JSON.stringify(contents)
       })
 
-      console.log(response);
-
       if(response.status != 200){
         console.log(response.error);
       }
     }
-    
-    // useEffect(() => {
-    //     const s = (io("http://localhost:4000"))
-    //     setSocket(s)
-    //     return () => {
-    //         s.disconnect()
-
-    //     }
-
-    // }, [])
-    // console.log(socket);
-
-    // useEffect(() => {
-
-    //     if ( socket == null || quill == null) return
-
-    //     const handler  = (delta, oldDelta, source) => {
-    //         if (source !== 'user') return 
-    //         socket.emit("send-changes", delta)
-    //     }
-    //     quill.on('text-change', handler)
-
-    //     return() => {
-    //         quill.off('text-change', handler)
-    //     }
-
-    // }, [socket,quill])
-
-    // useEffect(() => {
-
-    //     if ( socket == null || quill == null) return
-
-    //     const handler  = (delta, oldDelta, source) => {
-    //         quill.updateContents(delta)
-    //     }
-    //     socket.on('receive-changes', handler)
-
-    //     return() => {
-    //         socket.off('text-changes', handler)
-    //     }
-
-    // }, [socket,quill])
-
-    // useEffect(() => {
-    //     if (socket == null || quill == null) return 
-
-    //     socket.once("load-document",document => { 
-    //         quill.setContents(document)
-    //         quill.enable()
-    //     })
-    //     socket.emit('get-document', documentId)
-
-    // },[socket, quill, documentId])
-
-    // useEffect(() => {
-    //     if (socket == null || quill == null) return 
-
-    //     const interval = setInterval(() => {
-
-    //         socket.emit("save-document", quill.getContents())
-    //     }, SAVE_INTERVAL_MS)
-      
-    //     return () => {
-    //         clearInterval(interval)
-    //     }
-
-    // },[socket, quill])
 
     const wrapperRef = useCallback((wrapper) => {
         if (wrapper == null) return
