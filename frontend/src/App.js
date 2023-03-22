@@ -1,12 +1,12 @@
 import React from 'react'
-import Editor from "./Editor";
-import Home from "./home";
-import CourseHome from "./CourseHome";
-import Login from "./login";
+import Editor from "./components/Editor";
+import Home from "./pages/home";
+import CourseHome from "./pages/CourseHome";
+import Login from "./components/login";
 import AssignInstructor from "./AssignInstructor";
 import InstructorHistory from "./instructorHistory"
 import EditHistory from "./editHistory"
-import GAForm from './GASelect';
+import GAForm from './components/GASelect';
 
 
 import {
@@ -30,7 +30,7 @@ function App() {
         {/* ***INSTRUCTOR*** */}
         <Route path="/instructor/courses" element={<CourseHome />} />
 
-        
+
         <Route path="/instructor/courses/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
         <Route path="/documents/:id" element={<Editor />} />
 
@@ -41,13 +41,15 @@ function App() {
 
 
 
-        {/* ***ADMIN*** */}
+        {/* ***DEPARTMENT ADMINISTRATOR*** */}
         <Route path="/assign-instructor" element={<AssignInstructor />} />
         <Route path="/instructorhistory" element={<InstructorHistory />} />
         <Route path="/edithistory" element={<EditHistory />} />
         <Route path="/gaPage" element={<GAForm />} />
 
-        {/* ***REVIEWER*** */}
+        {/* ***PROGRAM DIRECTOR (can't see see course outline history)*** */}
+
+        {/* ***DEPARTMENT CHAIR*** */}
 
 
       </Routes>
