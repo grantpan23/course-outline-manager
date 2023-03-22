@@ -3,7 +3,7 @@ import {Form, Button, Card, Alert} from 'react-bootstrap'
 import {Link, useNavigate} from "react-router-dom";
 
 let route = `localhost:4000/`
-
+// require("dotenv").config();
 
 
 
@@ -56,7 +56,8 @@ export default function Login() {const emailRef = useRef();
             //handle error
         }
 
-        //nav to somewhere
+        //nav to somewhere, save jwt to localStorage
+        localStorage.setItem("token", "Bearer " + data.accessToken)
         history("/home")
     }
   
