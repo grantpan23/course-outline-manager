@@ -100,8 +100,19 @@ function GAForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Do something with the form data here
         handleFormInputChange();
+
+        //make a post request to send this info to back end
+        fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/activity`, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NjQ5NTk0OH0.LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0',
+              'Content-type': 'application/json'
+            
+            },
+            body: JSON.stringify(obj)
+           
+          })
     };
 
     return (
