@@ -12,12 +12,14 @@ require('dotenv/config');
 //import routes
 const admin = require('./routes/admin');
 const auth = require('./routes/auth');
+const documents = require('./routes/documents');
 // const edits = require('./routes/edits');
 
 //middleware
 app.use(cors());
 app.use('/api/admin/:adminUser', admin);
 app.use('/api/auth', auth);
+app.use('/api/documents', documents);
 // app.use('/api/edits', edits);
 
 //DB Connection
@@ -29,8 +31,6 @@ mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology:
     console.log(err);
 })
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
-
-const io = initSocket(server);
