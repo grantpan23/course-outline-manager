@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
 import Comment from './Comment';
+import NavBar from './NavBar';
+import { Link } from 'react-router-dom';
 
 export default function Editor(){
     const reactQuillRef = useRef(null); 
@@ -63,15 +65,23 @@ export default function Editor(){
                 ],
         }
         }})
-        
+       
         q.disable();
         q.setText("Loading...")
         setQuill(q)
     }, [])
 
-    return <>
-        <Comment quill={quill}/>
-        <button onClick = {saveDocument}>Save</button>
-        <div className="container" ref = {wrapperRef}/>
-    </> 
-}
+    return (
+        <>
+            <NavBar></NavBar>
+            <div id="nav-buttons">
+                <button className='btn btn-danger'><Link to="/instructor/courses"> Discard </Link></button>
+                <button className='btn btn-success'>  Submit  </button>
+            </div>
+            <Comment quill={quill} />
+            <button onClick = {saveDocument}>Save</button>
+            <div className="container" ref={wrapperRef}>
+            </div>
+        </>
+    );
+};

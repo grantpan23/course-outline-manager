@@ -34,7 +34,7 @@ router
                 const accessToken = jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET);
 
                 // jwt stored in httpOnly cookie
-                res.cookie('token', accessToken, { httpOnly: true });
+                // res.cookie('token', accessToken, { httpOnly: true });
 
                 res.json({ accessToken: accessToken });
             } else {
