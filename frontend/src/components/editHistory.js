@@ -6,7 +6,9 @@ export default function InstructionHistory() {
 
     const [editHistory, seteditHistory] = useState([])
     const history =useNavigate()
-    const token =JSON.parse(localStorage.getItem("Token:")); 
+    const token =window.localStorage.getItem("token");
+
+    console.log(token) 
 
   
 
