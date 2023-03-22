@@ -1,6 +1,7 @@
 //express and port
 const express = require('express');
 const app = express();
+const cors = require ('cors');
 const port = process.env.PORT || 4000;
 const mongoose = require('mongoose');
 const initSocket = require("./services/quillSocket");
@@ -14,6 +15,7 @@ const auth = require('./routes/auth');
 // const edits = require('./routes/edits');
 
 //middleware
+app.use(cors());
 app.use('/api/admin/:adminUser', admin);
 app.use('/api/auth', auth);
 // app.use('/api/edits', edits);
