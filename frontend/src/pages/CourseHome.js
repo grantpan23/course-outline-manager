@@ -38,20 +38,26 @@ function CourseHome() {
                             <td>Software Eng</td>
                             <td>SE69</td>
 
-                            <td><button className='btn'><Link to="/outline/create/new">TEST NEW</Link></button></td>
+                            <td><button className='btn'><Link to="/instructor/courses/outline/create/new">TEST NEW</Link></button></td>
                             {/* THIS NEEDS TO ATTACH ITS COURSE TO THE NEWLY CREATED DOCUMENT'S OBJECT AND SENT TO DB*/}
 
                             <td>
                                 <select className='form-select'>
-                                    <option>Choose Template</option>
+                                    <option>Choose Existing</option>
                                     {/* FOLLOW ASSIGNINSTRUCTOR PARADIGM */}
                                 </select>
                             </td>
                             {/*NEEDS A SELECT TAG THAT GETS FILLED / SAME HERE */}
 
 
-                            <td><button className='btn'>TEST REVIEW</button></td>
+                            <td>TEST REVIEW STATUS</td>
                             {/* WHEN THIS BUTTON IS CLICKED, THE DOCUMENT IT IS ATTACHED TO NEEDS TO SEND ITS DATA OVER SO THE REVIEW CORRESPONDING TO IT CAN LOAD IN THE REVIEW COMPONENT */}
+                            {/* has a few different colors/text/statuses */}
+                                {/* Nothing in Review */}
+                                {/* Pending */}
+                                {/* Accepted */}
+                                {/* Rejected */}
+
                             <td><button className='btn'>TEST PRINT</button></td>
                             {/* SAME HERE */}
                         </tr>
