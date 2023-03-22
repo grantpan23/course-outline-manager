@@ -43,7 +43,7 @@ function CourseHome() {
 
                             <td>
                                 <select className='form-select'>
-                                    <option>Choose Template</option>
+                                    <option>Choose Existing</option>
                                     {/* FOLLOW ASSIGNINSTRUCTOR PARADIGM */}
                                 </select>
                             </td>
@@ -52,8 +52,12 @@ function CourseHome() {
 
                             <td>TEST REVIEW STATUS</td>
                             {/* WHEN THIS BUTTON IS CLICKED, THE DOCUMENT IT IS ATTACHED TO NEEDS TO SEND ITS DATA OVER SO THE REVIEW CORRESPONDING TO IT CAN LOAD IN THE REVIEW COMPONENT */}
-                            
-                            
+                            {/* has a few different colors/text/statuses */}
+                                {/* Nothing in Review */}
+                                {/* Pending */}
+                                {/* Accepted */}
+                                {/* Rejected */}
+
                             <td><button className='btn'>TEST PRINT</button></td>
                             {/* SAME HERE */}
                         </tr>
