@@ -8,6 +8,7 @@ function CourseHome() {
     // Call API for data
     // addTableRow()
     const [data, setData] = useState([]);
+    const token = window.localStorage.getItem("token");
 
     useEffect(() => {
         popTable();
@@ -22,12 +23,12 @@ function CourseHome() {
     }, []);
 
     const popTable = async () => {
-        fetch(process.env.REACT_APP_API_URL + `/api/admin/gpan7/courses`,
+        fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses`,
             {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NTU2NDAzN30.gaZ8CcaY_6rLyOrZ2N0zP_t8qLCACFtNb_G6HrHWwNA'
+                    'Authorization': token
                 }
             })
             .then(async (res) => {
