@@ -3,7 +3,7 @@ import Editor from "./Editor";
 import Home from "./home";
 import CourseHome from "./CourseHome";
 import Login from "./login";
-import AssignInstructor from "./assignInstructor";
+import AssignInstructor from "./AssignInstructor";
 import InstructorHistory from "./instructorHistory"
 import EditHistory from "./editHistory"
 import GAForm from './GASelect';
@@ -28,10 +28,14 @@ function App() {
         <Route path="/home" element={<Home />} />
 
         {/* ***INSTRUCTOR*** */}
-        <Route path="/courses" element={<CourseHome />} />
+        <Route path="/instructor/courses" element={<CourseHome />} />
 
+        
+        <Route path="/instructor/courses/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
         <Route path="/documents/:id" element={<Editor />} />
-        <Route path="/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
+
+
+
 
         <Route path="/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />} />
 

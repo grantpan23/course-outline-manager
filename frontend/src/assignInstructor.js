@@ -8,11 +8,11 @@ const AssignInstructor = () => {
 
   // Populate the instructors dropdown box
   // Needs to have dynamic checking of admin (change URL 'test admin' + authorizaiton + use of jwt)
-  
-  
-  //<Link to= "/pastInstructors"> 
-    //  <button style={format} onclick> View past instructors</button>
-    //  </Link>
+
+
+  // <Link to= "/pastInstructors"> 
+  //    <button style={format} onclick> View past instructors</button>
+  //    </Link>
 
   useEffect(() => {
     popInstructors();

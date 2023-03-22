@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
+import { Link } from "react-router-dom";
 
 function CourseHome() {
     // init:
     // Call API for data
     // addTableRow()
+
+    useEffect(() => {
+        popTemplates();
+    }, []);
+
+    useEffect(() => {
+        openNew();
+    }, []);
+
     return (
         <>
             <NavBar></NavBar>
@@ -24,19 +34,31 @@ function CourseHome() {
                     <tbody id="tableBody">
                         {/* <!-- Rows will be dynamically added here --> */}
                         <tr>
+                            {/* Just info here */}
                             <td>Software Eng</td>
                             <td>SE69</td>
-                            <td><button className='btn'>TEST NEW</button></td>
-                            <td><button className='btn'>TEST TEMPLATE</button></td>
+
+                            <td><button className='btn'><Link to="/outline/create/new">TEST NEW</Link></button></td>
+                            {/* THIS NEEDS TO ATTACH ITS COURSE TO THE NEWLY CREATED DOCUMENT'S OBJECT AND SENT TO DB*/}
+
+                            <td>
+                                <select className='form-select'>
+                                    <option>Choose Template</option>
+                                    {/* FOLLOW ASSIGNINSTRUCTOR PARADIGM */}
+                                </select>
+                            </td>
+                            {/*NEEDS A SELECT TAG THAT GETS FILLED / SAME HERE */}
+
+
                             <td><button className='btn'>TEST REVIEW</button></td>
+                            {/* WHEN THIS BUTTON IS CLICKED, THE DOCUMENT IT IS ATTACHED TO NEEDS TO SEND ITS DATA OVER SO THE REVIEW CORRESPONDING TO IT CAN LOAD IN THE REVIEW COMPONENT */}
                             <td><button className='btn'>TEST PRINT</button></td>
+                            {/* SAME HERE */}
                         </tr>
                     </tbody>
                 </table>
             </div>
         </>
-
-
     )
 }
 
@@ -72,6 +94,14 @@ function addTableRow(column1Value, column2Value, column3Value, column4Value) {
 
     // Append the new row to the table body
     document.getElementById('tableBody').appendChild(row);
+}
+
+function openNew() {
+
+}
+
+function popTemplates() {
+
 }
 
 export default CourseHome;
