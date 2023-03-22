@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-dom";
+import Print from "../components/Print";
 
 function CourseHome() {
     // init:
@@ -142,7 +143,7 @@ function popTemplates() {
 // {/* WHEN THIS BUTTON IS CLICKED, THE DOCUMENT IT IS ATTACHED TO NEEDS TO SEND ITS DATA OVER SO THE REVIEW CORRESPONDING TO IT CAN LOAD IN THE REVIEW COMPONENT */}
 
 
-// <td><button className='btn'>TEST PRINT</button></td>
+// <td><Print></Print></td>
 // {/* SAME HERE */}
 // </tr>
 export default CourseHome;
