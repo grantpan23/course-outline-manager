@@ -7,6 +7,7 @@ const Schemas = require('../models/schemas.js');
 const Document = Schemas.Document;
 
 router.use(express.json());
+router.use(bodyParser());
 
 router
     .route('/:documentID')
@@ -14,7 +15,10 @@ router
         const document = await findOrCreateDocument(req.params.documentID);
         res.send(document.data);
     })
-
+    .put(async (req,res) => {
+        await Document.findByIdAndUpdate(req.params.documentID, {data: req.body});
+        res.send(req.body);
+    })
 
 async function findOrCreateDocument(id) {
         if (id == null) return;

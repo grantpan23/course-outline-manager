@@ -11,7 +11,6 @@ const SAVE_INTERVAL_MS =2000;
 export default function Editor(){
     const reactQuillRef = useRef(null); 
     const {id: documentID} = useParams();
-    const [socket, setSocket] = useState()
     const [quill, setQuill] = useState()
 
     useEffect(()=>{
@@ -26,8 +25,23 @@ export default function Editor(){
       quill.setContents(data);
     }
 
-    // console.log(documentId);
+    const saveDocument = async () => {
+      const contents = quill.getContents();
+      console.log(JSON.stringify(contents));
+      const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contents)
+      })
 
+      console.log(response);
+
+      if(response.status != 200){
+        console.log(response.error);
+      }
+    }
     
     // useEffect(() => {
     //     const s = (io("http://localhost:4000"))
@@ -129,7 +143,7 @@ export default function Editor(){
 
     return <>
         <Comment quill={quill}/>
-        <div className="container" ref = {wrapperRef}>
-        </div>
+        <button onClick = {saveDocument}>Save</button>
+        <div className="container" ref = {wrapperRef}/>
     </> 
 }
