@@ -57,6 +57,7 @@ function CourseHome() {
                         </tr>
                     </thead>
                     <tbody id="tableBody">
+
                         {data.map(course => (
                             <tr key={course._id}>
                                 <td>{course.name}</td>

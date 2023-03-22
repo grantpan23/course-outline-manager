@@ -100,6 +100,8 @@ export default function Comment(props) {
         const document = {ops, metadata: metaData}; 
         console.log(document);
 
+        saveEditHistory("testAdmin","currentDoc")
+
         socket.emit("save-document", document)
         // console.log(props.quill.getContents());
         alert("save version")
