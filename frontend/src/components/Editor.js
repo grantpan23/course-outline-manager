@@ -6,7 +6,7 @@ import "quill/dist/quill.snow.css"
 import { io } from 'socket.io-client'
 import Comment from './Comment';
 import NavBar from './NavBar';
-
+import { Link } from 'react-router-dom';
 const SAVE_INTERVAL_MS = 2000;
 
 export default function Editor() {
@@ -125,11 +125,13 @@ export default function Editor() {
     return (
         <>
             <NavBar></NavBar>
+            <div id="nav-buttons">
+                <button className='btn btn-danger'><Link to="/instructor/courses"> Discard </Link></button>
+                <button className='btn btn-success'>  Submit  </button>
+            </div>
             <Comment quill={quill} />
             <div className="container" ref={wrapperRef}>
             </div>
-
-
         </>
     );
 };
