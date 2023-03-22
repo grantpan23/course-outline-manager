@@ -1,13 +1,14 @@
-import React from 'react'
-import { Link} from "react-router-dom";
+import React from 'react';
+import NavBar from '../components/NavBar';
 
 export default function Home() {
 
-    return(
+    return (
         <>
-        {/* change this based on role */}
-       <h1> Welcome to your Course Outline Manager </h1>
-       </>
+            <NavBar></NavBar>
+            {/* change this based on role */}
+            <h1> Suh bih </h1>
+        </>
     )
-    
+
 }

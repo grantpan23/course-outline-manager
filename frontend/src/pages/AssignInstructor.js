@@ -8,11 +8,11 @@ const AssignInstructor = () => {
 
   // Populate the instructors dropdown box
   // Needs to have dynamic checking of admin (change URL 'test admin' + authorizaiton + use of jwt)
-  
-  
-  //<Link to= "/pastInstructors"> 
-    //  <button style={format} onclick> View past instructors</button>
-    //  </Link>
+
+
+  // <Link to= "/pastInstructors"> 
+  //    <button style={format} onclick> View past instructors</button>
+  //    </Link>
 
   useEffect(() => {
     popInstructors();
@@ -23,7 +23,7 @@ const AssignInstructor = () => {
   }, []);
 
   const popInstructors = async () => {
-    fetch(`/api/admin/gpan7/users/instructors`,
+    fetch(process.env.REACT_APP_API_URL + `/api/admin/gpan7/users/instructors`,
       {
         method: 'GET',
         headers: {
@@ -41,7 +41,7 @@ const AssignInstructor = () => {
 
   // Needs to have dynamic checking of admin (change URL 'test admin' + authorizaiton + use of jwt)
   const popCourses = async () => {
-    fetch(`/api/admin/testadmin/courses`,
+    fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses`,
       {
         method: 'GET',
         headers: {
@@ -78,7 +78,7 @@ const AssignInstructor = () => {
       courseCode: course
     };
     if (validAssign(instructor, course)) {
-      fetch(`/api/admin/testadmin/courses/${course}/instructors`, {
+      fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses/${course}/instructors`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',

@@ -3,7 +3,7 @@ import {Form, Button, Card, Alert} from 'react-bootstrap'
 import {Link, useNavigate} from "react-router-dom";
 
 let route = `localhost:4000/`
-
+// require("dotenv").config();
 
 
 
@@ -18,7 +18,7 @@ export default function Login() {const emailRef = useRef();
 
 //   function login(email, password){
 //     try{
-//         fetch(route+`api/auth/login`, {
+//         fetch(process.env.REACT_APP_API_URL + route+`api/auth/login`, {
 //             method: "POST",
 //             headers: {'Content-type': 'application/json'},
 //             body: {
@@ -38,13 +38,13 @@ export default function Login() {const emailRef = useRef();
 // }
    
     // LOGIN ANDY ADDED
-    // note: don't need to use .then when using async/await. should be const res = await fetch()...
+    // note: don't need to use .then when using async/await. should be const res = await fetch(process.env.REACT_APP_API_URL + )...
     const login = async () => {
         const user = {
             username: emailRef.current.value,
             password: passwordRef.current.value
         }
-        const res = await fetch("api/auth/users/login", {
+        const res = await fetch(process.env.REACT_APP_API_URL + "/api/auth/users/login", {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(user)
@@ -56,7 +56,8 @@ export default function Login() {const emailRef = useRef();
             //handle error
         }
 
-        //nav to somewhere
+        //nav to somewhere, save jwt to localStorage
+        localStorage.setItem("token", "Bearer " + data.accessToken)
         history("/home")
     }
   
