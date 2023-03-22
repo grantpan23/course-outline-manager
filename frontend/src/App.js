@@ -3,9 +3,9 @@ import Editor from "./components/Editor";
 import Home from "./pages/home";
 import CourseHome from "./pages/CourseHome";
 import Login from "./components/login";
-import AssignInstructor from "./AssignInstructor";
-import InstructorHistory from "./instructorHistory"
-import EditHistory from "./editHistory"
+import AssignInstructor from "./pages/AssignInstructor";
+import InstructorHistory from "./pages/instructorHistory"
+import EditHistory from "./components/editHistory"
 import GAForm from './components/GASelect';
 
 
