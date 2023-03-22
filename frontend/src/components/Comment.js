@@ -7,6 +7,8 @@ import Quill from "quill";
 export default function Comment(props) {
     const [metaData, setMetaData] = useState([]);
     const {socket} = props;
+    const token =window.localStorage.getItem("token");
+
 
     const saveEditHistory = async (UID, doc) => {
         const today = new Date().toLocaleString("en-US", {timeZone: "America/New_York"})
@@ -18,10 +20,10 @@ export default function Comment(props) {
         }
         console.log(obj);
        
-          fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/activity`, {
+          fetch(process.env.REACT_APP_API_URL + `/api/instructor/activity`, {
             method: 'POST',
             headers: {
-                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NjQ5NTk0OH0.LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0',
+                'Authorization': token,
               'Content-type': 'application/json'
             
             },
