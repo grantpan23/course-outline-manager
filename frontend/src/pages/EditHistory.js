@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar';
 
 export default function InstructionHistory() {
 
-  const [courses, setCourses] = useState([])
+  const [editHistory, seteditHistory] = useState([])
   const history = useNavigate()
 
 
@@ -15,9 +15,9 @@ export default function InstructionHistory() {
 
   useEffect(() => {
 
-    const getCourses = async () => {
+    const geteditHistorys = async () => {
 
-      fetch("/api/admin/testadmin/courses", {
+      fetch("/api/admin/testadmin/activity", {
         method: 'GET',
         headers: {
           'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NjQ5NTk0OH0.LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0',
@@ -29,19 +29,20 @@ export default function InstructionHistory() {
             const data = await res.json();
 
             console.log(data);
-            setCourses(data)
+            seteditHistory(data)
+
 
           }
         })
     }
 
-    getCourses()
+    geteditHistorys()
   }, [])
   return (
     <>
       <NavBar></NavBar>
       <div>
-        <h1>Courses and Past Instructors</h1>
+        <h1>Activity History</h1>
 
         <div>
           <table>
@@ -49,17 +50,23 @@ export default function InstructionHistory() {
 
               <tr>
 
-                <th>Courses: </th>
-                <th>Instructors</th>
+                <th>User </th>
+                <th>Activity </th>
+                <th>Document </th>
+                <th>Time Stamp </th>
               </tr>
             </thead>
 
             <tbody>
-              {courses.map((course) => {
+              {editHistory.map((edits) => {
                 return (
                   <tr>
-                    <td>{course.code}</td>
-                    <td>{course.instructors}</td>
+                    <td>{edits.userID}</td>
+                    <td>{edits.activity}</td>
+                    <td>{edits.docID}</td>
+                    <td>{edits.timeStamp}</td>
+
+
 
                   </tr>
                 )

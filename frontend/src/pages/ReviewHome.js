@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-import { Link } from "react-router-dom";
+// This page just has a list of reviewable documents and you can hit review to do into review mode
+import React, { useEffect, useState, ReactDOM } from 'react'
+import { useNavigate } from "react-router-dom";
+import NavBar from '../components/NavBar';
+import { Link } from 'react-router-dom';
 
-function CourseHome() {
-    // init:
-    // Call API for data
-    // addTableRow()
-
-    useEffect(() => {
-        popTemplates();
-    }, []);
-
-    useEffect(() => {
-        openNew();
-    }, []);
-
+function ReviewHome() {
     return (
         <>
             <NavBar></NavBar>
@@ -24,10 +14,10 @@ function CourseHome() {
                         <tr>
                             <th>Course ID</th>
                             <th>Course Name</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th>Course Outline</th>
+                            <th>Current Status</th>
+                            <th>Recent Author</th>
+                            <th>Original Author</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -63,47 +53,4 @@ function CourseHome() {
         </>
     )
 }
-
-
-function addTableRow(column1Value, column2Value, column3Value, column4Value) {
-    // Changes needed:
-    // - parameter is bulk data
-    // - each text content will just be a button that links
-    // - New course outline
-    // - Use existing template
-    // - See review
-    // - Print PDF
-    // (may be others)
-
-    // Create a new table row element
-    const row = document.createElement('tr');
-
-    // Create four table data elements and append them to the new row
-    const column1 = document.createElement('td');
-    const column2 = document.createElement('td');
-    const column3 = document.createElement('td');
-    const column4 = document.createElement('td');
-
-    column1.textContent = column1Value;
-    column2.textContent = column2Value;
-    column3.textContent = column3Value;
-    column4.textContent = column4Value;
-
-    row.appendChild(column1);
-    row.appendChild(column2);
-    row.appendChild(column3);
-    row.appendChild(column4);
-
-    // Append the new row to the table body
-    document.getElementById('tableBody').appendChild(row);
-}
-
-function openNew() {
-
-}
-
-function popTemplates() {
-
-}
-
-export default CourseHome;
+export default ReviewHome;

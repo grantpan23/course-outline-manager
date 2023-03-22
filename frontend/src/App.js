@@ -1,11 +1,11 @@
 import React from 'react'
 import Editor from "./components/Editor";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import CourseHome from "./pages/CourseHome";
-import Login from "./components/login";
+import Login from "./components/Login";
 import AssignInstructor from "./pages/AssignInstructor";
-import InstructorHistory from "./pages/instructorHistory"
-import EditHistory from "./components/editHistory"
+import InstructorHistory from "./pages/InstructorHistory"
+import EditHistory from "./pages/EditHistory"
 import GAForm from './components/GASelect';
 
 
@@ -15,6 +15,7 @@ import {
   Routes
 } from "react-router-dom";
 import { v4 as uuidV4 } from 'uuid'
+import ReviewHome from './pages/ReviewHome';
 
 function App() {
   return (
@@ -42,13 +43,13 @@ function App() {
 
 
         {/* ***DEPARTMENT ADMINISTRATOR*** */}
-        <Route path="/assign-instructor" element={<AssignInstructor />} />
-        <Route path="/instructorhistory" element={<InstructorHistory />} />
-        <Route path="/edithistory" element={<EditHistory />} />
+        <Route path="/admin/assign-instructor" element={<AssignInstructor />} />
+        <Route path="/admin/instructorhistory" element={<InstructorHistory />} />
+        <Route path="/admin/edithistory" element={<EditHistory />} />
         <Route path="/gaPage" element={<GAForm />} />
 
         {/* ***PROGRAM DIRECTOR (can't see see course outline history)*** */}
-
+        <Route path="/reviewer/pending" element={<ReviewHome />} />
         {/* ***DEPARTMENT CHAIR*** */}
 
 
