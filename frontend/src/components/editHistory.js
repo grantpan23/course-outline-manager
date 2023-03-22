@@ -6,6 +6,7 @@ export default function InstructionHistory() {
 
     const [editHistory, seteditHistory] = useState([])
     const history =useNavigate()
+    const token =JSON.parse(localStorage.getItem("Token:")); 
 
   
 
@@ -18,7 +19,7 @@ export default function InstructionHistory() {
 
             fetch ("/api/admin/testadmin/activity",{
                method: 'GET',
-               headers: {'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NjQ5NTk0OH0.LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0',
+               headers: {'Authorization':  token,
                'Content-type': 'application/json'}
            })
            .then(async (res) => {
