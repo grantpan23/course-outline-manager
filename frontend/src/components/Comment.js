@@ -9,7 +9,7 @@ export default function Comment(props) {
     const {socket} = props;
 
     const saveEditHistory = async (UID, doc) => {
-        const today = new Date()
+        const today = new Date().toLocaleString("en-US", {timeZone: "America/New_York"})
         const obj = {
             userID: UID,
     timeStamp:today,
