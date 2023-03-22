@@ -33,7 +33,7 @@ router
         userID: req.body.userID,
         timeStamp:req.body.timeStamp,
         activity: req.body.activity,
-        doc: req.body.docID
+        docID: req.body.docID
        
     })
 
