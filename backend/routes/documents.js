@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const Schemas = require('../models/schemas.js');
 
 const Document = Schemas.Document;
+const Course = Schemas.Course;
 
 router.use(express.json());
 router.use(bodyParser());
@@ -18,6 +19,29 @@ router
     .put(async (req,res) => {
         await Document.findByIdAndUpdate(req.params.documentID, {data: req.body});
         res.send(req.body);
+    })
+
+router
+    .route('/:courseCode/:year')
+    .get(async (req,res) => {
+        const course = await Course.findOne({code: req.params.courseCode});
+
+        if(!course.finalOutlines[req.params.year]) res.status(400).send(`Course outline with year ${req.params.year} does not exist.`);
+
+        const outline = course.finalOutlines[req.params.year];
+        res.send(outline);
+    })
+    .post(async (req,res) => {
+        //receives body with documentID
+        const document = await Document.findById(req.body.documentID);
+        const course = await Course.findOne({code: req.params.courseCode})
+
+        if(course.finalOutlines[req.params.year] != null) return res.status(400).send('Course outline for that year already exists.');
+
+        course.finalOutlines[req.params.year] = document.data;
+
+        await Course.findOneAndUpdate({code: req.params.courseCode}, course);
+        res.send(course);
     })
 
 async function findOrCreateDocument(id) {
