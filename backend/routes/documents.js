@@ -22,13 +22,47 @@ router
     })
 
 router
+    .route('/draft-outlines/:courseCode')
+    .get(async (req,res) => {
+        const course = await Course.findOne({code: req.params.courseCode});
+        if(!course) return res.status(400).send(`Course with code ${req.params.courseCode} does not exist.`);
+
+        const outlines = course.draftOutlines;
+        return res.send(outlines);
+    })
+
+router
+    .route('/draft-outlines/:courseCode/:name')
+    .get(async (req,res) => {
+        const course = await Course.findOne({code: req.params.courseCode});
+
+        if(!course.draftOutlines.has(req.params.name)) return res.status(400).send(`Course outline with that name does not exist.`);
+
+        const outline = course.draftOutlines.get(req.params.name);
+        return res.send(outline);
+    })
+    .post(async (req,res) => {
+        const course = await Course.findOne({code: req.params.courseCode});
+        const document = await Document.findById(req.body.documentID);
+
+        if(!course) return res.status(400).send(`Course with code ${req.params.courseCode} does not exist.`);
+        if(!document) return res.status(400).send('Document does not exist');
+        if(Array.from(course.draftOutlines.values()).includes(req.body.documentID)) return res.status(400).send('Draft with that documentID already exists');
+        if(course.draftOutlines.has(req.params.name)) return res.status(400).send('Draft with that name already exists');
+
+        course.draftOutlines.set(req.params.name, document._id);
+        await course.save();
+        return res.send(course);
+    })
+
+router
     .route('/final-outlines/:courseCode')
     .get(async (req,res) => {
         const course = await Course.findOne({code: req.params.courseCode});
-        if(!course) res.status(400).send(`Course with code ${req.params.courseCode} does not exist.`);
+        if(!course) return res.status(400).send(`Course with code ${req.params.courseCode} does not exist.`);
 
         const outlines = course.finalOutlines;
-        res.send(outlines);
+        return res.send(outlines);
     })
 
 router
@@ -36,23 +70,23 @@ router
     .get(async (req,res) => {
         const course = await Course.findOne({code: req.params.courseCode});
 
-        if(!course.finalOutlines.get(req.params.year)) res.status(400).send(`Course outline with year ${req.params.year} does not exist.`);
+        if(!course.finalOutlines.has(req.params.year)) return res.status(400).send(`Course outline with year ${req.params.year} does not exist.`);
 
         const outline = course.finalOutlines.get(req.params.year);
-        res.send(outline);
+        return res.send(outline);
     })
     .post(async (req,res) => {
         //receives body with documentID
         const document = await Document.findById(req.body.documentID);
-        const course = await Course.findOne({code: req.params.courseCode})
+        const course = await Course.findOne({code: req.params.courseCode});
 
-        if(course.finalOutlines.get(req.params.year) != null) return res.status(400).send('Course outline for that year already exists.');
+        if(course.finalOutlines.has(req.params.year) != null) return res.status(400).send('Course outline for that year already exists.');
         if(!document) return res.status(400).send('Document does not exist');
 
         course.finalOutlines.set(req.params.year, document._id);
 
         await course.save();
-        res.send(course);
+        return res.send(course);
     })
 
 async function findOrCreateDocument(id) {
