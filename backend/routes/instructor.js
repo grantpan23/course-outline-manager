@@ -17,18 +17,29 @@ router.use(express.json());
 router.use(bodyParser.json());
 router.use(cookieParser());
 
-//functional middleware
-router.use(helpers.authenticateToken);
-router.use(helpers.authenticateAdmin);
-
+//functional middlewar
 module.exports = router;
 
-router.route('/getGa').post(async(req,res)=> {
+router.route('/getga').post(async(req,res)=> {
 
-    const Indicators = "";
+    const knowledge = req.body.KnowledgeBase
+    const problem = req.body.ProblemAnalysis
+    const investigation= req.body.Investigation
+    const design = req.body.Design
+    const use = req.body.UseOfEngineeringTools
+    const individual = req.body.IndividualAndTeamWork
+    const communication = req.body.CommunicationSkills
+    const professionalism = req.body.Professionalism
+    const impact = req.body.ImpactOfEngineeringOnSocietyAndTheEnvironment
+    const ethics = req.body.EthicsAndEquity
+    const economics = req.body.EconomicsAndProjectManagement
+    const life =req.body.LifeLongLearning
+  
+    const gaIndicators = " KnowledgeBase: " + knowledge + "   Problem Analysis: " +  problem + "    Investigation: " + investigation 
+    + "    Design: " + design + "    Use Of EngineeringT ools: " + use + "    IndividualAndTeamWork: " + individual + "    CommunicationSkills: " 
+    + communication + "    Professionalism: " + professionalism + "   Impact Of Engineering On Society And The Environment " + impact 
+    + "    Ethics And Equity: " +  ethics + "    Economics And Project Management: " + economics + "    Life Long Learning: " + life
 
-    const result = "this is the response"
-
-    res.send(result)
+    return res.send(gaIndicators)
 
 })

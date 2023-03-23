@@ -92,8 +92,6 @@ export default function Editor() {
         const editor = document.createElement('div')
         wrapper.append(editor)
 
-
-
         const q = new Quill(editor, {
             ref: { reactQuillRef }, theme: "snow",
             modules: {

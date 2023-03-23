@@ -12,7 +12,7 @@ require('dotenv/config');
 //import routes
 const admin = require('./routes/admin');
 const auth = require('./routes/auth');
-const instructor = require('./routes/instruct')
+const instructor = require('./routes/instructor')
 // const edits = require('./routes/edits');
 
 //middleware
