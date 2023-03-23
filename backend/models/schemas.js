@@ -31,8 +31,15 @@ const courseSchema = new Schema({
         required: false,
         default:[]
       },
+    draftOutlines: {
+      type: Map,
+      of: String,
+      required: true,
+      default: {},
+    },
     finalOutlines: {
-      type: Object,
+      type: Map,
+      of: String,
       required: true,
       default: {},
     }
