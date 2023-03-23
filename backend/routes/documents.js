@@ -22,7 +22,17 @@ router
     })
 
 router
-    .route('/:courseCode/:year')
+    .route('/final-outlines/:courseCode')
+    .get(async (req,res) => {
+        const course = await Course.findOne({code: req.params.courseCode});
+        if(!course) res.status(400).send(`Course with code ${req.params.courseCode} does not exist.`);
+
+        const outlines = course.finalOutlines;
+        res.send(outlines);
+    })
+
+router
+    .route('/final-outlines/:courseCode/:year')
     .get(async (req,res) => {
         const course = await Course.findOne({code: req.params.courseCode});
 
