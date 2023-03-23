@@ -16,7 +16,7 @@ export default function Comment(props) {
         const obj = {
             userID: UID,
     timeStamp:today,
-    activity: "edited",
+    activity: "Edited",
     docID: doc
         }
         console.log(obj);
