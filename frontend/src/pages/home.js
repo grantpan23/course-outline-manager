@@ -11,7 +11,6 @@ export default function Home() {
 
             {/* change this based on role */}
             <h1> Suh bih </h1>
-            <Print></Print>
 
         </>
     )
