@@ -51,10 +51,10 @@ function CourseHome() {
                         <tr>
                             <th>Course ID</th>
                             <th>Course Name</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th>Create</th>
+                            <th>Use Old Year</th>
+                            <th>Review Status</th>
+                            <th>Print</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -68,7 +68,7 @@ function CourseHome() {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td><Print></Print></td>
                             </tr>
                         ))}
                     </tbody>
