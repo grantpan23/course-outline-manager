@@ -5,6 +5,7 @@ import { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
 import Comment from './Comment';
 import NavBar from './NavBar';
+import Print from './Print';
 import { Link } from 'react-router-dom';
 
 export default function Editor(){
@@ -82,6 +83,8 @@ export default function Editor(){
             <button onClick = {saveDocument}>Save</button>
             <div className="container" ref={wrapperRef}>
             </div>
+            <Print></Print>
+
         </>
     );
 };

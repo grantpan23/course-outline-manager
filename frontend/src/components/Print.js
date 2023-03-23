@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 
 
 function Print() {
+
+  function printPage() {
+    window.print();
+  }
     return (
-        <button>
+        <button onClick={printPage}>
           Print
         </button>
       );
