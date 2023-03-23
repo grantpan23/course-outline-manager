@@ -36,9 +36,9 @@ router
     .get(async (req,res) => {
         const course = await Course.findOne({code: req.params.courseCode});
 
-        if(!course.finalOutlines[req.params.year]) res.status(400).send(`Course outline with year ${req.params.year} does not exist.`);
+        if(!course.finalOutlines.get(req.params.year)) res.status(400).send(`Course outline with year ${req.params.year} does not exist.`);
 
-        const outline = course.finalOutlines[req.params.year];
+        const outline = course.finalOutlines.get(req.params.year);
         res.send(outline);
     })
     .post(async (req,res) => {
@@ -46,11 +46,12 @@ router
         const document = await Document.findById(req.body.documentID);
         const course = await Course.findOne({code: req.params.courseCode})
 
-        if(course.finalOutlines[req.params.year] != null) return res.status(400).send('Course outline for that year already exists.');
+        if(course.finalOutlines.get(req.params.year) != null) return res.status(400).send('Course outline for that year already exists.');
+        if(!document) return res.status(400).send('Document does not exist');
 
-        course.finalOutlines[req.params.year] = document.data;
+        course.finalOutlines.set(req.params.year, document._id);
 
-        await Course.findOneAndUpdate({code: req.params.courseCode}, course);
+        await course.save();
         res.send(course);
     })
 
