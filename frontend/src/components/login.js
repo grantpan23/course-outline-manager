@@ -15,6 +15,7 @@ export default function Login() {const emailRef = useRef();
     // LOGIN STATE ANDY ADDED
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+    
 
 //   function login(email, password){
 //     try{

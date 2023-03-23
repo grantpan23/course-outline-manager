@@ -11,6 +11,7 @@ export default function Comment(props) {
 
 
     const saveEditHistory = async (UID, doc) => {
+        console.log(token)
         const today = new Date().toLocaleString("en-US", {timeZone: "America/New_York"})
         const obj = {
             userID: UID,

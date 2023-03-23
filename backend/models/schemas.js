@@ -42,7 +42,8 @@ const editHistorySchema = new Schema ({
   userID:  String,
   timeStamp: String,
   activity: String,
-  docID: String
+  docID: String,
+
 })
 
 const editSchema = new Schema({
