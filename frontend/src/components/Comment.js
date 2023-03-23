@@ -24,8 +24,9 @@ export default function Comment(props) {
           fetch(process.env.REACT_APP_API_URL + `/api/instructor/activity`, {
             method: 'POST',
             headers: {
-                'Authorization': token,
-              'Content-type': 'application/json'
+                'Content-type': 'application/json',
+
+                'Authorization': token
             
             },
             body: JSON.stringify(obj)
