@@ -8,6 +8,8 @@ function Versions() {
                 <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
                 <button className='btn btn-success'>  Submit  </button>
             </div>
+
+            
         </>);
 }
 
