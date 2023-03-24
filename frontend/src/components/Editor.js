@@ -8,6 +8,7 @@ import NavBar from './NavBar';
 import Print from './Print';
 import { Link } from 'react-router-dom';
 
+
 export default function Editor(){
     const reactQuillRef = useRef(null); 
     const {id: documentID} = useParams();
