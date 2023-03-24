@@ -101,7 +101,7 @@ function GASelect() {
     };
 
     const handleSubmit = (event) => {
-        console.log('d')
+        console.log('d');
         event.preventDefault();
         // Do something with the form data here
         handleFormInputChange();
