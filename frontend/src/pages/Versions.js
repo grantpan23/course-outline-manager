@@ -3,7 +3,7 @@ import { useLocation, useParams, Link } from 'react-router-dom';
 import jwt from 'jwt-decode';
 import Print from '../components/Print';
 
-function Versions() {
+function Versions(props) {
     const token = window.localStorage.getItem("token");
     const location = useLocation();
 
@@ -19,13 +19,16 @@ function Versions() {
         popTable();
     }, []);
 
+    useEffect(() => {
+        buildArray();
+    }, [idData, yearData]);
+
     const verifyInstructor = (token) => {
         // can add an API to make this secure
         decodedToken = jwt(token);
     }
 
     const buildArray = () => {
-        console.log('a')
         let i = 0;
         yearData.forEach((year) => {
             let foo = {
@@ -41,7 +44,7 @@ function Versions() {
 
     const popTable = async () => {
         
-        fetch(process.env.REACT_APP_API_URL + `/api/instructor/${decodedToken.username}/final-outlines/${course.code}`,
+        const response = await fetch(process.env.REACT_APP_API_URL + `/api/instructor/${decodedToken.username}/final-outlines/${course.code}`,
             {
                 method: 'GET',
                 headers: {
@@ -49,9 +52,8 @@ function Versions() {
                     'Authorization': token
                 }
             })
-            .then(async (res) => {
-                if (res.ok) {
-                    let obj = await res.json();
+            if(response.ok){
+                    let obj = await response.json();
                     console.log(obj)
                     let ids = Object.values(obj);
                     console.log(ids)
@@ -59,12 +61,9 @@ function Versions() {
                     console.log(years)
                     setIdData(ids);
                     setYearData(years);
-                    buildArray();
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            } else {
+                console.log(response);
+            }
     }
 
     return (
@@ -91,8 +90,6 @@ function Versions() {
                                 <td></td>
 
                                 <td><Link state={doc.id} className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button id="blank" className='btn btn-primary'>Edit</button></Link></td>
-
-
                                 <td><Print></Print></td>
                             </tr>
                         ))}
