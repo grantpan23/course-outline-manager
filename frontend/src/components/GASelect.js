@@ -78,51 +78,52 @@ function GAForm() {
         setLL(event.target.value);
     };
 
-    const showAlert = () => {
-        alert(JSON.stringify(formInput));
-      };
 
     const {id: documentID} = useParams();
+
 
     const save = async () => {
 
         var quillGA = 
         [
-            {"insert" : `KnowledgeBase ${KB}`},
-            {"insert": `\n\nProblem Analysis ${PA}`},
+            {"insert" : `\n\nKnowledgeBase ${KB}`},
+            {"insert": `\n\nProblem Analysis ${PA}` },
             {"insert": `\n\nInvestigation ${I}`},
             {"insert": `\n\nDesign ${D}`},
             {"insert": `\n\nUse of EngineeringTools ${ET}`},
             {"insert": `\n\nIndividual And Team Work ${ITW}`},
             {"insert": `\n\nCommunication Skills ${CS}`},
             {"insert": `\n\nProfessionalism ${PR}`},
-            {"insert": `\n\nImpactOfEngineering on Society and the Environment ${IESE}`},
-            {"insert": `\n\nEthicsAndEquity ${EE}`},
-            { "insert": `\n\nEconomicsAndProjectManagement ${EPM}`},
+            {"insert": `\n\nImpact Of Engineering on Society and the Environment ${IESE}`},
+            {"insert": `\n\nEthics And Equity ${EE}`},
+            { "insert": `\n\nEconomics And Project Management ${EPM}`},
             {"insert": `\n\nLife-Long Learning ${LL}`}
-    ]
-            
-        
-            const existingDoc = async () => {
+        ] 
+
+        const updateDocument = async () => {
             const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`);
             const data = await document.json();
-            
-            console.log(data)
             const opsList = data.ops || data
-
             
-            //opsList.push(quillGA)
+            console.log(opsList)
             
+            let index = -1;
+            for (let i = 0; i < opsList.length; i++) {
+            if (opsList[i].insert === "General Learning Objectives (CEAB Graduate Attributes)") {
+            index = i;
+            break;
+                }
+            }
+            console.log(index)
+    
             if(quillGA.length > 0 ){
                 quillGA.forEach(element => {
-                    opsList.push(element)
+                    index = index + 1;
+                    opsList.splice(index, 1 ,element)
+                    
                 });
-
+    
             }
-            
-
-            
-            console.log(JSON.stringify(opsList))
             
             const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
             method: 'PUT',
@@ -131,30 +132,19 @@ function GAForm() {
             },
             body: JSON.stringify(opsList)
             })
-
+    
             console.log(response)
     
             if(response.status != 200){
             console.log(response.error);
             }
             
- 
-
         }
-        existingDoc()
-        //"insert" : `KnowledgeBase ${KB}`,
-        // "insert": `Investigation ${I}`,
-        // "insert": `Design ${D}`,
-        // "insert": `Use of EngineeringTools ${ET}`,
-        // "insert": `Individual And Team Work ${ITW}`,
-        // "insert": `Communication Skills ${CS}`,
-        // "insert": `Professionalism ${PR}`,
-        // "insert": `ImpactOfEngineering on Society and the Environment ${IESE}`,
-        // "insert": `EthicsAndEquity ${EE}`,
-        // "insert": `EconomicsAndProjectManagement ${EPM}`,
-        // "insert": `Life-Long Learning ${LL}`
+
+        updateDocument()
+    
        
-      }
+    }
 
 
 
