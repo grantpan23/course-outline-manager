@@ -22,4 +22,11 @@ router
         })
     })
 
+router
+    .route('/outlines/:documentID/status')
+    .put(async (req,res) => {
+        const document = await Document.findByIdAndUpdate(req.params.documentID, { status: req.body.status }, {new:true});
+        res.send(document);
+    })
+
 module.exports = router;
