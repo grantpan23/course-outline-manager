@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import NavBar from './NavBar';
+import { Link } from 'react-router-dom';
 
-function GAForm() {
+function GASelect() {
     const [KB, setKB] = useState('');
     const [PA, setPA] = useState('');
     const [I, setI] = useState('');
@@ -13,6 +15,7 @@ function GAForm() {
     const [EE, setEE] = useState('');
     const [EPM, setEPM] = useState('');
     const [LL, setLL] = useState('');
+    const [view, setView] = useState(false);
     const [formInput, setFormInput] = useState({
         "Knowledge Base": KB,
         "Problem Analysis": PA,
@@ -76,9 +79,13 @@ function GAForm() {
         setLL(event.target.value);
     };
 
+    const handleViewChange = (event) => {
+        setView(true);
+    }
+
     const showAlert = () => {
         alert(JSON.stringify(formInput));
-      };
+    };
 
     const handleFormInputChange = () => {
         setFormInput({
@@ -99,122 +106,128 @@ function GAForm() {
     };
 
     const handleSubmit = (event) => {
+        console.log('d');
         event.preventDefault();
         // Do something with the form data here
         handleFormInputChange();
     };
 
     return (
-        <div>
-            <h1>GA Indicators</h1>
-
-
-            <h2 data-attribute={"General Learning Objectives (CEAB Graduate Attributes)"}></h2>
-
-            <div>
-                <h4>Knowledge Base</h4>
-                <select value={KB} onChange={handleKBChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Problem Analysis</h4>
-                <select value={PA} onChange={handlePAChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Investigation</h4>
-                <select value={I} onChange={handleIChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Design</h4>
-                <select value={D} onChange={handleDChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Use of Engineering Tools</h4>
-                <select value={ET} onChange={handleETChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Individual and Team Work</h4>
-                <select value={ITW} onChange={handleITWChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Communication Skills</h4>
-                <select value={CS} onChange={handleCSChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Professionalism</h4>
-                <select value={PR} onChange={handlePRChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Impact on Society and the Environment</h4>
-                <select value={IESE} onChange={handleIESEChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Ethics and Equity</h4>
-                <select value={EE} onChange={handleEEChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Economics and Project Management</h4>
-                <select value={EPM} onChange={handleEPMChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
-                <h4>Life-Long Learning</h4>
-                <select value={LL} onChange={handleLLChange}>
-                    <option value="">Select Learning Objective</option>
-                    <option value="I">Introductory</option>
-                    <option value="D">Intermediate</option>
-                    <option value="A">Advanced</option>
-                </select>
-
+        <>
+            <NavBar></NavBar>
+            <div className="nav-buttons">
+                <Link className="my-link" to="/instructor/courses"><button  className='btn btn-danger'>Discard</button></Link>
+                <Link className="my-link" state={view} to="/instructor/courses/outline/rubric"><button onClick={handleViewChange} className='btn btn-secondary'>View Rubric</button></Link>
             </div>
+            <div>
+                <h1>GA Indicators</h1>
+                <h2 data-attribute={"General Learning Objectives (CEAB Graduate Attributes)"}></h2>
 
-            <form onSubmit={handleSubmit}>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+                <div>
+                    <h4>Knowledge Base</h4>
+                    <select value={KB} onChange={handleKBChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Problem Analysis</h4>
+                    <select value={PA} onChange={handlePAChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Investigation</h4>
+                    <select value={I} onChange={handleIChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Design</h4>
+                    <select value={D} onChange={handleDChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Use of Engineering Tools</h4>
+                    <select value={ET} onChange={handleETChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Individual and Team Work</h4>
+                    <select value={ITW} onChange={handleITWChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Communication Skills</h4>
+                    <select value={CS} onChange={handleCSChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Professionalism</h4>
+                    <select value={PR} onChange={handlePRChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Impact on Society and the Environment</h4>
+                    <select value={IESE} onChange={handleIESEChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Ethics and Equity</h4>
+                    <select value={EE} onChange={handleEEChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Economics and Project Management</h4>
+                    <select value={EPM} onChange={handleEPMChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                    <h4>Life-Long Learning</h4>
+                    <select value={LL} onChange={handleLLChange}>
+                        <option value="">Select Learning Objective</option>
+                        <option value="I">Introductory</option>
+                        <option value="D">Intermediate</option>
+                        <option value="A">Advanced</option>
+                    </select>
+
+                </div>
+
+                <form onSubmit={handleSubmit}>
+                    <Link to="/instructor/courses/outline/create/new" state={formInput}><button className='btn btn-success' type="submit">Submit</button></Link>
+                </form>
+            </div>
+        </>
     );
 }
 
-export default GAForm;
+export default GASelect;
