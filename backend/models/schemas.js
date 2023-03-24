@@ -45,11 +45,11 @@ const courseSchema = new Schema({
     }
 });
 
-const documentSchema = new Schema({
-  _id: String, 
-  data: Object,
-  gaIndicators: {type:Array,required:true,default:[]},
-  metadata: metadataSchema,
+const commentSchema = new Schema({
+  username: {type:String, required:false, default: ''},
+  commentText: {type:String,required:true},
+  selectedText: {type:String,required:true},
+  type:{type:String,enum: ['justification','comment']}
 })
 
 const metadataSchema = new Schema({
@@ -57,11 +57,12 @@ const metadataSchema = new Schema({
   reviewerComments: {type:Array,of:commentSchema,required:true,default:[]}
 })
 
-const commentSchema = new Schema({
-  username: {type:String, required:false, default: ''},
-  commentText: {type:String,required:true},
-  selectedText: {type:String,required:true},
-  type:{type:String,enum: ['justification','comment']}
+
+const documentSchema = new Schema({
+  _id: String, 
+  data: Object,
+  gaIndicators: {type:Array,required:true,default:[]},
+  metadata: metadataSchema,
 })
 
 const editHistorySchema = new Schema ({

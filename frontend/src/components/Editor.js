@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 export default function Editor() {
   const quillRef = useRef(null);
   const { id: documentID } = useParams();
-  const [quill, setQuill] = useState()
+  const [quill, setQuill] = useState(null);
 
   useEffect(() => {
     if (quill == null) return;
@@ -83,7 +83,10 @@ export default function Editor() {
       <button onClick={saveDocument}>Save</button>
       <div className="container" ref={wrapperRef}>
       </div>
-      <Comments documentID={documentID} quill={quill} quillRef = {quillRef}/>
+      {
+        quill &&
+        <Comments documentID={documentID} quill={quill} quillRef = {quillRef}/>
+      }
     </>
   );
 };

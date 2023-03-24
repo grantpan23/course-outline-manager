@@ -29,11 +29,44 @@ router
         return res.send(data);
     })
     .put(async (req,res) => {
-        const data = req.body.gaIndicators;
+        const data = req.body;
 
         const document = await Document.findByIdAndUpdate(req.params.documentID,{ gaIndicators: data},{new:true});
         
         return res.send(document);
+    })
+
+router
+    .route('/:documentID/comments')
+    .get(async (req,res) => {
+        const document = await Document.findById(req.params.documentID);
+        if(!document) res.status(400).send('Document does not exist');
+
+        const metadata = document.metadata;
+        return res.send(metadata);
+    })
+    .post(async (req,res) => {
+        const document = await Document.findById(req.params.documentID);
+
+        const comment = {
+            username: req.body.username,
+            commentText: req.body.commentText,
+            selectedText: req.body.selectedText
+        }
+
+        if(req.body.userRole == 'instructor'){
+            comment.type = 'justification';
+            document.metadata.instructorJustifications.push(comment);
+            document.save();
+            return res.send(document.metadata);
+        } else if(req.body.userRole == 'reviewer'){
+            comment.type = 'comment';
+            document.metadata.reviewerComments.push(comment);
+            document.save();
+            return res.send(document.metadata);
+        } else {
+            return res.status(400).send('Role is inapplicable.')
+        }
     })
 
 router
