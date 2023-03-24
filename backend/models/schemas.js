@@ -49,6 +49,19 @@ const documentSchema = new Schema({
   _id: String, 
   data: Object,
   gaIndicators: {type:Array,required:true,default:[]},
+  metadata: metadataSchema,
+})
+
+const metadataSchema = new Schema({
+  instructorJustifications: {type:Array,of:commentSchema,required:true,default:[]},
+  reviewerComments: {type:Array,of:commentSchema,required:true,default:[]}
+})
+
+const commentSchema = new Schema({
+  username: {type:String, required:false, default: ''},
+  commentText: {type:String,required:true},
+  selectedText: {type:String,required:true},
+  type:{type:String,enum: ['justification','comment']}
 })
 
 const editHistorySchema = new Schema ({
