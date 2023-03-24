@@ -50,6 +50,7 @@ const documentSchema = new Schema({
   data: Object,
   gaIndicators: {type:Object,required:true,default: {}},
   status: String,
+  author: String
 })
 
 const editHistorySchema = new Schema ({
