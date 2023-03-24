@@ -79,7 +79,8 @@ export default function Editor() {
       <div className="nav-buttons">
         <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
         <button className='btn btn-success'>  Submit  </button>
-      </div>            <Comment quill={quill} />
+      </div>            
+      <Comment quill={quill} />
       <button onClick={saveDocument}>Save</button>
       <div className="container" ref={wrapperRef}>
       </div>

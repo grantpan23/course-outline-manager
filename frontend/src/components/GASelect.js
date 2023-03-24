@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 
-function GAForm() {
+function GASelect() {
     const [KB, setKB] = useState('');
     const [PA, setPA] = useState('');
     const [I, setI] = useState('');
@@ -101,6 +101,7 @@ function GAForm() {
     };
 
     const handleSubmit = (event) => {
+        console.log('d')
         event.preventDefault();
         // Do something with the form data here
         handleFormInputChange();
@@ -111,7 +112,6 @@ function GAForm() {
             <NavBar></NavBar>
             <div className="nav-buttons">
                 <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
-                <button className='btn btn-success'>  Submit  </button>
             </div>
             <div>
                 <h1>GA Indicators</h1>
@@ -217,11 +217,11 @@ function GAForm() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <button className='btn btn-success' type="submit">Submit</button>
+                    <Link to="/instructor/courses/outline/create/new" state={formInput}><button className='btn btn-success' type="submit">Submit</button></Link>
                 </form>
             </div>
         </>
     );
 }
 
-export default GAForm;
+export default GASelect;

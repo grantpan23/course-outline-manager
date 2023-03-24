@@ -10,7 +10,7 @@ function CourseHome() {
     const [data, setData] = useState([]);
     const [status, setStatus] = useState([]);
     const [versions, setVersion] = useState([]);
-    const [selectedVersion, setSelectedVersion] = useState('');
+    const [template, setTemplate] = useState([])
     const token = window.localStorage.getItem("token");
 
     useEffect(() => {
@@ -21,10 +21,12 @@ function CourseHome() {
         popVersions();
     }, []);
 
-    const handleSelectChange = (event) => {
-        setSelectedVersion(event.target.value);
-        console.log('he')
-      }
+    const handleTemplateState = (event) => {
+        if(event.target.id == "blank")
+            setTemplate(false);
+        else if(event.target.id == "template")
+            setTemplate(true);
+    }
 
     useEffect(() => {
         openNew();
@@ -90,11 +92,11 @@ function CourseHome() {
                                 <td>{course.name}</td>
                                 <td>{course.name}</td>
 
-                                <td><Link className="my-link" to="/instructor/courses/outline/create/new"><button className='btn btn-primary'>Use Template</button></Link></td>
+                                <td><Link className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button id="blank" className='btn btn-primary'>Use Template</button></Link></td>
 
                                 <td>
                                     <div>
-                                        <Link className="my-link" to="/instructor/courses/outline/create/versions"><button className="btn btn-secondary">Use Version</button></Link>
+                                        <Link state={template} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">Use Version</button></Link>
                                     </div>
                                 </td>
 

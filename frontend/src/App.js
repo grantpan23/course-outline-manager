@@ -6,17 +6,18 @@ import Login from "./components/Login";
 import AssignInstructor from "./pages/AssignInstructor";
 import InstructorHistory from "./pages/InstructorHistory"
 import EditHistory from "./pages/EditHistory"
-import GAForm from './components/GASelect';
 import Versions from './pages/Versions';
-
-
+import GASelect from './components/GASelect';
+import ReviewHome from './pages/ReviewHome';
+import { v4 as uuidV4 } from 'uuid'
 import {
   Navigate,
   Route,
   Routes
 } from "react-router-dom";
-import { v4 as uuidV4 } from 'uuid'
-import ReviewHome from './pages/ReviewHome';
+
+
+
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
 
         {/* ***INSTRUCTOR*** */}
         <Route path="/instructor/courses" element={<CourseHome />} />
-
+        <Route path="/instructor/courses/outline/create/ga-indicators" element={<GASelect />} />
 
         <Route path="/instructor/courses/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
         
@@ -49,7 +50,7 @@ function App() {
         <Route path="/admin/assign-instructor" element={<AssignInstructor />} />
         <Route path="/admin/instructorhistory" element={<InstructorHistory />} />
         <Route path="/admin/edithistory" element={<EditHistory />} />
-        <Route path="/gaPage" element={<GAForm />} />
+        
 
         {/* ***PROGRAM DIRECTOR (can't see see course outline history)*** */}
         <Route path="/reviewer/pending" element={<ReviewHome />} />
