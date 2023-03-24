@@ -9,8 +9,8 @@ function CourseHome() {
     // addTableRow()
     const history = useNavigate();
     const [data, setData] = useState([]);
-    const [status, setStatus] = useState([]);
-    const [user, setUser] = useState([]);
+    const [status, setStatus] = useState('');
+    const [user, setUser] = useState('');
     const [template, setTemplate] = useState([])
 
     const token = window.localStorage.getItem("token");
@@ -30,8 +30,8 @@ function CourseHome() {
 
     const verifyInstructor = (token) => {
         // can add an API to make this secure
-        const publicKey = '4b1e67f6e5c8973e841ce716f89c54dec61352d07b7d552a2bd668ec4fe34dc7744223f6575d62ec870ea599c8f61548d9f189c0930c37dbde235a00ad7404ec';
         decodedToken = jwt(token);
+        console.log(decodedToken)
     }
 
     const handleTemplateState = (event) => {
@@ -101,8 +101,9 @@ function CourseHome() {
                             <tr key={course._id}>
                                 <td>{course.name}</td>
                                 <td>{course.name}</td>
-
+                                
                                 <td><Link state={course} className="my-link" to="/instructor/courses/outline/create/drafts"><button id="blank" className='btn btn-primary'>Go to new/drafts</button></Link></td>
+
 
                                 <td>
                                     <div>

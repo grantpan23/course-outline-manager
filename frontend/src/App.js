@@ -16,6 +16,7 @@ import {
   Routes
 } from "react-router-dom";
 import Drafts from './pages/Drafts';
+import Drafts from './pages/Drafts';
 
 
 
@@ -42,7 +43,7 @@ function App() {
 
 
         <Route path='/instructor/courses/outline/create/versions' element={<Versions />}/>
-        <Route path='/instructor/courses/outline/create/drafts' element={<Drafts />}/>
+        <Route path='/instructor/courses/outline/create/versions' element={<Versions />}/>
         
         <Route path="/instructor/courses/outline/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />} />
 
