@@ -9,7 +9,7 @@ function NavBar() {
           <li><Link to="/home"> Home </Link> </li>
 
           {/* ***INSTRUCTOR*** */}
-          <li><Link to="/courses">Courses</Link> </li>
+          <li><Link to="/instructor/courses">Courses</Link> </li>
 
           {/* ***ADMIN*** */}
           <li><Link to="/assign-instructor"> Assign Instructor </Link> </li>

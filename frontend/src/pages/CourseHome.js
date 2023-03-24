@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CourseHome() {
     // init:
     // Call API for data
     // addTableRow()
+    const history =useNavigate()
+
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token){
+            history("/")
+        }
         popTemplates();
     }, []);
 
