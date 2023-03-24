@@ -14,11 +14,7 @@ export default function InstructionHistory() {
       history("/")
     }
   }, []);
-
-
-
   console.log(token);
-
   useEffect(() => {
 
     const geteditHistorys = async () => {
@@ -49,13 +45,10 @@ export default function InstructionHistory() {
       <NavBar></NavBar>
       <div>
         <h1>Activity History</h1>
-
         <div>
           <table>
             <thead>
-
               <tr>
-
                 <th>User </th>
                 <th>Activity </th>
                 <th>Document </th>
@@ -66,19 +59,14 @@ export default function InstructionHistory() {
             <tbody>
               {editHistory.map((edits, index) => {
                 return (
-                  <tr key={index}>
-                    <td>{edits.userID}</td>
+                  <tr>
+                    <td>{edits.username}</td>
                     <td>{edits.activity}</td>
-                    <td>{edits.docID}</td>
+                    <td>{edits.documentID}</td>
                     <td>{edits.timeStamp}</td>
-
-
-
                   </tr>
                 )
-
               })}
-
             </tbody>
 
           </table>

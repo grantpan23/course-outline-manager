@@ -66,17 +66,10 @@ const documentSchema = new Schema({
 })
 
 const editHistorySchema = new Schema ({
-  userID: String,
-  timeStamp: String,
-  activity: String,
-  docID: String
-})
-
-const editSchema = new Schema({
-  id: String,
-  time: Date,
-  username: String,
-  document: String
+  username: {type:String,required:true},
+  timeStamp: {type:String,required:true},
+  activity: {type:String,required:true,enum: ['edited','commented']},
+  documentID: {type:String,required:true}
 })
 
   //model creations

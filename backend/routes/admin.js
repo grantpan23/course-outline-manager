@@ -26,32 +26,19 @@ router.use(helpers.authenticateAdmin);
 
 //Edit History Routes
 router
-    .route('/activity')
-    .post(async (req, res) => {
+    .route('/activity/:documentID')
+    .get((req,res) => {
+        const query = {};
 
-        const newChange = new EditHistory({
-            userID: req.body.userID,
-            timeStamp: req.body.timeStamp,
-            activity: req.body.activity,
-            docID: req.body.docID
+        if(req.params.documentID != 'all'){
+            query.documentID = req.params.documentID;
+        }
 
-        })
-
-        await newChange.save((err) => {
-            if (err) {
-                return res.status(500).send(err);
-            } else {
-                return res.json(newChange);
-            }
-        })
-    })
-    .get((req, res) => {
-        EditHistory.find({}, (err, data) => {
-            if (err) {
+        EditHistory.find(query, (err,data) => {
+            if(err){
                 return res.status(500).send(err);
             } else {
                 const editHistory = data;
-                console.log(editHistory);
                 return res.json(editHistory);
             }
         })
