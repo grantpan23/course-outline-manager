@@ -93,7 +93,7 @@ function CourseHome() {
                         <tr>
                             <th>Course ID</th>
                             <th>Course Name</th>
-                            <th>Create New</th>
+                            <th>Create Original Version</th>
                             <th>Use Old Version</th>
                             <th>Review Status</th>
                             <th>Print</th>
@@ -106,11 +106,11 @@ function CourseHome() {
                                 <td>{course.name}</td>
                                 <td>{course.name}</td>
 
-                                <td><Link className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button id="blank" className='btn btn-primary'>Use Template</button></Link></td>
+                                <td><Link className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button id="blank" className='btn btn-primary'>Go to new/drafts</button></Link></td>
 
                                 <td>
                                     <div>
-                                        <Link state={template} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">Use Version</button></Link>
+                                        <Link state={template} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">See Previous Years</button></Link>
                                     </div>
                                 </td>
 

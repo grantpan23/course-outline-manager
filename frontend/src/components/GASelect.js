@@ -15,6 +15,7 @@ function GASelect() {
     const [EE, setEE] = useState('');
     const [EPM, setEPM] = useState('');
     const [LL, setLL] = useState('');
+    const [view, setView] = useState(false);
     const [formInput, setFormInput] = useState({
         "Knowledge Base": KB,
         "Problem Analysis": PA,
@@ -78,6 +79,10 @@ function GASelect() {
         setLL(event.target.value);
     };
 
+    const handleViewChange = (event) => {
+        setView(true);
+    }
+
     const showAlert = () => {
         alert(JSON.stringify(formInput));
     };
@@ -111,7 +116,8 @@ function GASelect() {
         <>
             <NavBar></NavBar>
             <div className="nav-buttons">
-                <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
+                <Link className="my-link" to="/instructor/courses"><button  className='btn btn-danger'>Discard</button></Link>
+                <Link className="my-link" state={view} to="/instructor/courses/outline/rubric"><button onClick={handleViewChange} className='btn btn-secondary'>View Rubric</button></Link>
             </div>
             <div>
                 <h1>GA Indicators</h1>
