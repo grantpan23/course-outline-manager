@@ -15,7 +15,7 @@ router.use(expressSanitizer());
 router
     .route('/users/login')
     .post( async (req,res) => {
-
+        console.log('he')
         const user = await User.findOne({username:req.body.username});
         if (!user){
             return res.status(400).send("User not found");
@@ -23,7 +23,7 @@ router
 
         try {
             if(await bcrypt.compare(req.body.password, user.password)) {
-
+                
                 //change payload based on needs
                 const payload = {
                     username:user.username,
