@@ -4,7 +4,7 @@ import Home from "./pages/home";
 import CourseHome from "./pages/CourseHome";
 import Login from "./components/login";
 import AssignInstructor from "./pages/AssignInstructor";
-import InstructorHistory from "./pages/instructorHistory"
+// import InstructorHistory from "./pages/instructorHistory"
 import EditHistory from "./pages/EditHistory"
 import Versions from './pages/Versions';
 import GASelect from './components/GASelect';
@@ -48,7 +48,7 @@ function App() {
 
         {/* ***DEPARTMENT ADMINISTRATOR*** */}
         <Route path="/admin/assign-instructor" element={<AssignInstructor />} />
-        <Route path="/admin/instructorhistory" element={<InstructorHistory />} />
+        {/* <Route path="/admin/instructorhistory" element={<InstructorHistory />} /> */}
         <Route path="/admin/edithistory" element={<EditHistory />} />
         
 
