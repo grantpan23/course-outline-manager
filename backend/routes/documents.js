@@ -54,6 +54,13 @@ router
             selectedText: req.body.selectedText
         }
 
+        if(!document.metadata){
+            document.metadata = {
+                instructorJustifications: [],
+                reviewerComments: []
+            }
+        }
+
         if(req.body.userRole == 'instructor'){
             comment.type = 'justification';
             document.metadata.instructorJustifications.push(comment);

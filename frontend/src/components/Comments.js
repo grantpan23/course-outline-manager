@@ -4,7 +4,6 @@ import decode from 'jwt-decode';
 
 export default function Comments(props){
     const quill = props.quill;
-    const quillRef = props.quillRef;
     const documentID = props.documentID;
 
     const userInfo = decode(window.localStorage.getItem("token"));
