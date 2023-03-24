@@ -11,9 +11,12 @@ function CourseHome() {
     const history = useNavigate();
     const [data, setData] = useState([]);
     const [status, setStatus] = useState([]);
-    const [versions, setVersion] = useState([]);
+    const [user, setUser] = useState([]);
     const [template, setTemplate] = useState([])
+
     const token = window.localStorage.getItem("token");
+    // couldn't get use state to work
+    let decodedToken = {};
 
 
 
@@ -29,10 +32,7 @@ function CourseHome() {
     const verifyInstructor = (token) => {
         // can add an API to make this secure
         const publicKey = '4b1e67f6e5c8973e841ce716f89c54dec61352d07b7d552a2bd668ec4fe34dc7744223f6575d62ec870ea599c8f61548d9f189c0930c37dbde235a00ad7404ec';
-        const decodedToken = jwt(token);
-        console.log(decodedToken);
-
-
+        decodedToken = jwt(token);
     }
 
     const handleTemplateState = (event) => {
@@ -47,7 +47,7 @@ function CourseHome() {
     }, []);
 
     const popTable = async () => {
-        fetch(process.env.REACT_APP_API_URL + `/api/instructor/testinstructor/courses`,
+        fetch(process.env.REACT_APP_API_URL + `/api/instructor/${decodedToken.username}/courses/${decodedToken.username}`,
             {
                 method: 'GET',
                 headers: {
