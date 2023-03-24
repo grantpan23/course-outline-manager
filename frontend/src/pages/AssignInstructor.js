@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 const AssignInstructor = () => {
   const [selectedInstructor, setSelectedInstructor] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [instructors, setInstructors] = useState([]);
   const [courses, setCourses] = useState([]);
+
+  const history =useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token){
+        history("/")
+    }
+  }, []);
 
   // Populate the instructors dropdown box
   // Needs to have dynamic checking of admin (change URL 'test admin' + authorizaiton + use of jwt)
@@ -13,6 +23,7 @@ const AssignInstructor = () => {
   // <Link to= "/pastInstructors"> 
   //    <button style={format} onclick> View past instructors</button>
   //    </Link>
+  
 
   useEffect(() => {
     popInstructors();

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Print from "../components/Print";
 
 function CourseHome() {
     // init:
     // Call API for data
     // addTableRow()
+    const history =useNavigate()
+
     const [data, setData] = useState([]);
     const [status, setStatus] = useState([]);
     const [versions, setVersion] = useState([]);
