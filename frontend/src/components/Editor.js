@@ -5,7 +5,10 @@ import { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
 import Comments from './Comments';
 import NavBar from './NavBar';
+import Print from './Print';
 import { Link } from 'react-router-dom';
+
+
 
 export default function Editor() {
   const quillRef = useRef(null);
@@ -95,6 +98,8 @@ export default function Editor() {
         quill &&
         <Comments documentID={documentID} quill={quill} quillRef = {quillRef}/>
       }
+            <Print></Print>
+
     </>
   );
 };
