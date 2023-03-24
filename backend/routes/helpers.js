@@ -52,7 +52,23 @@ function authenticateAdmin(req, res, next){
     // }
 }
 
+function authenticateInstructor(req, res, next){
+    if(req.params.adminUser != req.user.username) return res.status(401).send("Not the same user");
+    if(req.user.role != "instructor") return res.status(401).send("Not an instructor");
+
+    next();
+}
+
+function authenticateReviewer(req, res, next){
+    if(req.params.adminUser != req.user.username) return res.status(401).send("Not the same user");
+    if(req.user.role != "reviewer") return res.status(401).send("Not an reviewer");
+    
+    next();
+}
+
 module.exports = {
     authenticateToken,
-    authenticateAdmin
+    authenticateAdmin,
+    authenticateInstructor,
+    authenticateReviewer
 }

@@ -1,7 +1,5 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
-import Print from '../components/Print';
-
 
 export default function Home() {
 
