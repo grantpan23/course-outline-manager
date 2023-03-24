@@ -19,13 +19,10 @@ module.exports = router;
 
 router
     .route('/approval')
-    .post  (async(req,res) => {
+    .put  (async(req,res) => {
             
     const newChange = new EditHistory({
-        userID: req.body.userID,
-        timeStamp:req.body.timeStamp,
-        activity: req.body.activity,
-        docID: req.body.docID
+        approval: req.body.approval
        
     })
 

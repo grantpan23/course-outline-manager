@@ -5,6 +5,9 @@ import NavBar from '../components/NavBar';
 import { Link } from 'react-router-dom';
 
 function ReviewHome() {
+
+
+    
     return (
         <>
             <NavBar></NavBar>
@@ -33,7 +36,9 @@ function ReviewHome() {
 
                             <td>
                                 <select className='form-select'>
-                                    <option>Choose Template</option>
+                                    <option>Pending</option>
+                                    <option>Accepted</option>
+                                    <option>Rejected</option>
                                     {/* FOLLOW ASSIGNINSTRUCTOR PARADIGM */}
                                 </select>
                             </td>
