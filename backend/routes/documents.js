@@ -14,11 +14,26 @@ router
     .route('/:documentID')
     .get(async (req,res) => {
         const document = await findOrCreateDocument(req.params.documentID);
-        res.send(document.data);
+        return res.send(document.data);
     })
     .put(async (req,res) => {
         await Document.findByIdAndUpdate(req.params.documentID, {data: req.body});
-        res.send(req.body);
+        return res.send(req.body);
+    })
+
+router
+    .route('/:documentID/ga-indicators')
+    .get(async (req,res) => {
+        const document = await Document.findById(req.params.documentID);
+        const data = await document.gaIndicators;
+        return res.send(data);
+    })
+    .put(async (req,res) => {
+        const data = req.body.gaIndicators;
+
+        const document = await Document.findByIdAndUpdate(req.params.documentID,{ gaIndicators: data},{new:true});
+        
+        return res.send(document);
     })
 
 router

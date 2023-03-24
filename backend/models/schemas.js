@@ -47,7 +47,8 @@ const courseSchema = new Schema({
 
 const documentSchema = new Schema({
   _id: String, 
-  data: Object
+  data: Object,
+  gaIndicators: {type:Array,required:true,default:[]},
 })
 
 const editHistorySchema = new Schema ({
