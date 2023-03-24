@@ -15,10 +15,6 @@ export default function InstructionHistory() {
     }
   }, []);
 
-
-
-
-
   useEffect(() => {
 
     const geteditHistorys = async () => {
@@ -49,13 +45,10 @@ export default function InstructionHistory() {
       <NavBar></NavBar>
       <div>
         <h1>Activity History</h1>
-
         <div>
           <table>
             <thead>
-
               <tr>
-
                 <th>User </th>
                 <th>Activity </th>
                 <th>Document </th>
@@ -71,14 +64,9 @@ export default function InstructionHistory() {
                     <td>{edits.activity}</td>
                     <td>{edits.documentID}</td>
                     <td>{edits.timeStamp}</td>
-
-
-
                   </tr>
                 )
-
               })}
-
             </tbody>
 
           </table>
