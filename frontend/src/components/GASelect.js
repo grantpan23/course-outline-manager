@@ -91,6 +91,7 @@ function GAForm() {
 
     const save = async () => {
 
+
         var quillGA = 
         [
             {"insert" : `\n\nKnowledgeBase ${KB}`},
@@ -145,41 +146,23 @@ function GAForm() {
             if(response.status != 200){
             console.log(response.error);
             }
+
+            console.log("waiting")
             
         }
 
         const updateIndicators = async () => {
 
-            var gaIndicatorList =[
-
-                `Knowledge Base: ${KB}`
-                `ProblemAnalysis: ${PA}`,
-                `Investigation: ${I}`,
-                `Design: ${I}`,
-                `Use of Engineering Tools: ${ET}`,
-                `IndividualAndTeamWork: ${ITW}`,
-                `Communication Skills: ${CS}`,
-                `Professionalism: ${PR}`,
-                `Impact of Engineering on Society and the Environment: ${IESE}`,
-                `Ethics and Equity: ${EE}`,
-                `Economics and Project Management: ${EPM}`,
-                `Life-Long Learning": ${LL}`
-            
-            
-            ]
-
-            const currentIndicators = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`);
-            const data = await currentIndicators.json();
 
             const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(gaIndicatorList)
+                body: JSON.stringify(formInput)
                 })
         
-                console.log(response)
+                console.log(formInput)
         
                 if(response.status != 200){
                 console.log(response.error);
@@ -189,6 +172,7 @@ function GAForm() {
 
         }
 
+        console.log("hit this")
         updateDocument()
         updateIndicators();
        
@@ -337,7 +321,7 @@ function GAForm() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <Link to="/instructor/courses/outline/create/new" state={formInput}><button className='btn btn-success' type="submit">Submit</button></Link>
+                   <button className='btn btn-success' type="submit">Submit</button>
                 </form>
             </div>
         </>
