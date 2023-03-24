@@ -22,18 +22,24 @@ router
     })
 
 router
-    .route('/ga-indicators/:documentID')
+    .route('/:documentID/ga-indicators')
     .get(async (req,res) => {
         const document = await Document.findById(req.params.documentID);
         const data = await document.gaIndicators;
         return res.send(data);
     })
     .put(async (req,res) => {
-        const data = req.body.gaIndicators;
+        const data = req.body;
 
         const document = await Document.findByIdAndUpdate(req.params.documentID,{ gaIndicators: data},{new:true});
         
         return res.send(document);
+    })
+
+router
+    .route('/:documentID/comments')
+    .post(async (req,res) => {
+
     })
 
 router
