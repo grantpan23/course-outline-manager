@@ -11,11 +11,13 @@ const admin = require('./routes/admin');
 const instructor = require('./routes/instructor');
 const auth = require('./routes/auth');
 const documents = require('./routes/documents');
+const reviewer = require('./routes/reviewer');
 
 //middleware
 app.use(cors());
 app.use('/api/admin/:adminUser', admin);
 app.use('/api/instructor/:instructorUser', instructor)
+app.use('/api/reviewer/:reviewerUser',reviewer);
 app.use('/api/auth', auth);
 app.use('/api/documents', documents);
 
