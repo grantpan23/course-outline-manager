@@ -138,7 +138,7 @@ function GAForm() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(opsList)
+            body: JSON.stringify(formInput)
             })
     
             console.log(response)
