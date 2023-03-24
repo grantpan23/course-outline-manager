@@ -30,10 +30,10 @@ router
     .post  (async(req,res) => {
             
     const newChange = new EditHistory({
-        userID: req.body.userID,
+        username: req.body.username,
         timeStamp:req.body.timeStamp,
         activity: req.body.activity,
-        docID: req.body.docID
+        documentID: req.body.documentID
        
     })
 

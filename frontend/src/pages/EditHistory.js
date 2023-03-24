@@ -67,9 +67,9 @@ export default function InstructionHistory() {
               {editHistory.map((edits) => {
                 return (
                   <tr>
-                    <td>{edits.userID}</td>
+                    <td>{edits.username}</td>
                     <td>{edits.activity}</td>
-                    <td>{edits.docID}</td>
+                    <td>{edits.documentID}</td>
                     <td>{edits.timeStamp}</td>
 
 

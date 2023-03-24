@@ -49,9 +49,34 @@ export default function Comments(props){
             body: JSON.stringify(payload)
         })
 
-        const data = await response.json();
+        if(!response.ok){
+            console.log(response);
+        } else {
+            const data = await response.json();
+            setMetadata(data);
+            saveToHistory();
+        }
+    }
 
-        setMetadata(data);
+    const saveToHistory = async () => {
+        const now = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+
+        const payload = {
+            username:userInfo.username,
+            activity:'commented',
+            documentID:documentID,
+            timeStamp:now
+        }
+
+        const res = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/activity`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          })
+          const data = await res.json();
+          console.log(data);
     }
 
     return <>

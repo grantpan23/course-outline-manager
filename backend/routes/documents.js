@@ -6,6 +6,7 @@ const Schemas = require('../models/schemas.js');
 
 const Document = Schemas.Document;
 const Course = Schemas.Course;
+const EditHistory = Schemas.EditHistory;
 
 router.use(express.json());
 router.use(bodyParser());
@@ -74,6 +75,25 @@ router
         } else {
             return res.status(400).send('Role is inapplicable.')
         }
+    })
+
+router
+    .route('/:documentID/activity')
+    .post(async (req,res) => {
+        const newActivity = new EditHistory({
+            username: req.body.username,
+            timeStamp:req.body.timeStamp,
+            activity: req.body.activity,
+            documentID: req.params.documentID
+        })
+    
+        await newActivity.save((err) => {
+            if(err){
+                return res.status(500).send(err);
+            } else {
+                return res.json(newActivity);
+            }
+        })
     })
 
 router

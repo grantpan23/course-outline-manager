@@ -7,10 +7,13 @@ import Comments from './Comments';
 import NavBar from './NavBar';
 import Print from './Print';
 import { Link } from 'react-router-dom';
+import decode from 'jwt-decode';
 
 
 
 export default function Editor() {
+  const userInfo = decode(window.localStorage.getItem("token"));
+
   const quillRef = useRef(null);
   const { id: documentID } = useParams();
 
@@ -48,6 +51,25 @@ export default function Editor() {
 
     if (response.status != 200) {
       console.log(response.error);
+    } else {
+      const now = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+      
+      const payload = {
+        username:userInfo.username,
+        activity:'edited',
+        documentID:documentID,
+        timeStamp:now
+      }
+
+      const res = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/activity`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      const data = await res.json();
+      console.log(data);
     }
   }
 
