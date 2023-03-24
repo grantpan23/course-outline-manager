@@ -85,7 +85,6 @@ export default function Comments(props){
                     ))
                 }
             </div>
-            
         </div>
     </>
 }
