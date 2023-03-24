@@ -5,6 +5,15 @@ import NavBar from '../components/NavBar';
 import { Link } from 'react-router-dom';
 
 function ReviewHome() {
+    const history = useNavigate()
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token){
+          history("/")
+      }
+    }, []);
+
     return (
         <>
             <NavBar></NavBar>

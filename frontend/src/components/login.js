@@ -58,6 +58,7 @@ export default function Login() {const emailRef = useRef();
 
         //nav to somewhere, save jwt to localStorage
         localStorage.setItem("token", "Bearer " + data.accessToken)
+
         history("/home")
     }
   

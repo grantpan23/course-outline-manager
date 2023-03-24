@@ -8,6 +8,12 @@ export default function InstructionHistory() {
   const [courses, setCourses] = useState([])
   const history = useNavigate()
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token){
+        history("/")
+    }
+  }, []);
 
 
 

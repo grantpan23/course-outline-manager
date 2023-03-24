@@ -105,4 +105,27 @@ nav li:hover {
     max-width: 450px;
   }
   
+  .my-link {
+    color: white;
+    text-decoration: none;
+  }
+  
+  th {
+    text-align: center;
+  }
+  
+  td {
+    text-align: center;
+  }
+  
+  .versions {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 
+  .nav-buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
