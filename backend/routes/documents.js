@@ -22,7 +22,7 @@ router
     })
 
 router
-    .route('/:documentID/ga-indicators')
+    .route('/ga-indicators/:documentID')
     .get(async (req,res) => {
         const document = await Document.findById(req.params.documentID);
         const data = await document.gaIndicators;

@@ -7,7 +7,7 @@ import AssignInstructor from "./pages/AssignInstructor";
 // import InstructorHistory from "./pages/instructorHistory"
 import EditHistory from "./pages/EditHistory"
 import Versions from './pages/Versions';
-import GASelect from './components/GASelect';
+import GAForm from './components/GASelect';
 import ReviewHome from './pages/ReviewHome';
 import { v4 as uuidV4 } from 'uuid'
 import {
@@ -34,7 +34,7 @@ function App() {
 
         {/* ***INSTRUCTOR*** */}
         <Route path="/instructor/courses" element={<CourseHome />} />
-        <Route path="/instructor/courses/outline/create/ga-indicators" element={<GASelect />} />
+        <Route path="/instructor/courses/outline/create/ga-indicators" element={<GAForm />} />
 
         <Route path="/instructor/courses/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
         

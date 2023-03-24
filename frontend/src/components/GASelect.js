@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-function GASelect() {
+function GAForm() {
     
     const [KB, setKB] = useState('');
     const [PA, setPA] = useState('');
@@ -19,7 +19,7 @@ function GASelect() {
     const [LL, setLL] = useState('');
     const [view, setView] = useState(false);
     const [formInput, setFormInput] = useState({
-        "KnowledgeBase": KB,
+        "Knowledge Base": KB,
         "ProblemAnalysis": PA,
         "Investigation": I,
         "Design": D,
@@ -148,8 +148,49 @@ function GASelect() {
             
         }
 
+        const updateIndicators = async () => {
+
+            var gaIndicatorList =[
+
+                `Knowledge Base: ${KB}`
+                `ProblemAnalysis: ${PA}`,
+                `Investigation: ${I}`,
+                `Design: ${I}`,
+                `Use of Engineering Tools: ${ET}`,
+                `IndividualAndTeamWork: ${ITW}`,
+                `Communication Skills: ${CS}`,
+                `Professionalism: ${PR}`,
+                `Impact of Engineering on Society and the Environment: ${IESE}`,
+                `Ethics and Equity: ${EE}`,
+                `Economics and Project Management: ${EPM}`,
+                `Life-Long Learning": ${LL}`
+            
+            
+            ]
+
+            const currentIndicators = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`);
+            const data = await currentIndicators.json();
+
+            const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(gaIndicatorList)
+                })
+        
+                console.log(response)
+        
+                if(response.status != 200){
+                console.log(response.error);
+                }
+
+
+
+        }
+
         updateDocument()
-    
+        updateIndicators();
        
     }
 
@@ -303,4 +344,4 @@ function GASelect() {
     );
 }
 
-export default GASelect;
+export default GAForm;
