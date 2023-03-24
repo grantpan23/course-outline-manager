@@ -10,6 +10,9 @@ function CourseHome() {
     const history =useNavigate()
 
     const [data, setData] = useState([]);
+    const [status, setStatus] = useState([]);
+    const [versions, setVersion] = useState([]);
+    const [template, setTemplate] = useState([])
     const token = window.localStorage.getItem("token");
 
     useEffect(() => {
@@ -17,12 +20,15 @@ function CourseHome() {
     }, []);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token){
-            history("/")
-        }
-        popTemplates();
+        popVersions();
     }, []);
+
+    const handleTemplateState = (event) => {
+        if(event.target.id == "blank")
+            setTemplate(false);
+        else if(event.target.id == "template")
+            setTemplate(true);
+    }
 
     useEffect(() => {
         openNew();
@@ -45,7 +51,25 @@ function CourseHome() {
             })
             .catch(error => {
                 console.log(error);
-              });
+            });
+    }
+
+
+    function popVersions() {
+        fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': token
+                }
+            })
+            .then(async (res) => {
+                if (res.ok) {
+                    const data = await res.json();
+                    setVersion(data);
+                }
+            })
     }
 
     return (
@@ -57,23 +81,29 @@ function CourseHome() {
                         <tr>
                             <th>Course ID</th>
                             <th>Course Name</th>
-                            <th>Create</th>
-                            <th>Use Old Year</th>
+                            <th>Create New</th>
+                            <th>Use Old Version</th>
                             <th>Review Status</th>
                             <th>Print</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-
                         {data.map(course => (
                             <tr key={course._id}>
                                 <td>{course.name}</td>
                                 <td>{course.name}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+
+                                <td><Link className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button id="blank" className='btn btn-primary'>Use Template</button></Link></td>
+
+                                <td>
+                                    <div>
+                                        <Link state={template} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">Use Version</button></Link>
+                                    </div>
+                                </td>
+
+                                <td>status needed</td>
+
                                 <td><Print></Print></td>
                             </tr>
                         ))}
@@ -122,9 +152,6 @@ function openNew() {
 
 }
 
-function popTemplates() {
-
-}
 
 // DONT DELETE!!!  
 

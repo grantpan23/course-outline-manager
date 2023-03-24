@@ -6,16 +6,18 @@ import Login from "./components/login";
 import AssignInstructor from "./pages/AssignInstructor";
 import InstructorHistory from "./pages/instructorHistory"
 import EditHistory from "./pages/EditHistory"
-import GAForm from './components/GASelect';
-
-
+import Versions from './pages/Versions';
+import GASelect from './components/GASelect';
+import ReviewHome from './pages/ReviewHome';
+import { v4 as uuidV4 } from 'uuid'
 import {
   Navigate,
   Route,
   Routes
 } from "react-router-dom";
-import { v4 as uuidV4 } from 'uuid'
-import ReviewHome from './pages/ReviewHome';
+
+
+
 
 function App() {
   return (
@@ -25,18 +27,20 @@ function App() {
         {/* Login */}
         <Route path="/" element={<Login />} />
 
-        {/* Home + Nav Bar */}
+        {/* ***SECURE*** */}
         <Route path="/home" element={<Home />} />
-
-        {/* ***INSTRUCTOR*** */}
-        <Route path="/instructor/courses" element={<CourseHome />} />
-
-
-        <Route path="/instructor/courses/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
         <Route path="/documents/:id" element={<Editor />} />
 
 
+        {/* ***INSTRUCTOR*** */}
+        <Route path="/instructor/courses" element={<CourseHome />} />
+        <Route path="/instructor/courses/outline/create/ga-indicators" element={<GASelect />} />
 
+        <Route path="/instructor/courses/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
+        
+
+
+        <Route path='/instructor/courses/outline/create/versions' element={<Versions />}/>
 
         <Route path="/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />} />
 
@@ -46,12 +50,12 @@ function App() {
         <Route path="/admin/assign-instructor" element={<AssignInstructor />} />
         <Route path="/admin/instructorhistory" element={<InstructorHistory />} />
         <Route path="/admin/edithistory" element={<EditHistory />} />
-        <Route path="/gaPage" element={<GAForm />} />
+        
 
         {/* ***PROGRAM DIRECTOR (can't see see course outline history)*** */}
         <Route path="/reviewer/pending" element={<ReviewHome />} />
         {/* ***DEPARTMENT CHAIR*** */}
-
+        <Route path='/department-chair/versions' element={<Versions />}/>
 
       </Routes>
     </>
