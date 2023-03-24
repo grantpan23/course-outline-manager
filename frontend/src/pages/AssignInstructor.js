@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import decode from 'jwt-decode';
+
 const AssignInstructor = () => {
   const [selectedInstructor, setSelectedInstructor] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
@@ -9,6 +11,7 @@ const AssignInstructor = () => {
 
   const history =useNavigate()
   const token = localStorage.getItem("token");
+  const userInfo = decode(token);
 
   useEffect(() => {
     if (!token){
@@ -34,7 +37,7 @@ const AssignInstructor = () => {
   }, []);
 
   const popInstructors = async () => {
-    fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/users/instructors`,
+    fetch(process.env.REACT_APP_API_URL + `/api/admin/${userInfo.username}/users/instructors`,
       {
         method: 'GET',
         headers: {
@@ -52,7 +55,7 @@ const AssignInstructor = () => {
 
   // Needs to have dynamic checking of admin (change URL 'test admin' + authorizaiton + use of jwt)
   const popCourses = async () => {
-    fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses`,
+    fetch(process.env.REACT_APP_API_URL + `/api/admin/${userInfo.username}/courses`,
       {
         method: 'GET',
         headers: {
@@ -89,7 +92,7 @@ const AssignInstructor = () => {
       courseCode: course
     };
     if (validAssign(instructor, course)) {
-      fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses/${course}/instructors`, {
+      fetch(process.env.REACT_APP_API_URL + `/api/admin/${userInfo.username}/courses/${course}/instructors`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
