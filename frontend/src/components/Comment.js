@@ -100,6 +100,8 @@ export default function Comment(props) {
         const document = {ops, metadata: metaData}; 
         console.log(document);
 
+        saveEditHistory("testAdmin","currentDoc")
+
         socket.emit("save-document", document)
         // console.log(props.quill.getContents());
         alert("save version")
@@ -115,6 +117,7 @@ export default function Comment(props) {
                     </div>
 
                     {/* SAVE VERSION */}
+                    {/* going to combine this button with the submit button */}
                     <button type="button" id="comment-button" onClick={handleSaveButtonClick}>Save Version</button>
                     {/* <div id="snow-container"></div> */}
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import NavBar from "../components/NavBar";
 const AssignInstructor = () => {
   const [selectedInstructor, setSelectedInstructor] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
@@ -28,7 +28,7 @@ const AssignInstructor = () => {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
-          // 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NTU2NDAzN30.gaZ8CcaY_6rLyOrZ2N0zP_t8qLCACFtNb_G6HrHWwNA'
+          'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NTU2NDAzN30.gaZ8CcaY_6rLyOrZ2N0zP_t8qLCACFtNb_G6HrHWwNA'
         }
       })
       .then(async (res) => {
@@ -115,60 +115,41 @@ const AssignInstructor = () => {
   }
 
   return (
-    // <form onSubmit={handleSubmit} onLoad={popInstructors}>
-    //   <div>
-    //     <label htmlFor="instructors">Select Instructor:</label>
-    //     <select id="instructors" onChange={handleInstructorChange}>
-    //       <option value="">--Select Instructor--</option>
-    //       {instructors.map(instructor => (
-    //         <option key={instructor.id} value={instructor.username}>
-    //           {instructor.firstName + " " + instructor.lastName}
-    //         </option>
-    //       ))}
-    //     </select>
-    //   </div>
-    //   <div>
-    //     <label htmlFor="courses">Select Course:</label>
-    //     <select id="courses" onChange={handleCourseChange}>
-    //       <option value="">--Select Course--</option>
-    //       {courses.map(course => (
-    //         <option key={course._id} value={course.code}>
-    //           {course.name + " [" + course.faculty + "]"}
-    //         </option>
-    //       ))}
-    //     </select>
-    //   </div>
-    //   <button type="submit">Submit</button>
-    //   <button type="button">Back</button>
-    // </form>
-    <form onSubmit={handleSubmit} onLoad={popInstructors} className="d-flex flex-column align-items-center">
-      <div className="form-group">
-        <label htmlFor="instructors">Select Instructor:</label>
-        <select id="instructors" onChange={handleInstructorChange} className="form-control">
-          <option value="">--Select Instructor--</option>
-          {instructors.map(instructor => (
-            <option key={instructor.id} value={instructor.username}>
-              {instructor.firstName + " " + instructor.lastName}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="courses">Select Course:</label>
-        <select id="courses" onChange={handleCourseChange} className="form-control">
-          <option value="">--Select Course--</option>
-          {courses.map(course => (
-            <option key={course._id} value={course.code}>
-              {course.name + " [" + course.faculty + "]"}
-            </option>
-          ))}
-        </select>
-      </div>
-      <br></br>
-      <div className="form-group d-flex justify-content-between">
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </div>
-    </form>
+    <>
+      <NavBar></NavBar>
+      <form onSubmit={handleSubmit} onLoad={popInstructors} className="d-flex flex-column align-items-center">
+        <br></br>
+        <div className="form-group">
+          <label htmlFor="instructors">Select Instructor:</label>
+          <select id="instructors" onChange={handleInstructorChange} className="form-control">
+            <option value="">--Select Instructor--</option>
+            {instructors.map(instructor => (
+              <option key={instructor.id} value={instructor.username}>
+                {instructor.firstName + " " + instructor.lastName}
+              </option>
+            ))}
+          </select>
+        </div>
+        <br></br>
+        <div className="form-group">
+          <label htmlFor="courses">Select Course:</label>
+          <select id="courses" onChange={handleCourseChange} className="form-control">
+            <option value="">--Select Course--</option>
+            {courses.map(course => (
+              <option key={course._id} value={course.code}>
+                {course.name + " [" + course.faculty + "]"}
+              </option>
+            ))}
+          </select>
+        </div>
+        <br></br>
+        <div className="form-group d-flex justify-content-between">
+          <button type="submit" className="btn btn-success">Assign</button>
+          <button type="submit" className="btn btn-danger">Remove</button>
+        </div>
+      </form>
+    </>
+
   );
 };
 

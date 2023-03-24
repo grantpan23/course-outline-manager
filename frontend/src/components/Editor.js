@@ -1,88 +1,44 @@
 import React from 'react'
 import { useCallback, useEffect, useState, useRef, } from 'react'
 import { useParams } from 'react-router-dom';
-import ReactQuill, { Quill } from "react-quill";
+import { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
-import {io} from 'socket.io-client'
 import Comment from './Comment';
-
-const SAVE_INTERVAL_MS =2000;
+import NavBar from './NavBar';
+import { Link } from 'react-router-dom';
 
 export default function Editor(){
     const reactQuillRef = useRef(null); 
-    const {id: documentId} = useParams();
-    const [socket, setSocket] = useState()
+    const {id: documentID} = useParams();
     const [quill, setQuill] = useState()
-    console.log(documentId);
 
-    
-    useEffect(() => {
-        const s = (io("http://localhost:4000"))
-        setSocket(s)
-        return () => {
-            s.disconnect()
+    useEffect(()=>{
+      if(quill == null) return;
+      fetchAndSetDocument();
+      quill.enable();
+    },[quill])
 
-        }
+    const fetchAndSetDocument = async () => {
+      const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`);
+      const data = await document.json();
+      quill.setContents(data);
+    }
 
-    }, [])
-    console.log(socket);
+    const saveDocument = async () => {
+      const contents = quill.getContents();
+      console.log(JSON.stringify(contents));
+      const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contents)
+      })
 
-    useEffect(() => {
-
-        if ( socket == null || quill == null) return
-
-        const handler  = (delta, oldDelta, source) => {
-            if (source !== 'user') return 
-            socket.emit("send-changes", delta)
-        }
-        quill.on('text-change', handler)
-
-        return() => {
-            quill.off('text-change', handler)
-        }
-
-    }, [socket,quill])
-
-    useEffect(() => {
-
-        if ( socket == null || quill == null) return
-
-        const handler  = (delta, oldDelta, source) => {
-            quill.updateContents(delta)
-        }
-        socket.on('receive-changes', handler)
-
-        return() => {
-            socket.off('text-changes', handler)
-        }
-
-    }, [socket,quill])
-
-    useEffect(() => {
-        if (socket == null || quill == null) return 
-
-        socket.once("load-document",document => { 
-            quill.setContents(document)
-            quill.enable()
-        })
-        socket.emit('get-document', documentId)
-
-    },[socket, quill, documentId])
-
-    useEffect(() => {
-        if (socket == null || quill == null) return 
-
-        const interval = setInterval(() => {
-
-            socket.emit("save-document", quill.getContents())
-        }, SAVE_INTERVAL_MS)
-
-        
-        return () => {
-            clearInterval(interval)
-        }
-
-    },[socket, quill])
+      if(response.status != 200){
+        console.log(response.error);
+      }
+    }
 
     const wrapperRef = useCallback((wrapper) => {
         if (wrapper == null) return
@@ -91,8 +47,6 @@ export default function Editor(){
         const editor = document.createElement('div')
         wrapper.append(editor)
 
-
-        
         const q = new Quill(editor, { ref: {reactQuillRef}, theme : "snow", 
         modules:{
             toolbar : 
@@ -108,22 +62,26 @@ export default function Editor(){
                     [{align : []}],
                     ["image", "blockquote", "code-block"],
                     ["clean"], 
-            
                 ],
-        
         }
-        } })
-        
+        }})
+       
         q.disable();
         q.setText("Loading...")
         setQuill(q)
     }, [])
 
-    return <>
-        <Comment quill={quill}/>
-        <div className="container" ref = {wrapperRef}>
-        </div>
-        
-    
-    </> 
-}
+    return (
+        <>
+            <NavBar></NavBar>
+            <div id="nav-buttons">
+                <button className='btn btn-danger'><Link to="/instructor/courses"> Discard </Link></button>
+                <button className='btn btn-success'>  Submit  </button>
+            </div>
+            <Comment quill={quill} />
+            <button onClick = {saveDocument}>Save</button>
+            <div className="container" ref={wrapperRef}>
+            </div>
+        </>
+    );
+};

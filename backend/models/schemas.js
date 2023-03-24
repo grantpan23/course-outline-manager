@@ -30,7 +30,19 @@ const courseSchema = new Schema({
         of: String,
         required: false,
         default:[]
-      }
+      },
+    draftOutlines: {
+      type: Map,
+      of: String,
+      required: true,
+      default: {},
+    },
+    finalOutlines: {
+      type: Map,
+      of: String,
+      required: true,
+      default: {},
+    }
 });
 
 const documentSchema = new Schema({
@@ -39,7 +51,7 @@ const documentSchema = new Schema({
 })
 
 const editHistorySchema = new Schema ({
-  userID:  String,
+  userID: String,
   timeStamp: String,
   activity: String,
   docID: String
@@ -60,8 +72,5 @@ const EditHistory = mongoose.model('EditHistory', editHistorySchema);
 
 //aggregate models
 const mySchemas = {'User':User,'Course':Course, 'Document': Document, "EditHistory":EditHistory};
-const Edit = mongoose.model('Edit',editSchema);
-
-
 
 module.exports = mySchemas;
