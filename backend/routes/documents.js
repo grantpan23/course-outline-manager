@@ -3,12 +3,14 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const Schemas = require('../models/schemas.js');
+const helpers = require('./helpers.js')
 
 const Document = Schemas.Document;
 const Course = Schemas.Course;
 
 router.use(express.json());
 router.use(bodyParser());
+router.use(helpers.authenticateToken);
 
 router
     .route('/:documentID')
