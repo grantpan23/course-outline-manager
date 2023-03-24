@@ -41,8 +41,9 @@ function App() {
 
 
         <Route path='/instructor/courses/outline/create/versions' element={<Versions />}/>
-
-        <Route path="/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />} />
+        <Route path='/instructor/courses/outline/create/versions' element={<Versions />}/>
+        
+        <Route path="/instructor/courses/outline/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />} />
 
 
 
