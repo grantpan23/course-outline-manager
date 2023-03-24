@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import CommentCard from './CommentCard';
 import decode from 'jwt-decode';
 
 export default function Comments(props){
@@ -8,7 +9,7 @@ export default function Comments(props){
 
     const userInfo = decode(window.localStorage.getItem("token"));
 
-    const [metadata,setMetadata] = useState({});
+    const [metadata,setMetadata] = useState(null);
     const [selection,setSelection] = useState('');
     const [comment,setComment] = useState('');
 
@@ -66,6 +67,24 @@ export default function Comments(props){
             </form>
         </div>
         <div>
+            <div>
+                <h2>Instructor Justifications</h2>
+                {
+                    metadata &&
+                    metadata.instructorJustifications.map(comment => (
+                        <CommentCard key = {comment._id} comment = {comment} />
+                    ))
+                }
+            </div>
+            <div>
+                <h2>Reviewer Comments</h2>
+                {
+                    metadata &&
+                    metadata.reviewerComments.map(comment => (
+                        <CommentCard key = {comment._id} comment = {comment} />
+                    ))
+                }
+            </div>
             
         </div>
     </>
