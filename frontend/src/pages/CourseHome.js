@@ -2,31 +2,43 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { Link, useNavigate } from "react-router-dom";
 import Print from "../components/Print";
+import jwt from "jwt-decode";
 
 function CourseHome() {
     // init:
     // Call API for data
     // addTableRow()
-    const history =useNavigate()
-
+    const history = useNavigate();
     const [data, setData] = useState([]);
-    const [status, setStatus] = useState([]);
-    const [versions, setVersion] = useState([]);
+    const [status, setStatus] = useState('');
+    const [user, setUser] = useState('');
     const [template, setTemplate] = useState([])
+
     const token = window.localStorage.getItem("token");
+    // couldn't get use state to work
+    let decodedToken = {};
+
+
 
     useEffect(() => {
+        verifyInstructor(token);
         popTable();
     }, []);
 
-    useEffect(() => {
-        popVersions();
-    }, []);
+    // useEffect(() => {
+    //     popVersions();
+    // }, []);
+
+    const verifyInstructor = (token) => {
+        // can add an API to make this secure
+        decodedToken = jwt(token);
+        console.log(decodedToken)
+    }
 
     const handleTemplateState = (event) => {
-        if(event.target.id == "blank")
+        if (event.target.id == "blank")
             setTemplate(false);
-        else if(event.target.id == "template")
+        else if (event.target.id == "template")
             setTemplate(true);
     }
 
@@ -35,7 +47,7 @@ function CourseHome() {
     }, []);
 
     const popTable = async () => {
-        fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses`,
+        fetch(process.env.REACT_APP_API_URL + `/api/instructor/${decodedToken.username}/courses/${decodedToken.username}`,
             {
                 method: 'GET',
                 headers: {
@@ -55,22 +67,22 @@ function CourseHome() {
     }
 
 
-    function popVersions() {
-        fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses`,
-            {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json',
-                    'Authorization': token
-                }
-            })
-            .then(async (res) => {
-                if (res.ok) {
-                    const data = await res.json();
-                    setVersion(data);
-                }
-            })
-    }
+    // function popVersions() {
+    //     fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/courses`,
+    //         {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-type': 'application/json',
+    //                 'Authorization': token
+    //             }
+    //         })
+    //         .then(async (res) => {
+    //             if (res.ok) {
+    //                 const data = await res.json();
+    //                 setVersion(data);
+    //             }
+    //         })
+    // }
 
     return (
         <>
@@ -81,7 +93,7 @@ function CourseHome() {
                         <tr>
                             <th>Course ID</th>
                             <th>Course Name</th>
-                            <th>Create New</th>
+                            <th>Create Original Version</th>
                             <th>Use Old Version</th>
                             <th>Review Status</th>
                             <th>Print</th>
@@ -94,11 +106,11 @@ function CourseHome() {
                                 <td>{course.name}</td>
                                 <td>{course.name}</td>
 
-                                <td><Link className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button id="blank" className='btn btn-primary'>Use Template</button></Link></td>
+                                <td><Link className="my-link" to="/instructor/courses/outline/create/drafts"><button id="blank" className='btn btn-primary'>Go to new/drafts</button></Link></td>
 
                                 <td>
                                     <div>
-                                        <Link state={template} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">Use Version</button></Link>
+                                        <Link state={template} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">See Previous Years</button></Link>
                                     </div>
                                 </td>
 

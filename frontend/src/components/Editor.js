@@ -1,6 +1,6 @@
 import React from 'react'
 import { useCallback, useEffect, useState, useRef, } from 'react'
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
 import Comments from './Comments';
@@ -10,12 +10,20 @@ import { Link } from 'react-router-dom';
 export default function Editor() {
   const quillRef = useRef(null);
   const { id: documentID } = useParams();
+
   const [quill, setQuill] = useState(null);
+  const location = useLocation();
+  const view = location.state;
 
   useEffect(() => {
     if (quill == null) return;
     fetchAndSetDocument();
-    quill.enable();
+    
+    // a piece of logic to make it an editor or a viewer
+    if(view)
+      quill.enable();
+    else if(!view)
+      quill.disable();
   }, [quill])
 
   const fetchAndSetDocument = async () => {

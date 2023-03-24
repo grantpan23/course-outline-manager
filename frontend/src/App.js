@@ -4,7 +4,7 @@ import Home from "./pages/home";
 import CourseHome from "./pages/CourseHome";
 import Login from "./components/login";
 import AssignInstructor from "./pages/AssignInstructor";
-import InstructorHistory from "./pages/instructorHistory"
+// import InstructorHistory from "./pages/instructorHistory"
 import EditHistory from "./pages/EditHistory"
 import Versions from './pages/Versions';
 import GASelect from './components/GASelect';
@@ -15,6 +15,7 @@ import {
   Route,
   Routes
 } from "react-router-dom";
+import Drafts from './pages/Drafts';
 
 
 
@@ -40,15 +41,16 @@ function App() {
         
 
 
+        <Route path='/instructor/courses/outline/create/drafts' element={<Drafts />}/>
         <Route path='/instructor/courses/outline/create/versions' element={<Versions />}/>
-
-        <Route path="/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />} />
+        
+        <Route path="/instructor/courses/outline/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />} />
 
 
 
         {/* ***DEPARTMENT ADMINISTRATOR*** */}
         <Route path="/admin/assign-instructor" element={<AssignInstructor />} />
-        <Route path="/admin/instructorhistory" element={<InstructorHistory />} />
+        {/* <Route path="/admin/instructorhistory" element={<InstructorHistory />} /> */}
         <Route path="/admin/edithistory" element={<EditHistory />} />
         
 
