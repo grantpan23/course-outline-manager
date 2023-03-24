@@ -26,7 +26,7 @@ export default function InstructionHistory() {
       fetch("/api/admin/testadmin/activity", {
         method: 'GET',
         headers: {
-          'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NjQ5NTk0OH0.LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3OTY4MTcyMH0.a1iX_PEeM1TDljapev8Ml0D0s0DzmfJPyFq6SyU7ZHM',
           'Content-type': 'application/json'
         }
       })
@@ -64,9 +64,9 @@ export default function InstructionHistory() {
             </thead>
 
             <tbody>
-              {editHistory.map((edits) => {
+              {editHistory.map((edits, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td>{edits.userID}</td>
                     <td>{edits.activity}</td>
                     <td>{edits.docID}</td>
