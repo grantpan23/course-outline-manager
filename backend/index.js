@@ -6,8 +6,6 @@ const port = process.env.PORT || 4000;
 const mongoose = require('mongoose');
 require('dotenv/config');
 
-// setting up socket 
-
 //import routes
 const admin = require('./routes/admin');
 const instructor = require('./routes/instructor');
