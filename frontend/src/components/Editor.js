@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState, useRef, } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
 import { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
-import Comment from './Comment';
+import Comments from './Comments';
 import NavBar from './NavBar';
 import Print from './Print';
 import { Link } from 'react-router-dom';
@@ -11,9 +11,10 @@ import { Link } from 'react-router-dom';
 
 
 export default function Editor() {
-  const reactQuillRef = useRef(null);
+  const quillRef = useRef(null);
   const { id: documentID } = useParams();
-  const [quill, setQuill] = useState()
+
+  const [quill, setQuill] = useState(null);
   const location = useLocation();
   const view = location.state;
 
@@ -58,7 +59,7 @@ export default function Editor() {
     wrapper.append(editor)
 
     const q = new Quill(editor, {
-      ref: { reactQuillRef }, theme: "snow",
+      ref: { quillRef }, theme: "snow",
       modules: {
         toolbar:
         {
@@ -90,10 +91,13 @@ export default function Editor() {
         <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
         <button className='btn btn-success'>  Submit  </button>
       </div>            
-      <Comment quill={quill} />
       <button onClick={saveDocument}>Save</button>
       <div className="container" ref={wrapperRef}>
       </div>
+      {
+        quill &&
+        <Comments documentID={documentID} quill={quill} quillRef = {quillRef}/>
+      }
             <Print></Print>
 
     </>
