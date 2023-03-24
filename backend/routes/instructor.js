@@ -9,6 +9,8 @@ const Schemas = require('../models/schemas.js');
 
 const Course = Schemas.Course;
 const User = Schemas.User;
+const Document = Schemas.Document;
+
 
 //import middleware
 router.use(express.json());
@@ -44,11 +46,35 @@ router
         return res.send(outlines);
     })
 
+
+// GET DOCUMENT DATA
 router
     .route('/:documentID')
     .get(async (req, res) => {
         const document = await findOrCreateDocument(req.params.documentID);
         return res.send(document.data);
+    })
+
+    // GET FINALS
+router
+    .route('/final-outlines/:courseCode')
+    .get(async (req, res) => {
+        const course = await Course.findOne({ code: req.params.courseCode });
+        if (!course) return res.status(400).send(`Course with code ${req.params.courseCode} does not exist.`);
+
+        const outlines = course.finalOutlines;
+        return res.send(outlines);
+    })
+
+
+// GET GA INDIS
+router
+    .route('/:documentID/ga-indicators')
+    .get(async (req, res) => {
+        const document = await Document.findById(req.params.documentID);
+        console.log(document)
+        const data = await document.gaIndicators;
+        return res.send(data);
     })
 
 module.exports = router;

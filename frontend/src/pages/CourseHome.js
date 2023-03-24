@@ -106,7 +106,7 @@ function CourseHome() {
 
                                 <td>
                                     <div>
-                                        <Link state={template} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">See Previous Years</button></Link>
+                                        <Link state={course} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">See Previous Years</button></Link>
                                     </div>
                                 </td>
                             </tr>
