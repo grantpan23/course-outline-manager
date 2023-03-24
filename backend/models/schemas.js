@@ -63,6 +63,7 @@ const documentSchema = new Schema({
   data: Object,
   gaIndicators: {type:Array,required:true,default:[]},
   metadata: metadataSchema,
+  status: {type:String,required:true,enum:['draft', 'pending', 'approved', 'rejected'],default:'draft'},
 })
 
 const editHistorySchema = new Schema ({
