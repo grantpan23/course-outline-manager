@@ -1,10 +1,10 @@
 import React from 'react'
 import Editor from "./components/Editor";
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import CourseHome from "./pages/CourseHome";
-import Login from "./components/Login";
+import Login from "./components/login";
 import AssignInstructor from "./pages/AssignInstructor";
-import InstructorHistory from "./pages/InstructorHistory"
+import InstructorHistory from "./pages/instructorHistory"
 import EditHistory from "./pages/EditHistory"
 import GAForm from './components/GASelect';
 
