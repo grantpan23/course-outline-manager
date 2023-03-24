@@ -16,8 +16,6 @@ import {
   Routes
 } from "react-router-dom";
 import Drafts from './pages/Drafts';
-import Drafts from './pages/Drafts';
-
 
 
 

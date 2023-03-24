@@ -32,7 +32,7 @@ function Versions() {
                 'year': year,
                 'id': idData[0]
             }
-            let fi = dummyObj;
+            let fi = dummyObj; 
             fi.push(foo);
             setDummyObj(fi);
             i++;
@@ -48,11 +48,11 @@ function Versions() {
                     'Content-type': 'application/json',
                     'Authorization': token
                 }
-            })
+            }) 
             .then(async (res) => {
                 if (res.ok) {
                     let obj = await res.json();
-                    console.log(obj)
+                    console.log(obj);
                     let ids = Object.values(obj);
                     console.log(ids)
                     let years = Object.keys(obj);
