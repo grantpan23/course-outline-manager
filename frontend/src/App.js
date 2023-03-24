@@ -46,7 +46,7 @@ function App() {
         <Route path="/admin/assign-instructor" element={<AssignInstructor />} />
         <Route path="/admin/instructorhistory" element={<InstructorHistory />} />
         <Route path="/admin/edithistory" element={<EditHistory />} />
-        <Route path="/gaPage" element={<GAForm />} />
+        <Route path="/gaPage/:id" element={<GAForm />} />
 
         {/* ***PROGRAM DIRECTOR (can't see see course outline history)*** */}
         <Route path="/reviewer/pending" element={<ReviewHome />} />

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function GAForm() {
+    
     const [KB, setKB] = useState('');
     const [PA, setPA] = useState('');
     const [I, setI] = useState('');
@@ -14,12 +16,12 @@ function GAForm() {
     const [EPM, setEPM] = useState('');
     const [LL, setLL] = useState('');
     const [formInput, setFormInput] = useState({
-        "Knowledge Base": KB,
-        "Problem Analysis": PA,
+        "KnowledgeBase": KB,
+        "ProblemAnalysis": PA,
         "Investigation": I,
         "Design": D,
         "Use of Engineering Tools": ET,
-        "Individual and Team Work": ITW,
+        "IndividualAndTeamWork": ITW,
         "Communication Skills": CS,
         "Professionalism": PR,
         "Impact of Engineering on Society and the Environment": IESE,
@@ -80,29 +82,98 @@ function GAForm() {
         alert(JSON.stringify(formInput));
       };
 
+    const {id: documentID} = useParams();
+
     const save = async () => {
-        const ga = await fetch(process.env.REACT_APP_API_URL + `/api/instructor/getga`)
-        const data = await ga.json();
-        console.log('saved')
-        console.log(data)
-    }
+
+        var quillGA = 
+        [
+            {"insert" : `KnowledgeBase ${KB}`},
+            {"insert": `\n\nProblem Analysis ${PA}`},
+            {"insert": `\n\nInvestigation ${I}`},
+            {"insert": `\n\nDesign ${D}`},
+            {"insert": `\n\nUse of EngineeringTools ${ET}`},
+            {"insert": `\n\nIndividual And Team Work ${ITW}`},
+            {"insert": `\n\nCommunication Skills ${CS}`},
+            {"insert": `\n\nProfessionalism ${PR}`},
+            {"insert": `\n\nImpactOfEngineering on Society and the Environment ${IESE}`},
+            {"insert": `\n\nEthicsAndEquity ${EE}`},
+            { "insert": `\n\nEconomicsAndProjectManagement ${EPM}`},
+            {"insert": `\n\nLife-Long Learning ${LL}`}
+    ]
+            
+        
+            const existingDoc = async () => {
+            const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`);
+            const data = await document.json();
+            
+            console.log(data)
+            const opsList = data.ops || data
+
+            
+            //opsList.push(quillGA)
+            
+            if(quillGA.length > 0 ){
+                quillGA.forEach(element => {
+                    opsList.push(element)
+                });
+
+            }
+            
+
+            
+            console.log(JSON.stringify(opsList))
+            
+            const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(opsList)
+            })
+
+            console.log(response)
+    
+            if(response.status != 200){
+            console.log(response.error);
+            }
+            
+ 
+
+        }
+        existingDoc()
+        //"insert" : `KnowledgeBase ${KB}`,
+        // "insert": `Investigation ${I}`,
+        // "insert": `Design ${D}`,
+        // "insert": `Use of EngineeringTools ${ET}`,
+        // "insert": `Individual And Team Work ${ITW}`,
+        // "insert": `Communication Skills ${CS}`,
+        // "insert": `Professionalism ${PR}`,
+        // "insert": `ImpactOfEngineering on Society and the Environment ${IESE}`,
+        // "insert": `EthicsAndEquity ${EE}`,
+        // "insert": `EconomicsAndProjectManagement ${EPM}`,
+        // "insert": `Life-Long Learning ${LL}`
+       
+      }
+
+
 
     const handleFormInputChange = () => {
         setFormInput({
-            "Knowledge Base": KB,
-            "Problem Analysis": PA,
+            "KnowledgeBase": KB,
+            "ProblemAnalysis": PA,
             "Investigation": I,
             "Design": D,
-            "Use of Engineering Tools": ET,
-            "Individual and Team Work": ITW,
-            "Communication Skills": CS,
+            "Use of EngineeringTools": ET,
+            "IndividualAndTeam Work": ITW,
+            "CommunicationSkills": CS,
             "Professionalism": PR,
-            "Impact of Engineering on Society and the Environment": IESE,
-            "Ethics and Equity": EE,
-            "Economics and Project Management": EPM,
-            "Life-Long Learning": LL
+            "ImpactOfEngineering on Society and the Environment": IESE,
+            "EthicsAndEquity": EE,
+            "EconomicsAndProjectManagement": EPM,
+            "LifeLongLearning": LL
         });
-        showAlert();
+        
     };
 
     const handleSubmit = (event) => {
