@@ -7,14 +7,14 @@ export default function InstructionHistory() {
 
   const [editHistory, seteditHistory] = useState([])
   const history = useNavigate()
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       history("/")
     }
   }, []);
-
+  console.log(token);
   useEffect(() => {
 
     const geteditHistorys = async () => {
@@ -22,7 +22,7 @@ export default function InstructionHistory() {
       fetch("/api/admin/testadmin/activity", {
         method: 'GET',
         headers: {
-          'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImVtYWlsIjoidGVzdGFkbWluQHV3by5jYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3NjQ5NTk0OH0.LIsPjSabAE6o8AMMMpgMl8zDmoV33eJYCYctXH2ZYM0',
+          'Authorization': token,
           'Content-type': 'application/json'
         }
       })
@@ -57,7 +57,7 @@ export default function InstructionHistory() {
             </thead>
 
             <tbody>
-              {editHistory.map((edits) => {
+              {editHistory.map((edits, index) => {
                 return (
                   <tr>
                     <td>{edits.username}</td>

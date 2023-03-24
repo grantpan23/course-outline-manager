@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router({mergeParams: true});
+const router = express.Router({ mergeParams: true });
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -47,26 +47,26 @@ router
 //instructor routes
 router
     .route('/users/instructors')
-    .get((req,res) => {
-        User.find({role:'instructor'}, (err,data) => {
-            if(err){
+    .get((req, res) => {
+        User.find({ role: 'instructor' }, (err, data) => {
+            if (err) {
                 return res.status(500).send(err);
             } else {
                 const instructors = data.map(instructor => {
                     return {
-                        id:instructor.id,
+                        id: instructor.id,
                         firstName: instructor.firstName,
                         lastName: instructor.lastName,
                         username: instructor.username,
                         coursesTaught: instructor.coursesTaught
                     };
                 });
-                return res.json(instructors);        
+                return res.json(instructors);
             }
         })
     })
-    .post((req,res) => {
-        
+    .post((req, res) => {
+
         const newInstructor = new User({
             email: req.body.email,
             username: req.body.email.split('@')[0],
@@ -76,7 +76,7 @@ router
         })
 
         newInstructor.save((err) => {
-            if(err){
+            if (err) {
                 return res.status(500).send(err);
             } else {
                 return res.json(newInstructor);
@@ -87,9 +87,9 @@ router
 //courses routes
 router
     .route('/courses')
-    .get((req,res) => {
-        Course.find({}, (err,data) => {
-            if(err){
+    .get((req, res) => {
+        Course.find({}, (err, data) => {
+            if (err) {
                 return res.status(50).send(err);
             } else {
                 const courses = data;
@@ -97,7 +97,7 @@ router
             }
         })
     })
-    .post((req,res) => {
+    .post((req, res) => {
         //create new course from Courses collection
         const newCourse = new Course({
             name: req.body.name,
@@ -106,7 +106,7 @@ router
         })
 
         newCourse.save((err) => {
-            if(err){
+            if (err) {
                 return res.status(500).send(err);
             } else {
                 return res.json(newCourse);
@@ -116,23 +116,23 @@ router
 
 router
     .route('/courses/:courseCode/instructors')
-    .get(async (req,res) => {
-        const course = await Course.findOne({code:req.params.courseCode})
+    .get(async (req, res) => {
+        const course = await Course.findOne({ code: req.params.courseCode })
 
-        if(!course) return res.status(400).send('Course does not exist');
+        if (!course) return res.status(400).send('Course does not exist');
 
         User.find({
             $and: [
-                {role:"instructor"},
-                {username:{$in:course.instructors}}
+                { role: "instructor" },
+                { username: { $in: course.instructors } }
             ]
-        }, (err,data) => {
-            if(err){
+        }, (err, data) => {
+            if (err) {
                 return res.status(500).send(err);
             } else {
                 const instructors = data.map(instructor => {
                     return {
-                        id:instructor.id,
+                        id: instructor.id,
                         firstName: instructor.firstName,
                         lastName: instructor.lastName,
                         username: instructor.username
@@ -142,7 +142,7 @@ router
             }
         })
     })
-    .put(async (req,res) =>{
+    .put(async (req, res) => {
         const courseCode = req.params.courseCode;
         const instructorUsername = req.body.instructorUsername;
 
@@ -151,7 +151,7 @@ router
 
         try {
             const course = await Course.findOneAndUpdate(
-                {code:courseCode},
+                { code: courseCode },
                 { $addToSet: { instructors: instructorUsername } },
                 { new: true, session }
             );
@@ -160,8 +160,8 @@ router
             const instructor = await User.findOneAndUpdate(
                 {
                     $and: [
-                        {username:instructorUsername},
-                        {role:"instructor"}
+                        { username: instructorUsername },
+                        { role: "instructor" }
                     ]
                 },
                 { $addToSet: { coursesTaught: courseCode } },
@@ -169,7 +169,7 @@ router
             );
 
             //instructor will be null if not found in above search
-            if (!instructor){
+            if (!instructor) {
                 throw new Error("Not an instructor")
             }
 
