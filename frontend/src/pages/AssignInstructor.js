@@ -34,7 +34,7 @@ const AssignInstructor = () => {
   }, []);
 
   const popInstructors = async () => {
-    fetch(process.env.REACT_APP_API_URL + `/api/admin/gpan7/users/instructors`,
+    fetch(process.env.REACT_APP_API_URL + `/api/admin/testadmin/users/instructors`,
       {
         method: 'GET',
         headers: {
