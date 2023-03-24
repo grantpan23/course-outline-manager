@@ -7,6 +7,7 @@ import AssignInstructor from "./pages/AssignInstructor";
 import InstructorHistory from "./pages/InstructorHistory"
 import EditHistory from "./pages/EditHistory"
 import GAForm from './components/GASelect';
+import Versions from './pages/Versions';
 
 
 import {
@@ -25,18 +26,20 @@ function App() {
         {/* Login */}
         <Route path="/" element={<Login />} />
 
-        {/* Home + Nav Bar */}
+        {/* ***SECURE*** */}
         <Route path="/home" element={<Home />} />
+        <Route path="/documents/:id" element={<Editor />} />
+
 
         {/* ***INSTRUCTOR*** */}
         <Route path="/instructor/courses" element={<CourseHome />} />
 
 
         <Route path="/instructor/courses/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
-        <Route path="/documents/:id" element={<Editor />} />
+        
 
 
-
+        <Route path='/instructor/courses/outline/create/versions' element={<Versions />}/>
 
         <Route path="/rubric" element={<Navigate to={`/documents/83c52259-c30f-4a88-9f23-83a33e501a6a`} />} />
 
@@ -51,7 +54,7 @@ function App() {
         {/* ***PROGRAM DIRECTOR (can't see see course outline history)*** */}
         <Route path="/reviewer/pending" element={<ReviewHome />} />
         {/* ***DEPARTMENT CHAIR*** */}
-
+        <Route path='/department-chair/versions' element={<Versions />}/>
 
       </Routes>
     </>
