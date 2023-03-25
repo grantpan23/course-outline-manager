@@ -49,9 +49,10 @@ function Drafts() {
         <>
             <div className="nav-buttons">
                 <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
-                <button className='btn btn-success'>Submit</button>
+                <Link className="my-link" to="/instructor/courses/outline/create/new"><button className='btn btn-success'>New</button></Link>
             </div>
 
+            
             <div className="container">
                 <table className="table">
                     <thead>
