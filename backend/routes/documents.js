@@ -11,8 +11,6 @@ const EditHistory = Schemas.EditHistory;
 
 router.use(express.json());
 router.use(bodyParser());
-router.use(helpers.authenticateToken);
-
 router
     .route('/:documentID')
     .get(async (req,res) => {
