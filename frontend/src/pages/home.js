@@ -8,7 +8,8 @@ export default function Home() {
             <NavBar></NavBar>
 
             {/* change this based on role */}
-            <h1> Suh bih </h1>
+            <h1 className='home'> Home </h1>
+
         </>
     )
 

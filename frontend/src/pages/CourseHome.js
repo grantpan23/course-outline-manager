@@ -46,7 +46,8 @@ function CourseHome() {
     }, []);
 
     const popTable = async () => {
-        fetch(process.env.REACT_APP_API_URL + `/api/instructor/${decodedToken.username}/courses/${decodedToken.username}`,
+        try{
+            const response = await fetch(process.env.REACT_APP_API_URL + `/api/instructor/${decodedToken.username}/courses/${decodedToken.username}`,
             {
                 method: 'GET',
                 headers: {
@@ -54,15 +55,15 @@ function CourseHome() {
                     'Authorization': token
                 }
             })
-            .then(async (res) => {
-                if (res.ok) {
-                    const data = await res.json();
-                    setData(data);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+           
+        if(response.ok){
+            const data = await response.json();
+            setData(data);
+        }
+        
+        } catch(error) {
+            console.log(error.message);
+        }
     }
 
 

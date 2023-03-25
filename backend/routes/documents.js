@@ -7,6 +7,7 @@ const helpers = require('./helpers.js')
 
 const Document = Schemas.Document;
 const Course = Schemas.Course;
+const EditHistory = Schemas.EditHistory;
 
 router.use(express.json());
 router.use(bodyParser());
@@ -40,8 +41,69 @@ router
 
 router
     .route('/:documentID/comments')
-    .post(async (req,res) => {
+    .get(async (req,res) => {
+        const document = await Document.findById(req.params.documentID);
+        if(!document) res.status(400).send('Document does not exist');
 
+        const metadata = document.metadata;
+
+        if(!metadata){
+            document.metadata = {
+                instructorJustifications: [],
+                reviewerComments: []
+            }
+        }
+
+        return res.send(document.metadata);
+    })
+    .post(async (req,res) => {
+        const document = await Document.findById(req.params.documentID);
+
+        const comment = {
+            username: req.body.username,
+            commentText: req.body.commentText,
+            selectedText: req.body.selectedText
+        }
+
+        if(!document.metadata){
+            document.metadata = {
+                instructorJustifications: [],
+                reviewerComments: []
+            }
+        }
+
+        if(req.body.userRole == 'instructor'){
+            comment.type = 'justification';
+            document.metadata.instructorJustifications.push(comment);
+            document.save();
+            return res.send(document.metadata);
+        } else if(req.body.userRole == 'reviewer'){
+            comment.type = 'comment';
+            document.metadata.reviewerComments.push(comment);
+            document.save();
+            return res.send(document.metadata);
+        } else {
+            return res.status(400).send('Role is inapplicable.')
+        }
+    })
+
+router
+    .route('/:documentID/activity')
+    .post(async (req,res) => {
+        const newActivity = new EditHistory({
+            username: req.body.username,
+            timeStamp:req.body.timeStamp,
+            activity: req.body.activity,
+            documentID: req.params.documentID
+        })
+    
+        await newActivity.save((err) => {
+            if(err){
+                return res.status(500).send(err);
+            } else {
+                return res.json(newActivity);
+            }
+        })
     })
 
 router

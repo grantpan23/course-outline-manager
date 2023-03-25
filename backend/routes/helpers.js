@@ -53,7 +53,6 @@ function authenticateAdmin(req, res, next){
 }
 
 function authenticateInstructor(req, res, next){
-    
     if(req.params.instructorUser != req.user.username) return res.status(401).send("Not the same user");
     if(req.user.role != "instructor") return res.status(401).send("Not an instructor");
 

@@ -45,26 +45,33 @@ const courseSchema = new Schema({
     }
 });
 
+const commentSchema = new Schema({
+  username: {type:String, required:false, default: ''},
+  commentText: {type:String,required:true},
+  selectedText: {type:String,required:true},
+  type:{type:String,enum: ['justification','comment']}
+})
+
+const metadataSchema = new Schema({
+  instructorJustifications: {type:Array,of:commentSchema,required:true,default:[]},
+  reviewerComments: {type:Array,of:commentSchema,required:true,default:[]}
+})
+
+
 const documentSchema = new Schema({
   _id: String, 
   data: Object,
   gaIndicators: {type:Object,required:true,default: {}},
-  status: String,
-  author: String
+  status: {type:String,required:true,enum:['draft', 'pending', 'approved', 'rejected'],default:'draft'},
+  author: String,
+  metadata: metadataSchema,
 })
 
 const editHistorySchema = new Schema ({
-  userID: String,
-  timeStamp: String,
-  activity: String,
-  docID: String
-})
-
-const editSchema = new Schema({
-  id: String,
-  time: Date,
-  username: String,
-  document: String
+  username: {type:String,required:true},
+  timeStamp: {type:String,required:true},
+  activity: {type:String,required:true,enum: ['edited','commented']},
+  documentID: {type:String,required:true}
 })
 
   //model creations

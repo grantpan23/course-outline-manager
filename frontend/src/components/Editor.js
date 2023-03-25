@@ -3,14 +3,22 @@ import { useCallback, useEffect, useState, useRef, } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
 import { Quill } from "react-quill";
 import "quill/dist/quill.snow.css"
-import Comment from './Comment';
+import Comments from './Comments';
 import NavBar from './NavBar';
+import Print from './Print';
 import { Link } from 'react-router-dom';
+import decode from 'jwt-decode';
+
+
 
 export default function Editor() {
-  const reactQuillRef = useRef(null);
+  const userInfo = decode(window.localStorage.getItem("token"));
+
+  const quillRef = useRef(null);
   const { id: documentID } = useParams();
-  const [quill, setQuill] = useState()
+
+  const [quill, setQuill] = useState(null);
+  const [loaded,setLoaded] = useState(false);
   const location = useLocation();
   const view = location.state;
 
@@ -23,6 +31,8 @@ export default function Editor() {
       quill.enable();
     else if(!view)
       quill.disable();
+
+    setLoaded(true);
   }, [quill])
 
   const fetchAndSetDocument = async () => {
@@ -44,6 +54,25 @@ export default function Editor() {
 
     if (response.status != 200) {
       console.log(response.error);
+    } else {
+      const now = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+      
+      const payload = {
+        username:userInfo.username,
+        activity:'edited',
+        documentID:documentID,
+        timeStamp:now
+      }
+
+      const res = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/activity`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      const data = await res.json();
+      console.log(data);
     }
   }
 
@@ -55,7 +84,7 @@ export default function Editor() {
     wrapper.append(editor)
 
     const q = new Quill(editor, {
-      ref: { reactQuillRef }, theme: "snow",
+      ref: { quillRef }, theme: "snow",
       modules: {
         toolbar:
         {
@@ -87,10 +116,15 @@ export default function Editor() {
         <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
         <button className='btn btn-success'>  Submit  </button>
       </div>            
-      <Comment quill={quill} />
       <button onClick={saveDocument}>Save</button>
       <div className="container" ref={wrapperRef}>
       </div>
+      {
+        loaded &&
+        <Comments documentID={documentID} quill={quill} quillRef = {quillRef}/>
+      }
+            <Print></Print>
+
     </>
   );
 };
