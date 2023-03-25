@@ -62,7 +62,7 @@ const documentSchema = new Schema({
   _id: String, 
   data: Object,
   gaIndicators: {type:Array,required:true,default:[]},
-  metadata: metadataSchema,
+  metadata: {type:metadataSchema},
   status: {type:String,required:true,enum:['draft', 'pending', 'approved', 'rejected'],default:'draft'},
 })
 
