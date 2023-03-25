@@ -253,23 +253,6 @@ function GAForm() {
 
         const updateIndicators = async () => {
 
-            var gaIndicatorList = [
-
-                `Knowledge Base: ${KB}`
-                    `ProblemAnalysis: ${PA}`,
-                `Investigation: ${I}`,
-                `Design: ${I}`,
-                `Use of Engineering Tools: ${ET}`,
-                `IndividualAndTeamWork: ${ITW}`,
-                `Communication Skills: ${CS}`,
-                `Professionalism: ${PR}`,
-                `Impact of Engineering on Society and the Environment: ${IESE}`,
-                `Ethics and Equity: ${EE}`,
-                `Economics and Project Management: ${EPM}`,
-                `Life-Long Learning": ${LL}`
-
-
-            ]
 
             const currentIndicators = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`);
             const data = await currentIndicators.json();
@@ -290,20 +273,24 @@ function GAForm() {
 
         }
 
+
+
         const routeChange = async () =>{ 
+
             await updateDocument();
             await updateIndicators();
+            console.log("why arent u working")
             let path = `/documents/${documentID}`; 
             navigate(path);
         }
-
-        console.log("hit this")
-        updateDocument()
-        updateIndicators();
-        routeChange();
+        
+        
+        await routeChange();
 
  
     }
+
+    
 
     // const handleFormInputChange = () => {
     //     setFormInput({
@@ -329,7 +316,7 @@ function GAForm() {
         //handleFormInputChange()
         console.log('d');
         event.preventDefault();
-        save();
+        await save()
             
     }
 
