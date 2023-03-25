@@ -30,11 +30,12 @@ function App() {
         {/* ***SECURE*** */}
         <Route path="/home" element={<Home />} />
         <Route path="/documents/:id" element={<Editor />} />
-
+        <Route path="/ga-indicators/:id" element={<GAForm />} />
+        //${uuidV4()}
 
         {/* ***INSTRUCTOR*** */}
         <Route path="/instructor/courses" element={<CourseHome />} />
-        <Route path="/instructor/courses/outline/create/ga-indicators" element={<GAForm />} />
+        <Route path="/instructor/courses/outline/create/ga-indicators" element={<Navigate to={`/ga-indicators/${uuidV4()}`} />} />
 
         <Route path="/instructor/courses/outline/create/new" element={<Navigate to={`/documents/${uuidV4()}`} />} />
         

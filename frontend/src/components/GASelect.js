@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import NavBar from './NavBar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import {
+    Navigate,
+  } from "react-router-dom";
 
 function GAForm() {
     
@@ -88,6 +91,11 @@ function GAForm() {
 
     const {id: documentID} = useParams();
 
+    console.log(documentID)
+
+    let navigate = useNavigate(); 
+    
+
 
     const save = async () => {
 
@@ -109,19 +117,23 @@ function GAForm() {
         ] 
 
         const updateDocument = async () => {
+
             const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`);
             const data = await document.json();
             const opsList = data.ops || data
             
             console.log(opsList)
+
+            let index = 0;
+         
+
+                for (let i = 0; i < opsList.length; i++) {
+                    if (opsList[i].insert === "General Learning Objectives (CEAB Graduate Attributes)") {
+                    index = i;
+                    break;
+                        }
+                    }
             
-            let index = -1;
-            for (let i = 0; i < opsList.length; i++) {
-            if (opsList[i].insert === "General Learning Objectives (CEAB Graduate Attributes)") {
-            index = i;
-            break;
-                }
-            }
             console.log(index)
     
             if(quillGA.length > 0 ){
@@ -138,7 +150,7 @@ function GAForm() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formInput)
+            body: JSON.stringify(opsList)
             })
     
             console.log(response)
@@ -153,6 +165,7 @@ function GAForm() {
 
         const updateIndicators = async () => {
 
+            await handleFormInputChange()
 
             const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`, {
                 method: 'PUT',
@@ -172,15 +185,22 @@ function GAForm() {
 
         }
 
+        const routeChange = async () =>{ 
+            await updateDocument();
+            await updateIndicators();
+            let path = `/documents/${documentID}`; 
+            navigate(path);
+        }
+
         console.log("hit this")
         updateDocument()
         updateIndicators();
-       
+        routeChange();
+
+        
     }
 
-
-
-    const handleFormInputChange = () => {
+    const handleFormInputChange = async () => {
         setFormInput({
             "KnowledgeBase": KB,
             "ProblemAnalysis": PA,
@@ -198,14 +218,10 @@ function GAForm() {
         
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         console.log('d');
         event.preventDefault();
-        handleFormInputChange();
         save();
-
-        
-
             
     }
 
@@ -321,7 +337,7 @@ function GAForm() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                   <button className='btn btn-success' type="submit">Submit</button>
+                     <button className='btn btn-success' type="submit">Submit</button>
                 </form>
             </div>
         </>
