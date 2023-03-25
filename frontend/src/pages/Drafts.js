@@ -49,7 +49,7 @@ function Drafts() {
         <>
             <div className="nav-buttons">
                 <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
-                <Link className="my-link" to="/instructor/courses/outline/create/new"><button className='btn btn-success'>New</button></Link>
+                <Link className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button className='btn btn-success'>New</button></Link>
             </div>
 
             

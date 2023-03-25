@@ -25,6 +25,8 @@ export default function Editor() {
   useEffect(() => {
     if (quill == null) return;
     fetchAndSetDocument();
+
+    
     
     // a piece of logic to make it an editor or a viewer
     if(view)

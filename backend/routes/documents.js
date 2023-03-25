@@ -11,7 +11,6 @@ const EditHistory = Schemas.EditHistory;
 
 router.use(express.json());
 router.use(bodyParser());
-router.use(helpers.authenticateToken);
 
 router
     .route('/:documentID')
@@ -45,13 +44,14 @@ router
         const document = await Document.findById(req.params.documentID);
         if(!document) res.status(400).send('Document does not exist');
 
-        const metadata = document.metadata;
 
-        if(!metadata){
+        if(document.metadata != null){
             document.metadata = {
                 instructorJustifications: [],
                 reviewerComments: []
             }
+        } else {
+            const metadata = document.metadata;
         }
 
         return res.send(document.metadata);
