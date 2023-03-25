@@ -24,7 +24,13 @@ export default function Comments(props){
     })
 
     const fetchMetadata = async () => {
-        const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/comments`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/comments`,{
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': window.localStorage.getItem("token")
+              }
+        });
 
         const data = await response.json();
         console.log(data);

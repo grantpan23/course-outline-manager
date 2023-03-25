@@ -31,14 +31,19 @@ export default function Editor() {
       quill.enable();
     else if(!view)
       quill.disable();
-
-    setLoaded(true);
   }, [quill])
 
   const fetchAndSetDocument = async () => {
-    const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`);
+    const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`,{
+      method: 'GET',
+      headers:{
+          'Content-Type': 'application/json',
+          'Authorization': window.localStorage.getItem("token")
+        }
+  });
     const data = await document.json();
     quill.setContents(data);
+    setLoaded(true);
   }
 
   const saveDocument = async () => {
