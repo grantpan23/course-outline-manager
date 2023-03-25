@@ -44,7 +44,15 @@ router
         if(!document) res.status(400).send('Document does not exist');
 
         const metadata = document.metadata;
-        return res.send(metadata);
+
+        if(!metadata){
+            document.metadata = {
+                instructorJustifications: [],
+                reviewerComments: []
+            }
+        }
+
+        return res.send(document.metadata);
     })
     .post(async (req,res) => {
         const document = await Document.findById(req.params.documentID);

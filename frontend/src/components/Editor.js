@@ -18,6 +18,7 @@ export default function Editor() {
   const { id: documentID } = useParams();
 
   const [quill, setQuill] = useState(null);
+  const [loaded,setLoaded] = useState(false);
   const location = useLocation();
   const view = location.state;
 
@@ -30,6 +31,8 @@ export default function Editor() {
       quill.enable();
     else if(!view)
       quill.disable();
+
+    setLoaded(true);
   }, [quill])
 
   const fetchAndSetDocument = async () => {
@@ -117,7 +120,7 @@ export default function Editor() {
       <div className="container" ref={wrapperRef}>
       </div>
       {
-        quill &&
+        loaded &&
         <Comments documentID={documentID} quill={quill} quillRef = {quillRef}/>
       }
             <Print></Print>
