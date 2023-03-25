@@ -129,3 +129,8 @@ nav li:hover {
     margin-left: 10px;
     margin-right: 10px;
   }
+
+  .home {
+    text-align: center;
+    font-size: 4rem;
+  }
