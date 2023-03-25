@@ -27,10 +27,7 @@ export default function Editor() {
     fetchAndSetDocument();
     
     // a piece of logic to make it an editor or a viewer
-    if(view)
-      quill.enable();
-    else if(!view)
-      quill.disable();
+    quill.enable();
   }, [quill])
 
   const fetchAndSetDocument = async () => {

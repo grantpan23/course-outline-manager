@@ -326,6 +326,7 @@ function GAForm() {
         console.log('d');
         event.preventDefault();
         handleFormInputChange();
+        setView(true);
         save();
 
 
@@ -445,7 +446,7 @@ function GAForm() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <Link to="/instructor/courses/outline/create/new" state={formInput}><button className='btn btn-success' type="submit">Submit</button></Link>
+                    <Link to="/instructor/courses/outline/create/new" state={view}><button className='btn btn-success' type="submit">Submit</button></Link>
                 </form>
             </div>
         </>
