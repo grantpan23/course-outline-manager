@@ -21,7 +21,23 @@ function GAForm() {
     const [EPM, setEPM] = useState('');
     const [LL, setLL] = useState('');
     const [view, setView] = useState(false);
-    const [formInput, setFormInput] = useState({
+    // const [formInput, setFormInput] = useState({
+    //     "Knowledge Base": KB,
+    //     "ProblemAnalysis": PA,
+    //     "Investigation": I,
+    //     "Design": D,
+    //     "Use of Engineering Tools": ET,
+    //     "IndividualAndTeamWork": ITW,
+    //     "Communication Skills": CS,
+    //     "Professionalism": PR,
+    //     "Impact of Engineering on Society and the Environment": IESE,
+    //     "Ethics and Equity": EE,
+    //     "Economics and Project Management": EPM,
+    //     "Life-Long Learning": LL
+    // });
+
+    var formInput = {
+
         "Knowledge Base": KB,
         "ProblemAnalysis": PA,
         "Investigation": I,
@@ -34,14 +50,16 @@ function GAForm() {
         "Ethics and Equity": EE,
         "Economics and Project Management": EPM,
         "Life-Long Learning": LL
-    });
+    }
 
     const handleKBChange = (event) => {
         setKB(event.target.value);
+        console.log(KB)
     };
 
     const handlePAChange = (event) => {
         setPA(event.target.value);
+        console.log(PA)
     };
 
     const handleIChange = (event) => {
@@ -94,7 +112,6 @@ function GAForm() {
     console.log(documentID)
 
     let navigate = useNavigate(); 
-    
 
 
     const save = async () => {
@@ -115,6 +132,8 @@ function GAForm() {
             { "insert": `\n\nEconomics And Project Management ${EPM}`},
             {"insert": `\n\nLife-Long Learning ${LL}`}
         ] 
+
+        
 
         const updateDocument = async () => {
 
@@ -165,8 +184,6 @@ function GAForm() {
 
         const updateIndicators = async () => {
 
-            await handleFormInputChange()
-
             const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`, {
                 method: 'PUT',
                 headers: {
@@ -180,8 +197,6 @@ function GAForm() {
                 if(response.status != 200){
                 console.log(response.error);
                 }
-
-
 
         }
 
@@ -200,25 +215,28 @@ function GAForm() {
         
     }
 
-    const handleFormInputChange = async () => {
-        setFormInput({
-            "KnowledgeBase": KB,
-            "ProblemAnalysis": PA,
-            "Investigation": I,
-            "Design": D,
-            "Use of EngineeringTools": ET,
-            "IndividualAndTeam Work": ITW,
-            "CommunicationSkills": CS,
-            "Professionalism": PR,
-            "ImpactOfEngineering on Society and the Environment": IESE,
-            "EthicsAndEquity": EE,
-            "EconomicsAndProjectManagement": EPM,
-            "LifeLongLearning": LL
-        });
+    // const handleFormInputChange = () => {
+    //     setFormInput({
+    //         "KnowledgeBase": KB,
+    //         "ProblemAnalysis": PA,
+    //         "Investigation": I,
+    //         "Design": D,
+    //         "Use of EngineeringTools": ET,
+    //         "IndividualAndTeam Work": ITW,
+    //         "CommunicationSkills": CS,
+    //         "Professionalism": PR,
+    //         "ImpactOfEngineering on Society and the Environment": IESE,
+    //         "EthicsAndEquity": EE,
+    //         "EconomicsAndProjectManagement": EPM,
+    //         "LifeLongLearning": LL
+    //     });
+    //     console.log("this is called?")
+    //     console.log(formInput)
         
-    };
+    // };
 
     const handleSubmit = async (event) => {
+        //handleFormInputChange()
         console.log('d');
         event.preventDefault();
         save();
