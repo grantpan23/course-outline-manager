@@ -19,6 +19,9 @@ function NavBar() {
           {/* ***REVIEWER*** */}
           <li><Link to="/reviewer/pending"> Review </Link> </li>
 
+
+          <li><Link to="/"> Login/out </Link> </li>
+
         </ul>
       </nav>
     );

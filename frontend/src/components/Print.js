@@ -1,28 +1,37 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import  Editor  from './Editor';
+import { Link, useLocation } from "react-router-dom";
+import Editor from './Editor';
 import q from './Editor';
-import {QuillDeltaToHtmlConverter } from 'quill-delta-to-html'
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html'
 
 
 
 
-function Print({}) {
+function Print({ }) {
+  const token = window.localStorage.getItem("token");
+  const location = useLocation();
 
+  const course = location.state;
 
-  const  printPage = async() =>{
-    const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${q.documentID}`);
-    const data = await document.json(); 
+  const printPage = async () => {
+    const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${q.documentID}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': token
+      }
+    });
+    const data = await document.json();
     console.log(data)
     let data2 = data.ops
     console.log(data2)
     var cfg = {};
 
-var converter = new QuillDeltaToHtmlConverter(data2, cfg);
+    var converter = new QuillDeltaToHtmlConverter(data2, cfg);
 
-var html = converter.convert(); 
-    let stringData =html
+    var html = converter.convert();
+    let stringData = html
     console.log(stringData)
 
     var newWindow = window.open();
@@ -34,11 +43,11 @@ var html = converter.convert();
     };
     newWindow.print();
   }
-    return (
-        <button onClick={printPage}>
-          Print
-        </button>
-      );
+  return (
+    <button onClick={printPage}>
+      Print
+    </button>
+  );
 }
 
 
