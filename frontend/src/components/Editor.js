@@ -119,7 +119,7 @@ export default function Editor() {
         <button className='btn btn-success'>  Submit  </button>
       </div>            
       <button onClick={saveDocument}>Save</button>
-      <div className="container" ref={wrapperRef}>
+      <div className="container" ref={wrapperRef}> 
       </div>
       {
         loaded &&
