@@ -58,7 +58,7 @@ export default function Login() {const emailRef = useRef();
 
         //nav to somewhere, save jwt to localStorage
         localStorage.setItem("token", "Bearer " + data.accessToken)
-
+        
         history("/home")
     }
   
@@ -79,6 +79,10 @@ export default function Login() {const emailRef = useRef();
       setLoading(false)
       
   }
+
+  const logout = () => {
+    localStorage.removeItem("token");
+  } 
 
 return (
   <>
@@ -110,6 +114,7 @@ return (
           </Form>
 
           <div className ="w-100 text-center mt-3">
+            <button onClick={logout}>log out</button>
          
             </div>
           </Card.Body>

@@ -1,78 +1,88 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import jwt from "jwt-decode";
-
+import { useLocation, useParams, Link } from 'react-router-dom';
+import jwt from 'jwt-decode';
+import Print from '../components/Print';
 
 function Drafts() {
-    // let decodedToken = {};
-    // const token = window.localStorage.getItem("token");
-    // const verifyInstructor = (token) => {
-    //     // can add an API to make this secure
-    //     decodedToken = jwt(token);
-    //     console.log(decodedToken)
-    // }
+    const token = window.localStorage.getItem("token");
+    const location = useLocation();
 
-    // const popTable = async () => {
-    //     fetch(process.env.REACT_APP_API_URL + `/api/instructor/${decodedToken.username}/courses/${decodedToken.username}`,
-    //         {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-type': 'application/json',
-    //                 'Authorization': token
-    //             }
-    //         })
-    //         .then(async (res) => {
-    //             if (res.ok) {
-    //                 const data = await res.json();
-    //                 setData(data);
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }
+    const course = location.state;
+    // couldn't get use state to work
+    let decodedToken = {};
+    const [idData, setIdData] = useState([]);
+    const [tableData, setTableData] = useState([]);
 
+    useEffect(() => {
+        verifyInstructor(token);
+        popTable();
+    }, []);
 
-    return ( ''
-    // <>
-    //     <div className="nav-buttons">
-    //         <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
-    //         <button className='btn btn-success'>  Submit  </button>
-    //     </div>
+    const verifyInstructor = (token) => {
+        // can add an API to make this secure
+        decodedToken = jwt(token);
+    }
 
-    //     <div className="container">
-    //             <table className="table">
-    //                 <thead>
-    //                     <tr>
-    //                         <th>Doucment ID</th>
-    //                         <th>Status</th>
-    //                         <th></th>
-    //                     </tr>
-    //                 </thead>
-    //                 <tbody id="tableBody">
-    //                     {data.map(document => (
-    //                         <tr key={document._id}>
-    //                             <td>{document.timeStamp}</td>
-    //                             <td>{document.status}</td>
+    const popTable = async () => {
+        
+        fetch(process.env.REACT_APP_API_URL + `/api/instructor/${decodedToken.username}/draft-outlines/${course.code}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': token
+                }
+            })
+            .then(async (res) => {
+                if (res.ok) {
+                    let obj = await res.json();
+                    let myArr = Object.values(obj);
+                    setIdData(myArr);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
-    //                             <td><Link className="my-link" to="/instructor/documents/outline/create/drafts"><button id="blank" className='btn btn-primary'>Go to new/drafts</button></Link></td>
+    return (
+        <>
+            <div className="nav-buttons">
+                <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
+                <Link className="my-link" to="/instructor/courses/outline/create/new"><button className='btn btn-success'>New</button></Link>
+            </div>
 
-    //                             <td>
-    //                                 <div>
-    //                                     <Link state={template} className="my-link" to="/instructor/documents/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">See Previous Years</button></Link>
-    //                                 </div>
-    //                             </td>
+            
+            <div className="container">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Doc ID</th>
+                            <th>Author</th>
+                            <th></th>
+                            <th>Review Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        {idData.map((doc, index) => (
+                            <tr key={doc}>
+                                <td>Draft {index+1}</td>
+                                <td>{doc.name}</td>
 
-    //                             <td>status needed</td>
+                                <td><Link state={doc} className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button id="blank" className='btn btn-primary'>Edit</button></Link></td>
 
-    //                             <td><Print></Print></td>
-    //                         </tr>
-    //                     ))}
-    //                 </tbody>
-    //             </table>
-    //         </div>
-    // </>
-        );
+                                <td>{doc.status}</td>
+
+                                <td><Print></Print></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+        </>
+    );
 }
 
 export default Drafts;

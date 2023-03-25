@@ -23,7 +23,7 @@ router.use(helpers.authenticateAdmin);
 //routes
 
 //admin
-
+  
 //Edit History Routes
 router
     .route('/activity/:documentID')

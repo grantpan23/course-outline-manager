@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { Link, useNavigate } from "react-router-dom";
-import Print from "../components/Print";
 import jwt from "jwt-decode";
 
 function CourseHome() {
@@ -96,9 +95,6 @@ function CourseHome() {
                             <th>Course Name</th>
                             <th>Create Original Version</th>
                             <th>Use Old Version</th>
-                            <th>Review Status</th>
-                            <th>Print</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -106,18 +102,15 @@ function CourseHome() {
                             <tr key={course._id}>
                                 <td>{course.name}</td>
                                 <td>{course.name}</td>
+                                
+                                <td><Link state={course} className="my-link" to="/instructor/courses/outline/create/drafts"><button id="blank" className='btn btn-primary'>Go to new/drafts</button></Link></td>
 
-                                <td><Link className="my-link" to="/instructor/courses/outline/create/drafts"><button id="blank" className='btn btn-primary'>Go to new/drafts</button></Link></td>
 
                                 <td>
                                     <div>
-                                        <Link state={template} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">See Previous Years</button></Link>
+                                        <Link state={course} className="my-link" to="/instructor/courses/outline/create/versions"><button id="template" onClick={handleTemplateState} className="btn btn-secondary">See Previous Years</button></Link>
                                     </div>
                                 </td>
-
-                                <td>status needed</td>
-
-                                <td><Print></Print></td>
                             </tr>
                         ))}
                     </tbody>

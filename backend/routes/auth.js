@@ -15,7 +15,7 @@ router.use(expressSanitizer());
 router
     .route('/users/login')
     .post( async (req,res) => {
-        console.log('he')
+        console.log('logging in')
         const user = await User.findOne({username:req.body.username});
         if (!user){
             return res.status(400).send("User not found");

@@ -3,15 +3,97 @@ import React, { useEffect, useState, ReactDOM } from 'react'
 import { useNavigate } from "react-router-dom";
 import NavBar from '../components/NavBar';
 import { Link } from 'react-router-dom';
+import decode from 'jwt-decode';
+
 
 function ReviewHome() {
+    const token = localStorage.getItem("token");
+    const userInfo = decode(window.localStorage.getItem("token"));
+    
+
     const history = useNavigate()
+
+    const [status, setStatus] = useState([])
+    const [docs, setDocs] = useState([])
+
+
+    const updateStatusAccept =async (docID) =>{
+        const payload = {
+            status: "Accepted"
+        }
+        fetch(process.env.REACT_APP_API_URL + `/api/reviewer/outlines/${docID}/status`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': token
+          },
+          body: JSON.stringify(payload)
+ 
+    })
+ 
+     .then(async (res) => {
+          if (res.ok) {
+            const data = await res.json();
+            console.log(data);
+            setDocs(data)
+          }
+        })
+    }
+    const updateStatusReject =async (docID) =>{
+        const payload = {
+            status: "Rejected"
+        }
+        fetch(process.env.REACT_APP_API_URL + `/api/reviewer/outlines/${docID}/status`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': token
+          },
+          body: JSON.stringify(payload)
+ 
+    })
+ 
+     .then(async (res) => {
+          if (res.ok) {
+            const data = await res.json();
+            console.log(data);
+            setDocs(data)
+          }
+        })
+    }
+
+
 
     useEffect(() => {
       const token = localStorage.getItem("token");
       if (!token){
           history("/")
       }
+
+      
+    const getUsers = async() => {
+        fetch(process.env.REACT_APP_API_URL + `/api/reviewer/${userInfo.username}/outlines/pending`,
+       {
+         method: 'GET',
+         headers: {
+           'Content-type': 'application/json',
+           'Authorization': token
+         }
+
+   })
+
+    .then(async (res) => {
+         if (res.ok) {
+           const data = await res.json();
+           console.log(data);
+           setDocs(data)
+         }
+       })
+   }
+    
+    getUsers()
     }, []);
 
     return (
@@ -25,37 +107,33 @@ function ReviewHome() {
                             <th>Course Name</th>
                             <th>Course Outline</th>
                             <th>Current Status</th>
-                            <th>Recent Author</th>
-                            <th>Original Author</th>
+                            <th>Accept</th>
+                            <th>Reject</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        {/* <!-- Rows will be dynamically added here --> */}
-                        <tr>
-                            {/* Just info here */}
-                            <td>Software Eng</td>
-                            <td>SE69</td>
+                    {docs.map((doc)=> {
+      return (        
+      <tr>
+          
+          <td>Software Eng</td>
+          <td>SE69</td>
 
-                            <td><button className='btn'><Link to="/instructor/courses/outline/create/new">TEST NEW</Link></button></td>
-                            {/* THIS NEEDS TO ATTACH ITS COURSE TO THE NEWLY CREATED DOCUMENT'S OBJECT AND SENT TO DB*/}
+          <td>{<button className='btn'><Link to={`/documents/${doc._id}`}>OPEN IN EDITOR</Link></button>}</td>
+        
 
-                            <td>
-                                <select className='form-select'>
-                                    <option>Choose Template</option>
-                                    {/* FOLLOW ASSIGNINSTRUCTOR PARADIGM */}
-                                </select>
-                            </td>
-                            {/*NEEDS A SELECT TAG THAT GETS FILLED / SAME HERE */}
+          <td>
+            pending
+          </td>
 
-
-                            <td>TEST REVIEW STATUS</td>
-                            {/* WHEN THIS BUTTON IS CLICKED, THE DOCUMENT IT IS ATTACHED TO NEEDS TO SEND ITS DATA OVER SO THE REVIEW CORRESPONDING TO IT CAN LOAD IN THE REVIEW COMPONENT */}
-                            
-                            
-                            <td><button className='btn'>TEST PRINT</button></td>
-                            {/* SAME HERE */}
-                        </tr>
+          <td><button className='btn' onClick={() => {updateStatusAccept(doc._id)}}>Accept</button></td>          
+          
+          <td><button className='btn' onClick={() => {updateStatusReject(doc._id)}}>Reject</button></td>
+      </tr>
+      )     
+    })}
+                
                     </tbody>
                 </table>
             </div>
