@@ -158,7 +158,7 @@ function GAForm() {
             if(quillGA.length > 0 ){
                 quillGA.forEach(element => {
                     index = index + 1;
-                    opsList.splice(index, 1 ,element)
+                    opsList.splice(index, 0 ,element)
                     
                 });
     
