@@ -14,14 +14,35 @@ function ReviewHome() {
     const history = useNavigate()
 
     const [status, setStatus] = useState([])
-    const [docs, setDocs] = useState([])
+    var [docs, setDocs] = useState([])
+
+
+    const getUsers = async() => {
+        fetch(process.env.REACT_APP_API_URL + `/api/reviewer/${userInfo.username}/outlines/pending`,
+       {
+         method: 'GET',
+         headers: {
+           'Content-type': 'application/json',
+           'Authorization': token
+         }
+
+   })
+
+    .then(async (res) => {
+         if (res.ok) {
+           const data = await res.json();
+           console.log(data);
+           setDocs(data)
+         }
+       })
+   }
 
 
     const updateStatusAccept =async (docID) =>{
         const payload = {
             status: "Accepted"
         }
-        fetch(process.env.REACT_APP_API_URL + `/api/reviewer/outlines/${docID}/status`,
+        fetch(process.env.REACT_APP_API_URL + `/api/reviewer/${userInfo.username}/outlines/${docID}/status`,
         {
           method: 'PUT',
           headers: {
@@ -35,16 +56,20 @@ function ReviewHome() {
      .then(async (res) => {
           if (res.ok) {
             const data = await res.json();
+            getUsers()
             console.log(data);
-            setDocs(data)
+           
           }
         })
+
+       
+
     }
     const updateStatusReject =async (docID) =>{
         const payload = {
             status: "Rejected"
         }
-        fetch(process.env.REACT_APP_API_URL + `/api/reviewer/outlines/${docID}/status`,
+        fetch(process.env.REACT_APP_API_URL + `/api/reviewer/${userInfo.username}/outlines/${docID}/status`,
         {
           method: 'PUT',
           headers: {
@@ -59,9 +84,13 @@ function ReviewHome() {
           if (res.ok) {
             const data = await res.json();
             console.log(data);
-            setDocs(data)
+            
+        getUsers()
+            
           }
         })
+
+
     }
 
 
@@ -113,8 +142,10 @@ function ReviewHome() {
                         </tr>
                     </thead>
                     <tbody id="tableBody">
+                       
                     {docs.map((doc)=> {
       return (        
+       
       <tr>
           
           <td>Software Eng</td>
@@ -133,6 +164,7 @@ function ReviewHome() {
       </tr>
       )     
     })}
+    
                 
                     </tbody>
                 </table>
