@@ -19,7 +19,6 @@ function authenticateToken (req,res,next) {
         const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         // If the token is valid, attach the payload to the request object
         req.user = payload;
-        console.log("Valid user");
         // Call the next middleware or route handler
         next();
     } catch (error) {
@@ -60,7 +59,7 @@ function authenticateInstructor(req, res, next){
 }
 
 function authenticateReviewer(req, res, next){
-    if(req.params.adminUser != req.user.username) return res.status(401).send("Not the same user");
+    if(req.params.reviewerUser != req.user.username) return res.status(401).send("Not the same user");
     if(req.user.role != "reviewer") return res.status(401).send("Not an reviewer");
     
     next();

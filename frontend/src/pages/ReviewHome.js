@@ -40,7 +40,7 @@ function ReviewHome() {
 
     const updateStatusAccept =async (docID) =>{
         const payload = {
-            status: "Accepted"
+            status: "accepted"
         }
         fetch(process.env.REACT_APP_API_URL + `/api/reviewer/${userInfo.username}/outlines/${docID}/status`,
         {
@@ -67,7 +67,7 @@ function ReviewHome() {
     }
     const updateStatusReject =async (docID) =>{
         const payload = {
-            status: "Rejected"
+            status: "rejected"
         }
         fetch(process.env.REACT_APP_API_URL + `/api/reviewer/${userInfo.username}/outlines/${docID}/status`,
         {

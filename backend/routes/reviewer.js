@@ -1,16 +1,21 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const router = express.Router();
+const router = express.Router({mergeParams:true});
 const Schemas = require('../models/schemas.js');
+const helpers = require('./helpers.js');
 
 const Document = Schemas.Document;
 
 router.use(bodyParser());
 router.use(express.json());
 
+router.use(helpers.authenticateToken);
+router.use(helpers.authenticateReviewer);
+
 router
     .route('/outlines/:type')
     .get(async (req,res) => {
+        console.log(req.params);
         const query = {status:req.params.type};
 
         Document.find(query, {"_id": 1}, (err,data) => {
