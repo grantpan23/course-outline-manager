@@ -103,7 +103,9 @@ function CourseHome() {
                                 <td>{course.name}</td>
                                 <td>{course.name}</td>
                                 
-                                <td><Link state={course} className="my-link" to="/instructor/courses/outline/create/drafts"><button id="blank" className='btn btn-primary'>Go to new/drafts</button></Link></td>
+                                <td><Link state={course} className="my-link" to="/instructor/courses/outline/create/ga-indicators"><button id="blank" className='btn btn-primary'>Go to new/drafts</button></Link></td>
+                                 {/* //changed this /instructor/courses/outline/create/drafts in create/drafts */}
+                                
 
 
                                 <td>

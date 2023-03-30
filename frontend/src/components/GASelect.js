@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from './NavBar';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import jwt from 'jwt-decode';
+import {
+    Navigate,
+  } from "react-router-dom";
 
 function GAForm() {
     let location = useLocation();
@@ -25,7 +28,23 @@ function GAForm() {
     const [EPM, setEPM] = useState('');
     const [LL, setLL] = useState('');
     const [view, setView] = useState(false);
-    const [formInput, setFormInput] = useState({
+    // const [formInput, setFormInput] = useState({
+    //     "Knowledge Base": KB,
+    //     "ProblemAnalysis": PA,
+    //     "Investigation": I,
+    //     "Design": D,
+    //     "Use of Engineering Tools": ET,
+    //     "IndividualAndTeamWork": ITW,
+    //     "Communication Skills": CS,
+    //     "Professionalism": PR,
+    //     "Impact of Engineering on Society and the Environment": IESE,
+    //     "Ethics and Equity": EE,
+    //     "Economics and Project Management": EPM,
+    //     "Life-Long Learning": LL
+    // });
+
+    var formInput = {
+
         "Knowledge Base": KB,
         "ProblemAnalysis": PA,
         "Investigation": I,
@@ -38,7 +57,7 @@ function GAForm() {
         "Ethics and Equity": EE,
         "Economics and Project Management": EPM,
         "Life-Long Learning": LL
-    });
+    };
 
     useEffect(() => {
         console.log(docId);
@@ -89,10 +108,12 @@ function GAForm() {
 
     const handleKBChange = (event) => {
         setKB(event.target.value);
+        console.log(KB)
     };
 
     const handlePAChange = (event) => {
         setPA(event.target.value);
+        console.log(PA)
     };
 
     const handleIChange = (event) => {
@@ -196,8 +217,14 @@ function GAForm() {
 
     const { id: documentID } = useParams();
 
+    console.log(documentID)
+
+    let navigate = useNavigate(); 
+
+
 
     const save = async () => {
+
 
         var quillGA =
             [
@@ -215,27 +242,33 @@ function GAForm() {
                 { "insert": `\n\nLife-Long Learning ${LL}` }
             ]
 
+        
+
         const updateDocument = async () => {
+
             const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`);
             const data = await document.json();
             const opsList = data.ops || data
 
             console.log(opsList)
 
-            let index = -1;
-            for (let i = 0; i < opsList.length; i++) {
-                if (opsList[i].insert === "General Learning Objectives (CEAB Graduate Attributes)") {
+            let index = 0;
+         
+
+                for (let i = 0; i < opsList.length; i++) {
+                    if (opsList[i].insert === "General Learning Objectives (CEAB Graduate Attributes)") {
                     index = i;
                     break;
-                }
-            }
+                        }
+                    }
+            
             console.log(index)
 
             if (quillGA.length > 0) {
                 quillGA.forEach(element => {
                     index = index + 1;
-                    opsList.splice(index, 1, element)
-
+                    opsList.splice(index, 0 ,element)
+                    
                 });
 
             }
@@ -254,84 +287,69 @@ function GAForm() {
                 console.log(response.error);
             }
 
+            console.log("waiting")
+            
         }
 
         const updateIndicators = async () => {
-
-            var gaIndicatorList = [
-
-                `Knowledge Base: ${KB}`
-                    `ProblemAnalysis: ${PA}`,
-                `Investigation: ${I}`,
-                `Design: ${I}`,
-                `Use of Engineering Tools: ${ET}`,
-                `IndividualAndTeamWork: ${ITW}`,
-                `Communication Skills: ${CS}`,
-                `Professionalism: ${PR}`,
-                `Impact of Engineering on Society and the Environment: ${IESE}`,
-                `Ethics and Equity: ${EE}`,
-                `Economics and Project Management: ${EPM}`,
-                `Life-Long Learning": ${LL}`
-
-
-            ]
-
-            const currentIndicators = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`);
-            const data = await currentIndicators.json();
 
             const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}/ga-indicators`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(gaIndicatorList)
-            })
-
-            console.log(response)
-
-            if (response.status != 200) {
+                body: JSON.stringify(formInput)
+                })
+        
+                console.log(formInput)
+        
+                if(response.status != 200){
                 console.log(response.error);
             }
 
-
-
         }
 
+        const routeChange = async () =>{ 
+            await updateDocument();
+            await updateIndicators();
+            let path = `/documents/${documentID}`; 
+            navigate(path);
+        }
+
+        console.log("hit this")
         updateDocument()
         updateIndicators();
+        routeChange();
 
+        
     }
 
+    // const handleFormInputChange = () => {
+    //     setFormInput({
+    //         "KnowledgeBase": KB,
+    //         "ProblemAnalysis": PA,
+    //         "Investigation": I,
+    //         "Design": D,
+    //         "Use of EngineeringTools": ET,
+    //         "IndividualAndTeam Work": ITW,
+    //         "CommunicationSkills": CS,
+    //         "Professionalism": PR,
+    //         "ImpactOfEngineering on Society and the Environment": IESE,
+    //         "EthicsAndEquity": EE,
+    //         "EconomicsAndProjectManagement": EPM,
+    //         "LifeLongLearning": LL
+    //     });
+    //     console.log("this is called?")
+    //     console.log(formInput)
+        
+    // };
 
-
-    const handleFormInputChange = () => {
-        setFormInput({
-            "KnowledgeBase": KB,
-            "ProblemAnalysis": PA,
-            "Investigation": I,
-            "Design": D,
-            "Use of EngineeringTools": ET,
-            "IndividualAndTeam Work": ITW,
-            "CommunicationSkills": CS,
-            "Professionalism": PR,
-            "ImpactOfEngineering on Society and the Environment": IESE,
-            "EthicsAndEquity": EE,
-            "EconomicsAndProjectManagement": EPM,
-            "LifeLongLearning": LL
-        });
-
-    };
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
+        //handleFormInputChange()
         console.log('d');
         event.preventDefault();
-        handleFormInputChange();
-        setView(true);
         save();
-
-
-
-
+            
     }
 
 
@@ -446,7 +464,7 @@ function GAForm() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <Link to="/instructor/courses/outline/create/new" state={view}><button className='btn btn-success' type="submit">Submit</button></Link>
+                     <button className='btn btn-success' type="submit">Submit</button>
                 </form>
             </div>
         </>
