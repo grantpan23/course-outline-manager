@@ -19,6 +19,8 @@ function NavBar() {
           {/* ***REVIEWER*** */}
           <li><Link to="/reviewer/pending"> Review </Link> </li>
 
+          <li><Link to= "/instructor/my-outlines"> My Outlines </Link></li>
+
 
           <li><Link to="/"> Login/out </Link> </li>
 
