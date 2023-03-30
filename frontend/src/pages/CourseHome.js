@@ -56,11 +56,10 @@ function CourseHome() {
                 }
             })
            
-        if(response.ok){
-            const data = await response.json();
-            setData(data);
-        }
-        
+            if(response.ok){
+                const data = await response.json();
+                setData(data);
+            }
         } catch(error) {
             console.log(error.message);
         }

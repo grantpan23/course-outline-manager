@@ -27,7 +27,7 @@ router
     .get((req, res) => {
         Course.find({ instructors: { $in: [req.params.username] } }, (err, data) => {
             if (err) {
-                return res.status(50).send(err);
+                return res.status(500).send(err);
             } else {
                 const courses = data;
                 return res.json(courses);
