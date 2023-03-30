@@ -45,6 +45,7 @@ export default function Editor() {
 
   const saveDocument = async () => {
     const contents = quill.getContents();
+    contents.author = userInfo.username;
     console.log(JSON.stringify(contents));
     const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
       method: 'PUT',

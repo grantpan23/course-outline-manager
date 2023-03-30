@@ -18,7 +18,7 @@ router
         return res.send(document.data);
     })
     .put(async (req,res) => {
-        await Document.findByIdAndUpdate(req.params.documentID, {data: req.body});
+        await Document.findByIdAndUpdate(req.params.documentID, {data: req.body.ops,author:req.body.author});
         return res.send(req.body);
     })
 
