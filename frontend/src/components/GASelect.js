@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import NavBar from './NavBar';
 import { Link, useLocation, useNavigate} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import jwt from 'jwt-decode';
+import decode from 'jwt-decode';
 import {
     Navigate,
   } from "react-router-dom";
 
 function GAForm() {
     let location = useLocation();
-    const docId = location.state;
+    const {id:docId} = useParams();
     const token = window.localStorage.getItem("token");
-    let decodedToken = {};
+    const decodedToken = decode(token);
 
     const [docObj, setDocObj] = useState();
 
@@ -61,14 +61,8 @@ function GAForm() {
 
     useEffect(() => {
         console.log(docId);
-        verifyInstructor(token);
         // getGA(docId);
     }, []);
-
-    const verifyInstructor = (token) => {
-        // can add an API to make this secure
-        decodedToken = jwt(token);
-    }
 
     // const preLoadMaster = (ga) => {
     //     handleKBPreload(ga.KnowledgeBase)
@@ -245,6 +239,7 @@ function GAForm() {
         
 
         const updateDocument = async () => {
+            console.log('update');
 
             const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`);
             const data = await document.json();
@@ -273,12 +268,17 @@ function GAForm() {
 
             }
 
+            const payload = {
+                ops:opsList,
+                author:decodedToken.username
+            }
+
             const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(opsList)
+                body:JSON.stringify(payload)
             })
 
             console.log(response)
@@ -287,8 +287,7 @@ function GAForm() {
                 console.log(response.error);
             }
 
-            console.log("waiting")
-            
+            console.log("success")
         }
 
         const updateIndicators = async () => {
@@ -317,8 +316,8 @@ function GAForm() {
         }
 
         console.log("hit this")
-        updateDocument()
-        updateIndicators();
+        // updateDocument()
+        // updateIndicators();
         routeChange();
 
         
