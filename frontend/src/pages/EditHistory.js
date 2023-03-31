@@ -1,6 +1,7 @@
 import React, { useEffect, useState, ReactDOM } from 'react'
 import { useNavigate } from "react-router-dom";
 import NavBar from '../components/NavBar';
+import jwt from "jwt-decode";
 
 
 export default function InstructionHistory() {
@@ -9,17 +10,28 @@ export default function InstructionHistory() {
   const history = useNavigate()
   const token = localStorage.getItem("token");
 
+  let decodedToken = {};
+
+  const verifyInstructor = (token) => {
+    // can add an API to make this secure
+    decodedToken = jwt(token);
+    console.log(decodedToken)
+}
+
   useEffect(() => {
     if (!token) {
       history("/")
     }
   }, []);
+
+  
   console.log(token);
   useEffect(() => {
+    verifyInstructor(token);
 
     const geteditHistorys = async () => {
 
-      fetch("/api/admin/testadmin/activity", {
+      fetch(`/api/admin/${decodedToken.username}/activity/all`, {
         method: 'GET',
         headers: {
           'Authorization': token,
