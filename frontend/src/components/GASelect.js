@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavBar from './NavBar';
 import { Link, useLocation, useNavigate} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import jwt from 'jwt-decode';
+import decode from 'jwt-decode';
 import {
     Navigate,
   } from "react-router-dom";
@@ -11,7 +11,7 @@ function GAForm() {
     let location = useLocation();
     const {id:docId} = useParams();
     const token = window.localStorage.getItem("token");
-    let decodedToken = {};
+    const decodedToken = decode(token);
 
     const [docObj, setDocObj] = useState();
 
@@ -61,14 +61,8 @@ function GAForm() {
 
     useEffect(() => {
         console.log(docId);
-        verifyInstructor(token);
         // getGA(docId);
     }, []);
-
-    const verifyInstructor = (token) => {
-        // can add an API to make this secure
-        decodedToken = jwt(token);
-    }
 
     // const preLoadMaster = (ga) => {
     //     handleKBPreload(ga.KnowledgeBase)
@@ -275,7 +269,8 @@ function GAForm() {
             }
 
             const payload = {
-                ops:opsList
+                ops:opsList,
+                author:decodedToken.username
             }
 
             const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
