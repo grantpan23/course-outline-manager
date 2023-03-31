@@ -58,7 +58,7 @@ export default function InstructionHistory() {
       <div>
         <h1>Activity History</h1>
         <div>
-          <table>
+        <table className="table">
             <thead>
               <tr>
                 <th>User </th>
