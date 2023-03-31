@@ -9,6 +9,7 @@ import EditHistory from "./pages/EditHistory"
 import Versions from './pages/Versions';
 import GAForm from './components/GASelect';
 import ReviewHome from './pages/ReviewHome';
+import MyOutlines from './pages/MyOutlines';
 import { v4 as uuidV4 } from 'uuid'
 import {
   Navigate,
@@ -57,6 +58,8 @@ function App() {
         <Route path="/reviewer/pending" element={<ReviewHome />} />
         {/* ***DEPARTMENT CHAIR*** */}
         <Route path='/department-chair/versions' element={<Versions />}/>
+
+        <Route path="/instructor/my-outlines" element={<MyOutlines />}/>
 
       </Routes>
     </>

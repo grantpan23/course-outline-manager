@@ -15,7 +15,7 @@ const Document = Schemas.Document;
 //import middleware
 router.use(express.json());
 router.use(bodyParser.json());
-router.use(cookieParser());
+router.use(cookieParser()); 
 
 //functional middleware
 router.use(helpers.authenticateToken);
@@ -27,10 +27,23 @@ router
     .get((req, res) => {
         Course.find({ instructors: { $in: [req.params.username] } }, (err, data) => {
             if (err) {
-                return res.status(50).send(err);
+                return res.status(500).send(err);
             } else {
                 const courses = data;
                 return res.json(courses);
+            }
+        })
+    })
+
+router
+    .route('/outlines')
+    .get((req,res) => {
+        Document.find({author: req.params.instructorUser}, (err,data) => {
+            if(err){
+                return res.status(500).err;
+            } else {
+                const outlines = data;
+                return res.json(outlines);
             }
         })
     })

@@ -48,7 +48,7 @@ const courseSchema = new Schema({
 const commentSchema = new Schema({
   username: {type:String, required:false, default: ''},
   commentText: {type:String,required:true},
-  selectedText: {type:String,required:true},
+  selectedText: {type:String,required:true,default:''},
   type:{type:String,enum: ['justification','comment']}
 })
 
