@@ -9,7 +9,7 @@ import {
 
 function GAForm() {
     let location = useLocation();
-    const docId = location.state;
+    const {id:docId} = useParams();
     const token = window.localStorage.getItem("token");
     let decodedToken = {};
 
@@ -245,6 +245,7 @@ function GAForm() {
         
 
         const updateDocument = async () => {
+            console.log('update');
 
             const document = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`);
             const data = await document.json();
@@ -273,12 +274,16 @@ function GAForm() {
 
             }
 
+            const payload = {
+                ops:opsList
+            }
+
             const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(opsList)
+                body:JSON.stringify(payload)
             })
 
             console.log(response)
@@ -287,8 +292,7 @@ function GAForm() {
                 console.log(response.error);
             }
 
-            console.log("waiting")
-            
+            console.log("success")
         }
 
         const updateIndicators = async () => {
@@ -317,8 +321,8 @@ function GAForm() {
         }
 
         console.log("hit this")
-        updateDocument()
-        updateIndicators();
+        // updateDocument()
+        // updateIndicators();
         routeChange();
 
         

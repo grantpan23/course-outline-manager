@@ -18,8 +18,15 @@ router
         return res.send(document.data);
     })
     .put(async (req,res) => {
-        await Document.findByIdAndUpdate(req.params.documentID, {data: req.body.ops,author:req.body.author,status:req.body.status});
-        return res.send(req.body);
+        const updateFields = {data: req.body.ops};
+        if (req.body.author) {
+              updateFields.author = req.body.author;
+        }
+        if (req.body.status) {
+              updateFields.status = req.body.status;
+        }
+        const updatedDocument = await Document.findByIdAndUpdate(req.params.documentID, updateFields, {new: true});
+        return res.send(updatedDocument);
     })
 
 router
@@ -176,10 +183,14 @@ async function findOrCreateDocument(id) {
         if (id == null) return;
       
         const document = await Document.findById(id);
-        if (document) return document;
-      
-        const template = await Document.findById('1d95c4b1-7381-44e1-9fbd-39138db53f2a');
-        return await Document.create({_id : id, data: template.data})
+        if (document){
+            return document;
+        } else {
+            console.log('creating new')
+            const template = await Document.findById('641df3b1ae277876112bb1ae');
+            const newDoc = await Document.create({_id : id, data: template.data})
+            return newDoc;
+        }        
 }
 
 module.exports = router;
