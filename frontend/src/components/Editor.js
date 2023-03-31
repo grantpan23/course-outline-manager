@@ -46,6 +46,7 @@ export default function Editor() {
   const saveDocument = async () => {
     const contents = quill.getContents();
     contents.author = userInfo.username;
+    contents.status = 'draft';
     console.log(JSON.stringify(contents));
     const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
       method: 'PUT',
@@ -77,6 +78,20 @@ export default function Editor() {
       const data = await res.json();
       console.log(data);
     }
+  }
+
+  const submitForReview = async () => {
+    const contents = quill.getContents();
+    contents.author = userInfo.username;
+    contents.status = 'pending';
+    const response = await fetch(process.env.REACT_APP_API_URL + `/api/documents/${documentID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(contents)
+    })
+    console.log(response);
   }
 
   const wrapperRef = useCallback((wrapper) => {
@@ -117,7 +132,7 @@ export default function Editor() {
       <NavBar></NavBar>
       <div className="nav-buttons">
         <Link className="my-link" to="/instructor/courses"><button className='btn btn-danger'>Discard</button></Link>
-        <button className='btn btn-success'>  Submit  </button>
+        <button className='btn btn-success' onClick = {submitForReview}>  Submit  </button>
       </div>            
       <button onClick={saveDocument}>Save</button>
       <div className="container" ref={wrapperRef}>
