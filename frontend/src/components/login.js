@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {Form, Button, Card, Alert} from 'react-bootstrap'
 import {Link, useNavigate} from "react-router-dom";
 
@@ -15,6 +15,10 @@ export default function Login() {const emailRef = useRef();
     // LOGIN STATE ANDY ADDED
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+
+    useEffect(() => {
+        logout();
+    },[])
 
 //   function login(email, password){
 //     try{

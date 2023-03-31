@@ -60,7 +60,7 @@ function authenticateInstructor(req, res, next){
 
 function authenticateReviewer(req, res, next){
     if(req.params.reviewerUser != req.user.username) return res.status(401).send("Not the same user");
-    if(req.user.role != "reviewer") return res.status(401).send("Not an reviewer");
+    if(req.user.role != "reviewer") return res.status(401).send("Not a reviewer");
     
     next();
 }
